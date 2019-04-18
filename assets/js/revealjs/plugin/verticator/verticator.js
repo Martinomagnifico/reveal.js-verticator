@@ -17,9 +17,10 @@ const Verticator = window.Verticator || (function () {
 	let options = Reveal.getConfig().verticator || {};
 	
 	let defaultOptions = {
-		baseclass: 'fsbutton',
-		hideifnofs: true
+		color: 'white'
 	};
+	
+	const TheVerticator = document.querySelector('ul.verticator');
 
 	const defaults = function (options, defaultOptions) {
 		for (var i in defaultOptions) {
@@ -34,10 +35,7 @@ const Verticator = window.Verticator || (function () {
 		let selectionarray = Array.prototype.slice.call(selections);
 		return selectionarray
 	};
-	
-	let TheVerticator = document.querySelector('ul.verticator');
-	
-	
+
 	const activateBullet = function (event) {
 		let listItems = selectionArray(TheVerticator, 'li');
 		listItems.filter((listItem, i) => {
@@ -48,7 +46,6 @@ const Verticator = window.Verticator || (function () {
 			}
 		});
 	}
-	
 
 	const createBullets = function (event, sectionCount) {
 		TheVerticator.classList.remove('visible');
@@ -56,7 +53,7 @@ const Verticator = window.Verticator || (function () {
 			
 		for (var i = 0; i < sectionCount; i++) {
 			let link = event.indexh + "/" + i;
-			listHtml += '<li><a href="#/' + link + '"></a></li>';
+			listHtml += '<li><a style="color:' + options.color + '" href="#/' + link + '"></a></li>';
 		}
 
 		setTimeout((function () {
@@ -66,7 +63,6 @@ const Verticator = window.Verticator || (function () {
 		}), 200);
 		
 	}
-	
 	
 	const slideAppear = function (event) {
 		
@@ -88,8 +84,6 @@ const Verticator = window.Verticator || (function () {
 		setTimeout((function () {
 			activateBullet(event);
 		}), 150);
-		
-
 
 	};
 

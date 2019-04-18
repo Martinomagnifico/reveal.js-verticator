@@ -31,6 +31,22 @@ Now copy the verticator.css file and make a reference to it. Note that this exam
 <link rel="stylesheet" href="assets/css/verticator.css">
 ```
 
+## Configuration
+
+You can change the colour of the bullets the Reveal.js options. The value below is default and does not need to be set if not changed.
+
+```javascript
+Reveal.initialize({
+	// ...
+	verticator: {
+		color: 'white'
+	},
+	dependencies: [
+	// ... 
+	]
+});
+```
+
 
 ## Like it?
 
