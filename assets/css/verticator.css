@@ -1,0 +1,40 @@
+.reveal ul.verticator {
+  font-size: 16px;
+  list-style: none;
+  right: 6vmin;
+  top: 50%;
+  transform: translateY(-50%);
+  left: auto;
+  display: block;
+  opacity: 0;
+  transition: .15s opacity ease-in-out;
+  z-index: 10;
+  position: fixed;
+  display: flex;
+  flex-direction: column; }
+  .reveal ul.verticator.visible {
+    opacity: 1; }
+  .reveal ul.verticator li a {
+    display: block;
+    position: relative;
+    width: 1em;
+    height: 1.5em;
+    opacity: 0.75; }
+    .reveal ul.verticator li a:after {
+      position: absolute;
+      display: block;
+      content: '';
+      width: .4em;
+      height: .4em;
+      background: white;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+      transition: all .1s ease-in-out; }
+    .reveal ul.verticator li a:hover {
+      opacity: 1; }
+      .reveal ul.verticator li a:hover:after {
+        transform: translate(-50%, -50%) scale(1.5); }
+  .reveal ul.verticator li.active a:after {
+    transform: translate(-50%, -50%) scale(2); }

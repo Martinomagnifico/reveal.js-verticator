@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Verticator for Reveal.js</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.7.0/css/theme/black.css">
+    <link rel="stylesheet" href="assets/css/verticator.css">
+  </head>
+  <body>
+    <div class="reveal">
+      <ul class="verticator">
+        <li><a class="active" href="#/2/0"></a>
+        </li>
+        <li><a href="#/2/1"></a>
+        </li>
+        <li><a href="#/2/2"></a>
+        </li>
+        <li><a href="#/2/3"></a>
+        </li>
+        <li><a href="#/2/4"></a>
+        </li>
+      </ul>
+      <div class="slides">
+        <section class="center">
+          <h2>Verticator.js for Reveal.js</h2>
+        </section>
+        <section class="center">
+          <section class="center">
+            <h3>Verticator shows vertical indicators</h3>
+          </section>
+          <section class="center">
+            <h3>On vertical slides only</h3>
+          </section>
+          <section class="center">
+            <h3>Change CSS for customisation</h3>
+          </section>
+        </section>
+        <section class="center">
+          <section class="center">
+            <h3>Don't overdo it: limit vertical slides</h3>
+          </section>
+          <section class="center">
+            <h3>And another slide here</h3>
+          </section>
+        </section>
+        <section class="center">
+          <h3>Last slide</h3>
+        </section>
+      </div>
+    </div>
+    <script src="assets/js/revealjs/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+      	transition: 'convex',
+      	history: true,
+      	controls: false,
+      	dependencies: [
+      		{ src: 'assets/js/revealjs/plugin/verticator/verticator.js'}
+      	]
+      });
+    </script>
+  </body>
+</html>
