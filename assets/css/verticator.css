@@ -21,7 +21,7 @@
 .reveal ul.verticator li a {
     display: block;
     position: relative;
-    width: 1em;
+    width: 1.2em;
     height: 1.2em;
     opacity: 0.75;
     color: white;
@@ -31,8 +31,8 @@
     position: absolute;
     display: block;
     content: '';
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     background: currentColor;
     border-radius: 50%;
     transform: translate(-50%, -50%);
