@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Verticator for Reveal.js</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/reveal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/theme/white.css">
+    <link rel="stylesheet" href="assets/css/verticator.css">
+    <style>
+      .small {font-size: .7em;}
+      .smallitalic {font-size: .7em; font-style: italic}
+      .reveal pre {width: 100%; margin: 0 auto; box-shadow: none; background: rgba(180, 180, 180, 0.5)}
+      
+      
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <ul class="verticator"></ul>
+      <div class="slides">
+        <section class="center">
+          <h2>Verticator.js for Reveal.js</h2>
+          <h4>Light theme with color options</h4>
+        </section>
+        <section class="center">
+          <section class="center">
+            <h3>This theme has a light background</h3>
+            <p>No need to set the option for 'darktheme'.</p>
+            <p>Replace the colors to your liking.</p>
+            <pre><code>Reveal.initialize({
+	...
+	verticator: {
+		color: 'green',
+		oppositecolor: 'orange'
+	},
+	dependencies: [
+	...</code></pre>
+          </section>
+          <section class="center" data-background="#fff">
+            <p>This slide has a light data-background attribute.</p>
+            <p>It has no effect on the Verticator bullets, because the theme is already light.</p>
+          </section>
+          <section class="center" data-background="#112266">
+            <p>This slide has a dark data-background attribute.</p>
+          </section>
+          <section class="center">
+            <h3>And a regular slide</h3>
+          </section>
+        </section>
+      </div>
+    </div>
+    <script src="assets/js/revealjs/reveal.js"></script>
+    <script>
+      Reveal.initialize({
+      	transition: 'convex',
+      	history: true,
+      	verticator: {
+      		color: 'green',
+      		oppositecolor: 'orange'
+      	},
+      	dependencies: [
+      		{ src: 'assets/js/revealjs/plugin/verticator/verticator.js'}
+      	]
+      });
+    </script>
+  </body>
+</html>

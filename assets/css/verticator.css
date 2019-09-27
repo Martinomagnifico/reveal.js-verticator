@@ -1,54 +1,48 @@
-.reveal ul.verticator {
-    font-size: 15px;
-    list-style: none;
-    right: 6vmin;
-    top: 50%;
-    transform: translateY(-50%);
-    left: auto;
-    display: block;
-    opacity: 0;
-    transition: .15s opacity ease-in-out;
-    z-index: 10;
-    position: fixed;
+ul.verticator {
+  list-style: none;
+  right: 3vmin;
+  top: 50%;
+  transform: translateY(-50%);
+  left: auto;
+  display: block;
+  opacity: 0;
+  z-index: 10;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  transition: all 200ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
+  ul.verticator.visible {
+    opacity: 0.6; }
+    ul.verticator.visible:hover {
+      opacity: 1; }
+  ul.verticator li a {
+    width: 14.4px;
+    height: 18px;
     display: flex;
-    flex-direction: column;
-}
-
-.reveal ul.verticator.visible {
-    opacity: 1;
-}
-
-.reveal ul.verticator li a {
-    display: block;
-    position: relative;
-    width: 1.2em;
-    height: 1.2em;
-    opacity: 0.75;
-    color: white;
-}
-
-.reveal ul.verticator li a:after {
-    position: absolute;
-    display: block;
-    content: '';
-    width: 5px;
-    height: 5px;
-    background: currentColor;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-    transition: all .1s ease-in-out;
-}
-
-.reveal ul.verticator li a:hover {
-    opacity: 1;
-}
-
-.reveal ul.verticator li a:hover:after {
-    transform: translate(-50%, -50%) scale(1.5);
-}
-
-.reveal ul.verticator li.active a:after {
-    transform: translate(-50%, -50%) scale(2.5);
-}
+    align-items: center;
+    justify-content: center; }
+    ul.verticator li a:after {
+      display: block;
+      content: '';
+      width: 12px;
+      height: 12px;
+      opacity: 0.6;
+      transform: translateZ(0) scale(0.4);
+      background-color: black;
+      border-radius: 100%;
+      transition: background-color 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985), transform 200ms cubic-bezier(0.26, 0.86, 0.44, 0.985), opacity 200ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
+    ul.verticator li a:hover {
+      color: currentColor; }
+      ul.verticator li a:hover:after {
+        opacity: 1;
+        transform: translateZ(0) scale(0.75); }
+  ul.verticator li.active a:after {
+    transform: translateZ(0) scale(1);
+    opacity: 1; }
+  .dark-theme ul.verticator li a:after {
+    background-color: white; }
+  .has-light-background ul.verticator li a:after, .dark-theme.has-light-background ul.verticator li a:after {
+    background-color: black; }
+  .has-dark-background ul.verticator li a:after, .light-theme.has-dark-background ul.verticator li a:after {
+    background-color: white; }

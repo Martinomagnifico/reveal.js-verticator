@@ -4,7 +4,7 @@
  * @author: Martijn De Jongh (Martino), martijn.de.jongh@gmail.com
  * https://github.com/Martinomagnifico
  *
- * Verticator.js for Reveal.js 1.0.1
+ * Verticator.js for Reveal.js 1.0.2
  *
  * @license 
  * MIT licensed
@@ -21,10 +21,13 @@ const Verticator = window.Verticator || (function () {
 	let options = Reveal.getConfig().verticator || {};
 	
 	let defaultOptions = {
-		color: 'white'
+		darktheme: false,
+		color: '',
+		oppositecolor: ''
 	};
-	
-	const TheVerticator = document.querySelector('ul.verticator');
+
+	let theVerticator = document.querySelector('.verticator');
+	let activeclass = 'active';
 
 	const defaults = function (options, defaultOptions) {
 		for (var i in defaultOptions) {
@@ -33,7 +36,7 @@ const Verticator = window.Verticator || (function () {
 			}
 		} 
 	}
-	
+
 	const selectionArray = function (container, selectors) {
 		let selections = container.querySelectorAll(selectors);
 		let selectionarray = Array.prototype.slice.call(selections);
@@ -41,40 +44,82 @@ const Verticator = window.Verticator || (function () {
 	};
 
 	const activateBullet = function activateBullet(event) {
-		let listItems = selectionArray(TheVerticator, 'li');
+
+		let listItems = selectionArray(theVerticator, 'li');
 		listItems.filter(function (listItem, i) {
 			if (i == event.indexv) {
-				listItem.classList.add('active');
+				listItem.classList.add(activeclass);
 			} else {
-				listItem.classList.remove('active');
+				listItem.classList.remove(activeclass);
 			}
 		});
 	};
 
 	const createBullets = function (event, sectionCount) {
-		TheVerticator.classList.remove('visible');
+		theVerticator.classList.remove('visible');
 		let listHtml = '';
-			
+
 		for (var i = 0; i < sectionCount; i++) {
 			let link = event.indexh + "/" + i;
-			listHtml += '<li><a style="color:' + options.color + '" href="#/' + link + '"></a></li>';
+			listHtml += '<li><a href="#/' + link + '"></li>';
 		}
-		
+
 		setTimeout((function () {
-			TheVerticator.innerHTML = listHtml;
+			theVerticator.innerHTML = listHtml;
 			activateBullet(event);
-			TheVerticator.classList.add('visible');
+			theVerticator.classList.add('visible');
 		}), 200);
 	}
+
+	const createStyle = function() {
+
+		let oppositeSlide = options.darktheme ? 'light' : 'dark';
+		let parentStyle = options.darktheme ? '.dark-theme' : '';
+
+		if (options.darktheme) {
+			document.querySelector( '.reveal' ).classList.add('dark-theme');
+		}
+
+		if (options.color || options.oppositecolor) {
+
+			let styleCss = '';
+
+			if (options.color) {
+				let colorStyle = parentStyle + ' ul.verticator li a:after { background-color: ' + options.color + '; }'
+				styleCss += colorStyle;
+
+				if (!options.darktheme) {
+					let samecolorStyle = '.has-light-background ul.verticator li a:after { background-color: ' + options.color + '; }'
+				styleCss += samecolorStyle;
+				}
+			}
 	
+			if (options.oppositecolor) {
+				let oppositecolorStyle = parentStyle + '.has-' + oppositeSlide + '-background ul.verticator li a:after { background-color: ' + options.oppositecolor + '; }'
+				styleCss += oppositecolorStyle;
+			}
+	
+			if (styleCss.length) {
+				let style = document.createElement('style');
+				style.textContent =  styleCss;
+				document.head.appendChild(style);
+			}
+		}
+	}
+
 	const slideAppear = function (event) {
-		
-		let parent = event.currentSlide.parentNode;
+
+		let slide = event.currentSlide;
+		let parent = slide.parentNode;
+
 		let sectionCount = Array.from(parent.children).filter(function (elem) {
 			return elem.tagName == 'SECTION';
 		}).length;
-		
-		if (parent.classList.contains('stack') && sectionCount > 1 ) {
+
+		if( !parent.classList.contains( 'stack' ) ) {
+			theVerticator.classList.remove('visible');
+		} else if (sectionCount > 1) {
+
 			if (event.previousSlide) {
 				let lastParent = event.previousSlide.parentNode;
 				if (parent != lastParent) {
@@ -83,18 +128,21 @@ const Verticator = window.Verticator || (function () {
 			} else {
 				createBullets(event, sectionCount)
 			}
-		} else {
-			TheVerticator.classList.remove('visible');
-		}
-		setTimeout((function () {
-			activateBullet(event);
-		}), 150);
 
+			setTimeout((function () {
+				activateBullet(event);
+			}), 150);
+
+		}
 	};
 
 	const init = function () {
 		defaults(options, defaultOptions);
-		Reveal.addEventListener('slidechanged', slideAppear, false);
+		if (theVerticator) {
+			createStyle();
+			Reveal.addEventListener('slidechanged', slideAppear, false);
+			Reveal.addEventListener('ready', slideAppear, false);
+		}
 	};
 
 	return {
