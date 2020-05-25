@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Verticator for Reveal.js</title>
+    <title>Verticator.js for Reveal.js</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/reveal.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/theme/white.css">
-    <link rel="stylesheet" href="assets/css/verticator.css">
+    <meta name="author" content="Martinomagnifico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/white.css">
+    <style>
+      .slides {
+      	opacity: 0;
+      	transition: opacity .5s ease;
+      }
+      .reveal.ready .slides {
+      	opacity: 1;
+      }
+    </style>
+    <link rel="stylesheet" href="plugin/verticator/verticator.css">
     <style>
       .small {font-size: .7em;}
       .smallitalic {font-size: .7em; font-style: italic}
       .reveal pre {width: 100%; margin: 0 auto; box-shadow: none; background: rgba(180, 180, 180, 0.5)}
+      
     </style>
   </head>
   <body>
@@ -19,7 +32,8 @@
       <ul class="verticator"></ul>
       <div class="slides">
         <section class="center">
-          <h2>Verticator.js for Reveal.js</h2>
+          <h1>Verticator</h1>
+          <h3>for Reveal.js</h3>
           <h4>Light theme with color options</h4>
         </section>
         <section class="center">
@@ -33,8 +47,8 @@
 		color: 'green',
 		oppositecolor: 'orange'
 	},
-	dependencies: [
-	...</code></pre>
+	plugins: [ Verticator ]
+</code></pre>
           </section>
           <section class="center" data-background="#fff">
             <p>This slide has a light data-background attribute.</p>
@@ -49,18 +63,16 @@
         </section>
       </div>
     </div>
-    <script src="assets/js/revealjs/reveal.js"></script>
+    <script type="text/javascript" src="dist/reveal.js"></script>
+    <script src="plugin/verticator/verticator.js"></script>
     <script>
       Reveal.initialize({
       	transition: 'convex',
-      	history: true,
       	verticator: {
       		color: 'green',
       		oppositecolor: 'orange'
       	},
-      	dependencies: [
-      		{ src: 'assets/js/revealjs/plugin/verticator/verticator.js'}
-      	]
+      	plugins: [ Verticator ]
       });
     </script>
   </body>

@@ -1,5 +1,5 @@
-# reveal.js-verticator
-A plugin for [Reveal.js](https://revealjs.com) that adds indicators to show the amount of slides in a vertical stack. 
+# Verticator
+A plugin for [Reveal.js](https://revealjs.com) 4 that adds indicators to show the amount of slides in a vertical stack. 
 
 
 Sometimes you would like to have an indication of how many slides are remaining in a vertical stack. This plugin does just that. It is visually similar to the indicators at [fullPage.js](https://alvarotrigo.com/fullPage/). 
@@ -13,26 +13,46 @@ Sometimes you would like to have an indication of how many slides are remaining 
 Don't overdo it. You probably don’t want 30 bullets on the right-hand side of your presentation.
 
 
+
+
 ## Installation
 
-Copy the verticator folder to the plugins folder of the reveal.js folder, like this: `plugin/verticator`. Now add it to the dependencies of Reveal.js.
+Copy the verticator folder to the plugins folder of the reveal.js folder, like this: `plugin/verticator`. Now add it to the dependencies of Reveal.js:
 
+### JavaScript
 
-```javascript
-Reveal.initialize({
-	// ...
-	dependencies: [
-		// ... 
-		{ src: 'js/revealjs/plugin/verticator/verticator.js' },
-		// ... 
-	]
-});
-```
+The Verticator plugin has been rewritten for Reveal.js version 4.
 
-Now copy the verticator.css file and make a reference to it. Note that this example has an "assets" folder for resources. You can use whatever setup for the hierarchy, as long as the references are correct :-)
+If you want to use Verticator with an older version of Reveal, use the [1.0.2 version](https://github.com/Martinomagnifico/reveal.js-verticator/releases).
+
+There are two JavaScript files for Verticator, a regular one, `verticator.js`, and a module one, `verticator.esm.js`. You only need one of them:
+
+#### Regular 
+If you're not using ES modules, for example, to be able to run your presentation from the filesystem, you can add it like this:
 
 ```html
-<link rel="stylesheet" href="assets/css/verticator.css">
+<script type="text/javascript" src="dist/reveal.js"></script>
+<script src="plugin/verticator/verticator.js"></script>
+<script>
+	Reveal.initialize({
+		// ...
+		plugins: [ Verticator ]
+	});
+</script>
+```
+#### As a module 
+If you're using ES modules, you can add it like this:
+
+```html
+<script type="module">
+	// This will need a server
+	import Reveal from './dist/reveal.esm.js';
+	import Verticator from './plugin/verticator/verticator.esm.js';
+	Reveal.initialize({
+		// ...
+		plugins: [ Verticator ]
+	});
+</script>
 ```
 
 ## Configuration
@@ -46,7 +66,7 @@ Reveal.initialize({
 		color: '',
 		oppositecolor: ''
 	},
-	dependencies: [
+	plugins: [ Verticator ]
 	// ... 
 	]
 });
@@ -58,6 +78,7 @@ Reveal.initialize({
     * Some of the themes ('simple', 'black' and 'white') will also invert the text colors in that case. If you use another theme, you need to copy that CSS to your own theme. The Verticator inverting behaviour will always work, even if the theme text colors are not inverted.
 * 'color': To override the default black color (or the white color if darktheme is true), simply give a new color here. You can use standard CSS -, hexadecimal - or rgb colors.
 * 'oppositecolor': To override the default white color (or the black color if darktheme is true) on slides that have a dark color (or light color if darktheme is true) set through the data-attribute, simply give a new color here. You can use standard CSS -, hexadecimal - or rgb colors.
+
 
 ## Like it?
 
