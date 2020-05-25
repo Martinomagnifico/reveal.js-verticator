@@ -65,6 +65,15 @@ var Plugin = function Plugin() {
     }(Element.prototype);
   }
 
+  var getNodeindex = function getNodeindex(elm) {
+    var c = elm.parentNode.children,
+        i = 0;
+
+    for (; i < c.length; i++) {
+      if (c[i] == elm) return i;
+    }
+  };
+
   var verticate = function verticate(deck, options) {
     var revealElement = deck.getRevealElement();
     var theVerticator = revealElement.querySelector('.verticator');
@@ -74,6 +83,16 @@ var Plugin = function Plugin() {
       var selections = container.querySelectorAll(selectors);
       var selectionarray = Array.prototype.slice.call(selections);
       return selectionarray;
+    };
+
+    var clickBullet = function clickBullet(event) {
+      if (event.target.matches('.verticator li a')) {
+        var currIndexh = deck.getIndices().h;
+        var currIndexf = deck.getIndices().v;
+        var i = getNodeindex(event.target.parentNode);
+        event.preventDefault();
+        deck.slide(currIndexh, i, currIndexf);
+      }
     };
 
     var activateBullet = function activateBullet(event) {
@@ -171,6 +190,12 @@ var Plugin = function Plugin() {
       deck.on('ready', function (event) {
         slideAppear(event);
       });
+
+      if (deck.getConfig().embedded) {
+        deck.on('click', function (event) {
+          clickBullet(event);
+        });
+      }
     }
   };
 
