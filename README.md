@@ -1,4 +1,7 @@
 # Verticator
+
+![Screenshot](screenshot.png)
+
 A plugin for [Reveal.js](https://revealjs.com) 4 that adds indicators to show the amount of slides in a vertical stack. 
 
 
