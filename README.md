@@ -69,7 +69,9 @@ Reveal.initialize({
 	verticator: {
 		darktheme: false,
 		color: '',
-		oppositecolor: ''
+		oppositecolor: '',
+		skipuncounted: false,
+		clickable: true
 	},
 	plugins: [ Verticator ]
 	// ... 
@@ -83,7 +85,8 @@ Reveal.initialize({
     * Some of the themes ('simple', 'black' and 'white') will also invert the text colors in that case. If you use another theme, you need to copy that CSS to your own theme. The Verticator inverting behaviour will always work, even if the theme text colors are not inverted.
 * **`color`**: To override the default black color (or the white color if darktheme is true), simply give a new color here. You can use standard CSS -, hexadecimal - or rgb colors.
 * **`oppositecolor`**: To override the default white color (or the black color if darktheme is true) on slides that have a dark color (or light color if darktheme is true) set through the data-attribute, simply give a new color here. You can use standard CSS -, hexadecimal - or rgb colors.
-
+* **`skipuncounted`**: Slides that are marked with Reveal.js 4.0' data-visibility="uncounted"-property can be skipped (like this slide, disabled by default).
+* **`clickable`**: Clicking on a a Verticator bullet jumps to to the corresponding page. This behaviour is enabled by default but can be disabled.
 
 
 ## Like it?
