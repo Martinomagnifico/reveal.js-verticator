@@ -103,23 +103,29 @@
 
 	    var activateBullet = function activateBullet(event) {
 	      var listItems = selectionArray(theVerticator, 'li');
-	      listItems.filter(function (listItem, i) {
-	        if (i == event.indexv) {
-	          listItem.classList.add(activeclass);
-	        } else {
-	          listItem.classList.remove(activeclass);
+	      var bestMatch = -1;
+	      listItems.forEach(function (listItem, i) {
+	        if (parseInt(listItem.getAttribute("data-index")) <= event.indexv) {
+	          bestMatch = i;
 	        }
+
+	        listItem.classList.remove(activeclass);
 	      });
+
+	      if (bestMatch >= 0) {
+	        listItems[bestMatch].classList.add(activeclass);
+	      }
 	    };
 
-	    var createBullets = function createBullets(event, sectionCount) {
+	    var createBullets = function createBullets(event, sections) {
 	      theVerticator.classList.remove('visible');
 	      var listHtml = '';
 
-	      for (var i = 0; i < sectionCount; i++) {
-	        var link = event.indexh + "/" + i;
-	        listHtml += '<li><a href="#/' + link + '"></li>';
-	      }
+	      sections.forEach(function(i) {
+	        var link = ' href="#/' + event.indexh + "/" + i + '"';
+	        listHtml += '<li data-index="' + i + '"><a ' +
+	          (options.clickable ? link : '') + '></li>';
+	      });
 
 	      setTimeout(function () {
 	        theVerticator.innerHTML = listHtml;
@@ -165,21 +171,30 @@
 	    var slideAppear = function slideAppear(event) {
 	      var slide = event.currentSlide;
 	      var parent = slide.parentNode;
-	      var sectionCount = Array.from(parent.children).filter(function (elem) {
-	        return elem.tagName == 'SECTION';
-	      }).length;
+	      var sections = Array.from(parent.children)
+	        .map(function(elem, index) {
+	          return [index, elem];
+	        })
+	        .filter(function (indexedElem) {
+	          return indexedElem[1].tagName == 'SECTION'
+	            && (!options.skipuncounted
+	              || indexedElem[1].getAttribute('data-visibility') !== 'uncounted')
+	        })
+	        .map(function (indexedElem) {
+	          return indexedElem[0];
+	        });
 
 	      if (!parent.classList.contains('stack')) {
 	        theVerticator.classList.remove('visible');
-	      } else if (sectionCount > 1) {
+	      } else if (sections.length > 1) {
 	        if (event.previousSlide) {
 	          var lastParent = event.previousSlide.parentNode;
 
 	          if (parent != lastParent) {
-	            createBullets(event, sectionCount);
+	            createBullets(event, sections);
 	          }
 	        } else {
-	          createBullets(event, sectionCount);
+	          createBullets(event, sections);
 	        }
 
 	        setTimeout(function () {
@@ -209,7 +224,9 @@
 	    var defaultOptions = {
 	      darktheme: false,
 	      color: '',
-	      oppositecolor: ''
+	      oppositecolor: '',
+	      skipuncounted: false,
+	      clickable: true
 	    };
 
 	    var defaults = function defaults(options, defaultOptions) {

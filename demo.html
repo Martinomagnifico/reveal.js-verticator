@@ -71,6 +71,8 @@
               <li>darktheme</li>
               <li>color</li>
               <li>oppositecolor</li>
+              <li>skipuncounted</li>
+              <li>clickable</li>
             </ol>
           </section>
           <section class="center">
@@ -98,7 +100,7 @@
             <p class="small">For a light theme, the Verticator colors will be red on <em>all</em> normal slides and (still) white on slides that are set to a dark background with attributes.</p>
           </section>
           <section class="center">
-            <h4>Option 2: oppositecolor</h4>
+            <h4>Option 3: oppositecolor</h4>
             <p>You can set the opposite color of the Verticator bullets to a specific color. These apply if a slide has an opposite color to the main background of the theme.</p>
             <pre><code>Reveal.initialize({
 	...
@@ -108,6 +110,28 @@
 	plugins: [ Verticator ]
 </code></pre>
             <p class="small">For a light theme, the Verticator colors will (still) be black on normal slides and yellow on slides that are set to a dark background with attributes.</p>
+          </section>
+          <section class="center" data-visibility="uncounted">
+            <h4>Option 4: skipuncounted</h4>
+            <p>Slides that are marked with Reveal.js' 4.0 <kbd>data-visibility=&quot;uncounted&quot;</kbd>-Property can be skipped (like this slide, disabled by default)</p>
+            <pre><code>Reveal.initialize({
+	...
+	verticator: {
+		skipuncounted: true
+	},
+	plugins: [ Verticator ]
+</code></pre>
+          </section>
+          <section class="center">
+            <h4>Option 5: clickable</h4>
+            <p>Clicking on a a Verticator bullet jumps to to the corresponding page. This behaviour is enabled by default but can be disabled.</p>
+            <pre><code>Reveal.initialize({
+	...
+	verticator: {
+		clickable: false
+	},
+	plugins: [ Verticator ]
+</code></pre>
           </section>
           <section class="center">
             <h4>Option demos</h4>
@@ -133,7 +157,10 @@
     <script src="plugin/verticator/verticator.js"></script>
     <script>
       Reveal.initialize({
-      	transition: 'convex',
+        transition: 'convex',
+        verticator: {
+            // skipuncounted: true
+        },
       	plugins: [ Verticator ]
       });
     </script>
