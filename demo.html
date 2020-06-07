@@ -147,7 +147,9 @@
     <script>
         Reveal.initialize({
             transition: "convex",
-            skipuncounted: false,
+            verticator: {
+                skipuncounted: true
+            },
             plugins: [
                 Verticator
             ]
