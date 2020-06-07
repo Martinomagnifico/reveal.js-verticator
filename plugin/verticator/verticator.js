@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.0.2
+ * Version 1.0.4
  * 
  * @license 
  * MIT licensed
@@ -120,13 +120,10 @@
 	    var createBullets = function createBullets(event, sections) {
 	      theVerticator.classList.remove('visible');
 	      var listHtml = '';
-
-	      sections.forEach(function(i) {
+	      sections.forEach(function (i) {
 	        var link = ' href="#/' + event.indexh + "/" + i + '"';
-	        listHtml += '<li data-index="' + i + '"><a ' +
-	          (options.clickable ? link : '') + '></li>';
+	        listHtml += '<li data-index="' + i + '"><a ' + (options.clickable ? link : '') + '></li>';
 	      });
-
 	      setTimeout(function () {
 	        theVerticator.innerHTML = listHtml;
 	        activateBullet(event);
@@ -171,18 +168,13 @@
 	    var slideAppear = function slideAppear(event) {
 	      var slide = event.currentSlide;
 	      var parent = slide.parentNode;
-	      var sections = Array.from(parent.children)
-	        .map(function(elem, index) {
-	          return [index, elem];
-	        })
-	        .filter(function (indexedElem) {
-	          return indexedElem[1].tagName == 'SECTION'
-	            && (!options.skipuncounted
-	              || indexedElem[1].getAttribute('data-visibility') !== 'uncounted')
-	        })
-	        .map(function (indexedElem) {
-	          return indexedElem[0];
-	        });
+	      var sections = Array.from(parent.children).map(function (elem, index) {
+	        return [index, elem];
+	      }).filter(function (indexedElem) {
+	        return indexedElem[1].tagName == 'SECTION' && (!options.skipuncounted || indexedElem[1].getAttribute('data-visibility') !== 'uncounted');
+	      }).map(function (indexedElem) {
+	        return indexedElem[0];
+	      });
 
 	      if (!parent.classList.contains('stack')) {
 	        theVerticator.classList.remove('visible');

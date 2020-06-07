@@ -9,7 +9,7 @@ ul.verticator {
   display: block;
   opacity: 0;
   z-index: 10;
-  position: absolute;
+  position: fixed;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

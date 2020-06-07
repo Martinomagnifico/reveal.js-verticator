@@ -1,168 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>Verticator.js for Reveal.js</title>
     <meta name="description" content="">
     <meta name="author" content="Martinomagnifico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <link rel="stylesheet" href="dist/reset.css">
-    <link rel="stylesheet" href="dist/reveal.css">
-    <link rel="stylesheet" href="dist/theme/white.css">
-    <style>
-      .slides {
-      	opacity: 0;
-      	transition: opacity .5s ease;
-      }
-      .reveal.ready .slides {
-      	opacity: 1;
-      }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/white.css">
     <link rel="stylesheet" href="plugin/verticator/verticator.css">
-    <style>
-      .small {font-size: .7em;}
-      .smallitalic {font-size: .7em; font-style: italic}
-      .reveal pre {width: 100%; margin: 0 auto; box-shadow: none; background: rgba(180, 180, 180, 0.5)}
-      
-    </style>
-  </head>
-  <body>
-    <div class="reveal">
-      <ul class="verticator"></ul>
-      <div class="slides">
-        <section class="center">
-          <h1>Verticator</h1>
-          <h3>for Reveal.js</h3>
-        </section>
-        <section class="center">
-          <section class="center">
-            <h2>What does it do?</h2>
-          </section>
-          <section class="center">
-            <p>Verticator shows vertical indicators</p>
-          </section>
-          <section class="center">
-            <p>On vertical slides only</p>
-          </section>
-        </section>
-        <section class="center">
-          <section class="center">
-            <h2>Colors</h2>
-          </section>
-          <section class="center">
-            <h4>You can keep it as it is</h4>
-            <p>By default, the Verticator bullets are black. Verticator.js assumes that you have a light theme (like this one), and has the colors set in CSS accordingly. </p>
-          </section>
-          <section class="center" data-background="#1a1626">
-            <p>If a dark background (a hex color) is set through an attribute of data-background or data-background-color on a slide (a section), the Verticator bullet will be white.</p>
-          </section>
-          <section class="center" data-background="#1a1626">
-            <p class="smallitalic">Keep in mind that not all themes will also change the color of regular text to an opposite color by changing this attribute! The themes 'simple', 'black' and 'white' work allright though. If needed, the code can be found in the beginning of those CSS files.</p>
-          </section>
-        </section>
-        <section class="center">
-          <section class="center">
-            <h2>Options</h2>
-          </section>
-          <section class="center">
-            <h3>Options</h3>
-            <ol>
-              <li>darktheme</li>
-              <li>color</li>
-              <li>oppositecolor</li>
-              <li>skipuncounted</li>
-              <li>clickable</li>
-            </ol>
-          </section>
-          <section class="center">
-            <h4>Option 1: darktheme</h4>
-            <p>If your theme is dark, let Verticator know by setting it in the options: </p>
-            <pre><code>Reveal.initialize({
+    <link rel="stylesheet" href="css/demo.css">
+</head>
+
+<body>
+    <div class="reveal" data-fs-toggle="fullscreen">
+        <ul class="verticator"></ul>
+        <div class="slides">
+            <section class="center">
+                <h1>Verticator</h1>
+                <h3>for Reveal.js</h3>
+            </section>
+            <section class="center">
+                <section class="center">
+                    <h2>What does it do?</h2>
+                </section>
+                <section class="center">
+                    <p>Verticator shows vertical indicators</p>
+                </section>
+                <section class="center">
+                    <p>On vertical slides only</p>
+                </section>
+            </section>
+            <section class="center">
+                <section class="center">
+                    <h2>Colors</h2>
+                </section>
+                <section class="center">
+                    <h4>You can keep it as it is</h4>
+                    <p>By default, the Verticator bullets are black. Verticator.js assumes that you have a light theme (like this one), and has the colors set in CSS accordingly. </p>
+                </section>
+                <section class="center" data-background="#1a1626">
+                    <p>If a dark background (a hex color) is set through an attribute of data-background or data-background-color on a slide (a section), the Verticator bullet will be white.</p>
+                </section>
+                <section class="center" data-background="#1a1626">
+                    <p class="smallitalic">Keep in mind that not all themes will also change the color of regular text to an opposite color by changing this attribute! The themes 'simple', 'black' and 'white' work allright though. If needed, the code can be found in the beginning of those CSS files.</p>
+                </section>
+            </section>
+            <section class="center">
+                <section class="center">
+                    <h2>Options</h2>
+                </section>
+                <section class="center">
+                    <h3>Options</h3>
+                    <ol>
+                        <li>darktheme</li>
+                        <li>color</li>
+                        <li>oppositecolor</li>
+                        <li>skipuncounted</li>
+                        <li>clickable</li>
+                    </ol>
+                </section>
+                <section class="center">
+                    <h4>Option 1: darktheme</h4>
+                    <p>If your theme is dark, let Verticator know by setting it in the options: </p>
+                    <pre><code>Reveal.initialize({
 	...
 	verticator: {
 		darktheme: true
 	},
 	plugins: [ Verticator ]
 	</code></pre>
-            <p class="small">Now the Verticator colors will be white on <em>all</em> normal slides and black on slides that are set to a light background with attributes.</p>
-          </section>
-          <section class="center">
-            <h4>Option 2: color</h4>
-            <p>You can set the main color of the Verticator bullets to a specific color. You can use standard CSS named colors, hex or rgb ones:</p>
-            <pre><code>Reveal.initialize({
+                    <p class="small">Now the Verticator colors will be white on <em>all</em> normal slides and black on slides that are set to a light background with attributes.</p>
+                </section>
+                <section class="center">
+                    <h4>Option 2: color</h4>
+                    <p>You can set the main color of the Verticator bullets to a specific color. You can use standard CSS named colors, hex or rgb ones:</p>
+                    <pre><code>Reveal.initialize({
 	...
 	verticator: {
 		color: 'red'
 	},
 	plugins: [ Verticator ]
 </code></pre>
-            <p class="small">For a light theme, the Verticator colors will be red on <em>all</em> normal slides and (still) white on slides that are set to a dark background with attributes.</p>
-          </section>
-          <section class="center">
-            <h4>Option 3: oppositecolor</h4>
-            <p>You can set the opposite color of the Verticator bullets to a specific color. These apply if a slide has an opposite color to the main background of the theme.</p>
-            <pre><code>Reveal.initialize({
+                    <p class="small">For a light theme, the Verticator colors will be red on <em>all</em> normal slides and (still) white on slides that are set to a dark background with attributes.</p>
+                </section>
+                <section class="center">
+                    <h4>Option 3: oppositecolor</h4>
+                    <p>You can set the opposite color of the Verticator bullets to a specific color. These apply if a slide has an opposite color to the main background of the theme.</p>
+                    <pre><code>Reveal.initialize({
 	...
 	verticator: {
 		oppositecolor: 'yellow'
 	},
 	plugins: [ Verticator ]
 </code></pre>
-            <p class="small">For a light theme, the Verticator colors will (still) be black on normal slides and yellow on slides that are set to a dark background with attributes.</p>
-          </section>
-          <section class="center" data-visibility="uncounted">
-            <h4>Option 4: skipuncounted</h4>
-            <p>Slides that are marked with Reveal.js' 4.0 <kbd>data-visibility=&quot;uncounted&quot;</kbd>-Property can be skipped (like this slide, disabled by default)</p>
-            <pre><code>Reveal.initialize({
+                    <p class="small">For a light theme, the Verticator colors will (still) be black on normal slides and yellow on slides that are set to a dark background with attributes.</p>
+                </section>
+                <section class="center" data-visibility="uncounted">
+                    <h4>Option 4: skipuncounted</h4>
+                    <p>Slides that are marked with Reveal.js&apos; 4.0 <kbd>data-visibility="uncounted"</kbd>-property can be skipped (like this slide, disabled by default)</p>
+                    <pre><code>Reveal.initialize({
 	...
 	verticator: {
 		skipuncounted: true
 	},
 	plugins: [ Verticator ]
 </code></pre>
-          </section>
-          <section class="center">
-            <h4>Option 5: clickable</h4>
-            <p>Clicking on a a Verticator bullet jumps to to the corresponding page. This behaviour is enabled by default but can be disabled.</p>
-            <pre><code>Reveal.initialize({
+                </section>
+                <section class="center">
+                    <h4>Option 5: clickable</h4>
+                    <p>Clicking on a a Verticator bullet jumps to to the corresponding page. This behaviour is enabled by default but can be disabled.</p>
+                    <pre><code>Reveal.initialize({
 	...
 	verticator: {
 		clickable: false
 	},
 	plugins: [ Verticator ]
+
 </code></pre>
-          </section>
-          <section class="center">
-            <h4>Option demos</h4>
-            <ul>
-              <li>Light theme with no options: this demo</li>
-              <li><a href="demodark.html">Dark theme with no color options</a></li>
-              <li><a href="democolor.html">Light theme with color options</a></li>
-              <li><a href="demodarkcolor.html">Dark theme with color options</a></li>
-            </ul>
-          </section>
-        </section>
-        <section class="center">
-          <section class="center">
-            <p>Don’t overdo it: limit vertical slides. You probably don’t want 30 bullets on the right-hand side of your presentation.</p>
-          </section>
-          <section class="center">
-            <p>Really.</p>
-          </section>
-        </section>
-      </div>
+                </section>
+                <section class="center">
+                    <h4>Option demos</h4>
+                    <ul>
+                        <li>Light theme with no options: this demo</li>
+                        <li><a href="demodark.html">Dark theme with no color options</a></li>
+                        <li><a href="democolor.html">Light theme with color options</a></li>
+                        <li><a href="demodarkcolor.html">Dark theme with color options</a></li>
+                    </ul>
+                </section>
+            </section>
+            <section class="center">
+                <section class="center">
+                    <p>Don’t overdo it: limit vertical slides. You probably don’t want 30 bullets on the right-hand side of your presentation.</p>
+                </section>
+                <section class="center">
+                    <p>Really.</p>
+                </section>
+            </section>
+        </div>
     </div>
-    <script type="text/javascript" src="dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
     <script src="plugin/verticator/verticator.js"></script>
     <script>
-      Reveal.initialize({
-        transition: 'convex',
-        verticator: {
-            // skipuncounted: true
-        },
-      	plugins: [ Verticator ]
-      });
+        Reveal.initialize({
+            transition: "convex",
+            skipuncounted: true,
+            plugins: [
+                Verticator
+            ]
+        });
     </script>
-  </body>
+</body>
+
 </html>

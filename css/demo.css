@@ -1,0 +1,19 @@
+.small {
+  font-size: .7em; }
+
+.smallitalic {
+  font-size: .7em;
+  font-style: italic; }
+
+.reveal pre {
+  width: 100%;
+  margin: 0 auto;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  background: rgba(180, 180, 180, 0.5); }
+
+p code, p kbd {
+  background: rgba(180, 180, 180, 0.2);
+  font-size: 0.9em;
+  padding: 5px 10px;
+  border-radius: 4px; }
