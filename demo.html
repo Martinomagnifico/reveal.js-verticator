@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <div class="reveal" data-fs-toggle="fullscreen">
+    <div class="reveal">
         <ul class="verticator"></ul>
         <div class="slides">
             <section class="center">
@@ -101,7 +101,7 @@
                 </section>
                 <section class="center" data-visibility="uncounted">
                     <h4>Option 4: skipuncounted</h4>
-                    <p>Slides that are marked with Reveal.js 4.0&apos; <kbd>data-visibility="uncounted"</kbd>-property can be skipped (like this slide, disabled by default)</p>
+                    <p>To omit drawing Verticator bullets for certain slides, set a data-attribute <kbd>data-visibility="uncounted"</kbd> to the slide. Then set this option (disabled by default, enabled in this demo) to true:</p>
                     <pre><code>Reveal.initialize({
 	...
 	verticator: {
@@ -109,6 +109,7 @@
 	},
 	plugins: [ Verticator ]
 </code></pre>
+                    <p class="small">The data-attribute is the Reveal way to hide progress and skipping page numbers for certain slides.</p>
                 </section>
                 <section class="center">
                     <h4>Option 5: clickable</h4>

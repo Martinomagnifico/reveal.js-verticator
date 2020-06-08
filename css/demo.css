@@ -14,6 +14,9 @@
 
 p code, p kbd {
   background: rgba(180, 180, 180, 0.2);
-  font-size: 0.9em;
+  font-size: 0.8em;
   padding: 5px 10px;
   border-radius: 4px; }
+
+p kbd {
+  font-family: monospace; }
