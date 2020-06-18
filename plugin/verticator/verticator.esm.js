@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.0.5
+ * Version 1.0.6
  * 
  * @license 
  * MIT licensed
@@ -76,7 +76,15 @@ var Plugin = function Plugin() {
 
   var verticate = function verticate(deck, options) {
     var revealElement = deck.getRevealElement();
-    var theVerticator = revealElement.querySelector('.verticator');
+    var theVerticator = revealElement.querySelector('ul.verticator');
+
+    if (!theVerticator) {
+      var ul = document.createElement('ul');
+      ul.className += "verticator";
+      revealElement.insertBefore(ul, revealElement.childNodes[0]);
+      theVerticator = revealElement.querySelector('ul.verticator');
+    }
+
     var activeclass = 'active';
 
     var selectionArray = function selectionArray(container, selectors) {
