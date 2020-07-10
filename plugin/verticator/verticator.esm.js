@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.0.6
+ * Version 1.0.7
  * 
  * @license 
  * MIT licensed
@@ -104,6 +104,20 @@ var Plugin = function Plugin() {
     };
 
     var activateBullet = function activateBullet(event) {
+      if (revealElement.classList.contains('has-dark-background')) {
+        theVerticator.style.color = options.oppositecolor;
+      } else {
+        theVerticator.style.color = options.color;
+      }
+
+      if (options.darktheme) {
+        if (revealElement.classList.contains('has-light-background')) {
+          theVerticator.style.color = options.oppositecolor;
+        } else {
+          theVerticator.style.color = options.color;
+        }
+      }
+
       var listItems = selectionArray(theVerticator, 'li');
       var bestMatch = -1;
       listItems.forEach(function (listItem, i) {
@@ -121,6 +135,7 @@ var Plugin = function Plugin() {
 
     var createBullets = function createBullets(event, sections) {
       theVerticator.classList.remove('visible');
+      theVerticator.style.color = options.color;
       var listHtml = '';
       sections.forEach(function (i) {
         var link = ' href="#/' + event.indexh + "/" + i + '"';
@@ -131,40 +146,6 @@ var Plugin = function Plugin() {
         activateBullet(event);
         theVerticator.classList.add('visible');
       }, 200);
-    };
-
-    var createStyle = function createStyle() {
-      var oppositeSlide = options.darktheme ? 'light' : 'dark';
-      var parentStyle = options.darktheme ? '.dark-theme' : '';
-
-      if (options.darktheme) {
-        revealElement.classList.add('dark-theme');
-      }
-
-      if (options.color || options.oppositecolor) {
-        var styleCss = '';
-
-        if (options.color) {
-          var colorStyle = parentStyle + ' ul.verticator li a:after { background-color: ' + options.color + '; }';
-          styleCss += colorStyle;
-
-          if (!options.darktheme) {
-            var samecolorStyle = '.has-light-background ul.verticator li a:after { background-color: ' + options.color + '; }';
-            styleCss += samecolorStyle;
-          }
-        }
-
-        if (options.oppositecolor) {
-          var oppositecolorStyle = parentStyle + '.has-' + oppositeSlide + '-background ul.verticator li a:after { background-color: ' + options.oppositecolor + '; }';
-          styleCss += oppositecolorStyle;
-        }
-
-        if (styleCss.length) {
-          var style = document.createElement('style');
-          style.textContent = styleCss;
-          document.head.appendChild(style);
-        }
-      }
     };
 
     var slideAppear = function slideAppear(event) {
@@ -198,7 +179,6 @@ var Plugin = function Plugin() {
     };
 
     if (theVerticator) {
-      createStyle();
       deck.on('slidechanged', function (event) {
         slideAppear(event);
       });
@@ -217,8 +197,8 @@ var Plugin = function Plugin() {
   var init = function init(deck) {
     var defaultOptions = {
       darktheme: false,
-      color: '',
-      oppositecolor: '',
+      color: 'black',
+      oppositecolor: 'white',
       skipuncounted: false,
       clickable: true
     };
@@ -232,6 +212,17 @@ var Plugin = function Plugin() {
     };
 
     var options = deck.getConfig().verticator || {};
+
+    if (options.darktheme) {
+      if (!options.hasOwnProperty('color')) {
+        defaultOptions.color = 'white';
+      }
+
+      if (!options.hasOwnProperty('oppositecolor')) {
+        defaultOptions.oppositecolor = 'black';
+      }
+    }
+
     defaults(options, defaultOptions);
     verticate(deck, options);
   };

@@ -82,6 +82,20 @@ const Plugin = () => {
 
 		const activateBullet = function (event) {
 
+			if (revealElement.classList.contains('has-dark-background')) {
+				theVerticator.style.color = options.oppositecolor;
+			} else {
+				theVerticator.style.color = options.color;
+			}
+
+			if (options.darktheme) {
+				if (revealElement.classList.contains('has-light-background')) {
+					theVerticator.style.color = options.oppositecolor;
+				} else {
+					theVerticator.style.color = options.color;
+				}
+			}
+
 			let listItems = selectionArray(theVerticator, 'li');
 			var bestMatch = -1;
 
@@ -101,6 +115,9 @@ const Plugin = () => {
 
 		const createBullets = function (event, sections) {
 			theVerticator.classList.remove('visible');
+			
+			theVerticator.style.color = options.color;
+
 			let listHtml = '';
 
 			sections.forEach(function (i) {
@@ -116,41 +133,6 @@ const Plugin = () => {
 			}, 200);
 		}
 
-		const createStyle = function () {
-
-			let oppositeSlide = options.darktheme ? 'light' : 'dark';
-			let parentStyle = options.darktheme ? '.dark-theme' : '';
-
-			if (options.darktheme) {
-				revealElement.classList.add('dark-theme');
-			}
-
-			if (options.color || options.oppositecolor) {
-
-				let styleCss = '';
-
-				if (options.color) {
-					let colorStyle = parentStyle + ' ul.verticator li a:after { background-color: ' + options.color + '; }'
-					styleCss += colorStyle;
-
-					if (!options.darktheme) {
-						let samecolorStyle = '.has-light-background ul.verticator li a:after { background-color: ' + options.color + '; }'
-						styleCss += samecolorStyle;
-					}
-				}
-
-				if (options.oppositecolor) {
-					let oppositecolorStyle = parentStyle + '.has-' + oppositeSlide + '-background ul.verticator li a:after { background-color: ' + options.oppositecolor + '; }'
-					styleCss += oppositecolorStyle;
-				}
-
-				if (styleCss.length) {
-					let style = document.createElement('style');
-					style.textContent = styleCss;
-					document.head.appendChild(style);
-				}
-			}
-		}
 
 		const slideAppear = function (event) {
 
@@ -190,7 +172,6 @@ const Plugin = () => {
 		};
 
 		if (theVerticator) {
-			createStyle();
 			deck.on('slidechanged', event => {
 				slideAppear(event)
 			});
@@ -210,11 +191,12 @@ const Plugin = () => {
 
 		let defaultOptions = {
 			darktheme: false,
-			color: '',
-			oppositecolor: '',
+			color: 'black',
+			oppositecolor: 'white',
 			skipuncounted: false,
 			clickable: true
 		};
+
 
 		const defaults = function (options, defaultOptions) {
 			for (let i in defaultOptions) {
@@ -225,8 +207,17 @@ const Plugin = () => {
 		}
 
 		let options = deck.getConfig().verticator || {};
-		defaults(options, defaultOptions);
 
+		if (options.darktheme) {
+			if (!options.hasOwnProperty('color')) {
+				defaultOptions.color = 'white';
+			}
+			if (!options.hasOwnProperty('oppositecolor')) {
+				defaultOptions.oppositecolor = 'black';
+			}
+		}
+
+		defaults(options, defaultOptions);
 		verticate(deck, options);
 
 	};
