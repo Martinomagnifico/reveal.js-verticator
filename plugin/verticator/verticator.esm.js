@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.0.7
+ * Version 1.0.8
  * 
  * @license 
  * MIT licensed
@@ -104,24 +104,30 @@ var Plugin = function Plugin() {
     };
 
     var activateBullet = function activateBullet(event) {
+      var listItems = selectionArray(theVerticator, 'li');
+      var bullets = selectionArray(theVerticator, 'li a');
+
       if (revealElement.classList.contains('has-dark-background')) {
         theVerticator.style.color = options.oppositecolor;
+        theVerticator.style.setProperty('--bullet-maincolor', options.oppositecolor);
       } else {
         theVerticator.style.color = options.color;
+        theVerticator.style.setProperty('--bullet-maincolor', options.color);
       }
 
       if (options.darktheme) {
         if (revealElement.classList.contains('has-light-background')) {
           theVerticator.style.color = options.oppositecolor;
+          theVerticator.style.setProperty('--bullet-maincolor', options.oppositecolor);
         } else {
           theVerticator.style.color = options.color;
+          theVerticator.style.setProperty('--bullet-maincolor', options.color);
         }
       }
 
-      var listItems = selectionArray(theVerticator, 'li');
-      var bestMatch = -1;
+      var bestMatch = options.indexbase - 1;
       listItems.forEach(function (listItem, i) {
-        if (parseInt(listItem.getAttribute("data-index")) <= event.indexv) {
+        if (parseInt(listItem.getAttribute("data-index")) <= event.indexv + options.indexbase) {
           bestMatch = i;
         }
 
@@ -138,8 +144,8 @@ var Plugin = function Plugin() {
       theVerticator.style.color = options.color;
       var listHtml = '';
       sections.forEach(function (i) {
-        var link = ' href="#/' + event.indexh + "/" + i + '"';
-        listHtml += '<li data-index="' + i + '"><a ' + (options.clickable ? link : '') + '></li>';
+        var link = ' href="#/' + (event.indexh + options.indexbase) + "/" + (i + options.indexbase) + '"';
+        listHtml += '<li data-index="' + (i + options.indexbase) + '"><a ' + (options.clickable ? link : '') + '></li>';
       });
       setTimeout(function () {
         theVerticator.innerHTML = listHtml;
@@ -161,6 +167,7 @@ var Plugin = function Plugin() {
 
       if (!parent.classList.contains('stack')) {
         theVerticator.classList.remove('visible');
+        theVerticator.innerHTML = '';
       } else if (sections.length > 1) {
         if (event.previousSlide) {
           var lastParent = event.previousSlide.parentNode;
@@ -190,7 +197,11 @@ var Plugin = function Plugin() {
         deck.on('click', function (event) {
           clickBullet(event);
         });
-      }
+      } // // REMOVE THIS
+      // deck.on('click', event => {
+      // 	clickBullet(event)
+      // });
+
     }
   };
 
@@ -212,6 +223,7 @@ var Plugin = function Plugin() {
     };
 
     var options = deck.getConfig().verticator || {};
+    options.indexbase = deck.getConfig().hashOneBasedIndex ? 1 : 0;
 
     if (options.darktheme) {
       if (!options.hasOwnProperty('color')) {

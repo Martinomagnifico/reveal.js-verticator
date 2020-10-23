@@ -82,25 +82,31 @@ const Plugin = () => {
 
 		const activateBullet = function (event) {
 
+			let listItems = selectionArray(theVerticator, 'li');
+			let bullets = selectionArray(theVerticator, 'li a')
+
 			if (revealElement.classList.contains('has-dark-background')) {
 				theVerticator.style.color = options.oppositecolor;
+				theVerticator.style.setProperty('--bullet-maincolor', options.oppositecolor);
 			} else {
 				theVerticator.style.color = options.color;
+				theVerticator.style.setProperty('--bullet-maincolor', options.color);
 			}
 
 			if (options.darktheme) {
 				if (revealElement.classList.contains('has-light-background')) {
 					theVerticator.style.color = options.oppositecolor;
+					theVerticator.style.setProperty('--bullet-maincolor', options.oppositecolor);
 				} else {
 					theVerticator.style.color = options.color;
+					theVerticator.style.setProperty('--bullet-maincolor', options.color);
 				}
 			}
 
-			let listItems = selectionArray(theVerticator, 'li');
-			var bestMatch = -1;
+			var bestMatch = options.indexbase - 1;
 
 			listItems.forEach(function (listItem, i) {
-				if (parseInt(listItem.getAttribute("data-index")) <= event.indexv) {
+				if (parseInt(listItem.getAttribute("data-index")) <= event.indexv + options.indexbase) {
 					bestMatch = i;
 				}
 
@@ -120,9 +126,11 @@ const Plugin = () => {
 
 			let listHtml = '';
 
+
+
 			sections.forEach(function (i) {
-				var link = ' href="#/' + event.indexh + "/" + i + '"';
-				listHtml += '<li data-index="' + i + '"><a ' +
+				var link = ' href="#/' + (event.indexh + options.indexbase) + "/" + (i + options.indexbase) + '"';
+				listHtml += '<li data-index="' + (i + options.indexbase) + '"><a ' +
 					(options.clickable ? link : '') + '></li>';
 			});
 
@@ -139,6 +147,8 @@ const Plugin = () => {
 			let slide = event.currentSlide;
 			let parent = slide.parentNode;
 
+
+
 			let sections = Array.from(parent.children)
 				.map(function (elem, index) {
 					return [index, elem];
@@ -154,6 +164,7 @@ const Plugin = () => {
 
 			if (!parent.classList.contains('stack')) {
 				theVerticator.classList.remove('visible');
+				theVerticator.innerHTML = '';
 			} else if (sections.length > 1) {
 				if (event.previousSlide) {
 					let lastParent = event.previousSlide.parentNode;
@@ -169,6 +180,7 @@ const Plugin = () => {
 					activateBullet(event);
 				}, 150);
 			}
+
 		};
 
 		if (theVerticator) {
@@ -183,6 +195,11 @@ const Plugin = () => {
 					clickBullet(event)
 				});
 			}
+
+			// // REMOVE THIS
+			// deck.on('click', event => {
+			// 	clickBullet(event)
+			// });
 		}
 
 	};
@@ -207,6 +224,8 @@ const Plugin = () => {
 		}
 
 		let options = deck.getConfig().verticator || {};
+
+		options.indexbase = deck.getConfig().hashOneBasedIndex ? 1 : 0;
 
 		if (options.darktheme) {
 			if (!options.hasOwnProperty('color')) {
