@@ -113,8 +113,6 @@ Reveal.initialize({
 If you like it, please star this repo.
 
 
-
-
 ## License
 MIT licensed
 
