@@ -1,6 +1,6 @@
 # Verticator
 
-[![Version](https://img.shields.io/npm/v/reveal.js-verticator)]() [![Version](https://img.shields.io/npms-io/maintenance-score/reveal.js-verticator)]() [![Downloads](https://img.shields.io/npm/dt/reveal.js-verticator)]()
+[![Version](https://img.shields.io/npm/v/reveal.js-verticator)]() [![Downloads](https://img.shields.io/npm/dt/reveal.js-verticator)]()
 
 A plugin for [Reveal.js](https://revealjs.com) 4 that adds indicators to show the amount of slides in a vertical stack. 
 
