@@ -29,7 +29,7 @@ Copy the verticator folder to the plugins folder of the reveal.js folder, like t
 
 This plugin is published to, and can be installed from, npm.
 
-```javascript
+```console
 npm install reveal.js-verticator
 ```
 The Verticator plugin folder can then be referenced from `node_modules/reveal.js-verticator/plugin/verticator `
