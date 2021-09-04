@@ -4,7 +4,7 @@
 
 A plugin for [Reveal.js](https://revealjs.com) 4 that adds indicators to show the amount of slides in a vertical stack. 
 
-[![Screenshot](screenshot.png)](https://martinomagnifico.github.io/reveal.js-verticator/demo.html)
+[![Screenshot](https://martinomagnifico.github.io/reveal.js-verticator/screenshot.png)](https://martinomagnifico.github.io/reveal.js-verticator/demo.html)
 
 Sometimes you would like to have an indication of how many slides are remaining in a vertical stack. This plugin does just that. It is visually similar to the indicators at [fullPage.js](https://alvarotrigo.com/fullPage/). 
 
@@ -90,7 +90,9 @@ Reveal.initialize({
 		color: 'black',
 		oppositecolor: 'white',
 		skipuncounted: false,
-		clickable: true
+		clickable: true,
+		position: 'right',
+		offset: '3vmin'
 	},
 	plugins: [ Verticator ]
 	// ... 
@@ -106,7 +108,8 @@ Reveal.initialize({
 * **`oppositecolor`**: To override the default white color (or the black color if `darktheme` is `true`) on slides that have a dark color (or light color if `darktheme` is `true`) set through the data-attribute, simply give a new color here. You can use standard CSS -, hexadecimal - or RGB colors.
 * **`skipuncounted`**: Omit drawing Verticator bullets for slides that are marked with Reveal.js 4.0' `data-visibility="uncounted"`. This behaviour is disabled by default.
 * **`clickable`**: Allow navigation to a slide by clicking on the corresponding Verticator bullet. This behaviour is enabled by default.
-
+* **`position`**: Sets the position of Verticator in the presentation. Set to `right` by default, it can also be set to `left`.
+* **`offset`**: Sets the offset of Verticator from the edge (right or left, see 'position') of the screen. Set to `3vmin` by default, it can be set to any other valid CSS size and unit. 
 
 ## Like it?
 
@@ -116,4 +119,4 @@ If you like it, please star this repo.
 ## License
 MIT licensed
 
-Copyright (C) 2020 Martijn De Jongh (Martino)
+Copyright (C) 2021 Martijn De Jongh (Martino)

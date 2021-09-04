@@ -61,6 +61,17 @@ const Plugin = () => {
 			theVerticator = revealElement.querySelector('ul.verticator');
 		}
 
+		if (options.offset != '3vmin') {
+			theVerticator.style.left = options.offset;
+		}
+		if (options.position == 'left') {
+			theVerticator.style.right = 'auto';
+			theVerticator.style.left = options.offset;
+		}
+		if (options.position != 'left' && options.position != 'right') {
+			options.position = 'right'
+		}
+
 		let activeclass = 'active';
 
 
@@ -195,11 +206,6 @@ const Plugin = () => {
 					clickBullet(event)
 				});
 			}
-
-			// // REMOVE THIS
-			// deck.on('click', event => {
-			// 	clickBullet(event)
-			// });
 		}
 
 	};
@@ -211,7 +217,9 @@ const Plugin = () => {
 			color: 'black',
 			oppositecolor: 'white',
 			skipuncounted: false,
-			clickable: true
+			clickable: true,
+			position: 'right',
+			offset: '3vmin'
 		};
 
 

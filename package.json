@@ -1,6 +1,6 @@
 {
     "name": "reveal.js-verticator",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "A plugin for Reveal.js 4 that adds indicators to show the amount of slides in a vertical stack",
     "keywords": "reveal, reveal.js, vertical bullets, reveal-plugin, plugin, fullPage.js",
     "homepage": "https://github.com/Martinomagnifico/reveal.js-verticator",
@@ -12,5 +12,5 @@
         "reveal.js": "^4.0"
     },
     "author": "Martijn De Jongh",
-    "license": "MIT, Copyright (C) 2020 Martijn De Jongh"
+    "license": "MIT, Copyright (C) 2021 Martijn De Jongh"
 }

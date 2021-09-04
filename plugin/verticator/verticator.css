@@ -3,11 +3,12 @@ ul.verticator {
   --bullet-oppositecolor: white;
   list-style: none;
   right: 3vmin;
+  left: auto;
+  margin: 0;
   top: 50%;
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
-  left: auto;
   display: block;
   opacity: 0;
   z-index: 10;

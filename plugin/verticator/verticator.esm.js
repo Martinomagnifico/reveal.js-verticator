@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.0.8
+ * Version 1.0.9
  * 
  * @license 
  * MIT licensed
@@ -83,6 +83,19 @@ var Plugin = function Plugin() {
       ul.className += "verticator";
       revealElement.insertBefore(ul, revealElement.childNodes[0]);
       theVerticator = revealElement.querySelector('ul.verticator');
+    }
+
+    if (options.offset != '3vmin') {
+      theVerticator.style.left = options.offset;
+    }
+
+    if (options.position == 'left') {
+      theVerticator.style.right = 'auto';
+      theVerticator.style.left = options.offset;
+    }
+
+    if (options.position != 'left' && options.position != 'right') {
+      options.position = 'right';
     }
 
     var activeclass = 'active';
@@ -197,11 +210,7 @@ var Plugin = function Plugin() {
         deck.on('click', function (event) {
           clickBullet(event);
         });
-      } // // REMOVE THIS
-      // deck.on('click', event => {
-      // 	clickBullet(event)
-      // });
-
+      }
     }
   };
 
@@ -211,7 +220,9 @@ var Plugin = function Plugin() {
       color: 'black',
       oppositecolor: 'white',
       skipuncounted: false,
-      clickable: true
+      clickable: true,
+      position: 'right',
+      offset: '3vmin'
     };
 
     var defaults = function defaults(options, defaultOptions) {

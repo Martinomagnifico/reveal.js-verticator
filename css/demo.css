@@ -20,3 +20,30 @@ p code, p kbd {
 
 p kbd {
   font-family: monospace; }
+
+a.github-corner {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  width: clamp(50px, 8vmax, 80px);
+  line-height: 0;
+  color: var(--r-main-color);
+  opacity: 0.5;
+  -webkit-transition: opacity .3s;
+  -o-transition: opacity .3s;
+  transition: opacity .3s; }
+  .has-dark-background a.github-corner {
+    color: white; }
+  .has-light-background a.github-corner {
+    color: black; }
+  a.github-corner.bottom {
+    top: auto;
+    bottom: 3px; }
+
+a.github-corner:hover {
+  color: var(--r-main-color);
+  opacity: 1; }
+  .has-dark-background a.github-corner:hover {
+    color: white; }
+  .has-light-background a.github-corner:hover {
+    color: black; }
