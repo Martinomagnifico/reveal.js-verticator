@@ -3,15 +3,16 @@
  * @author: Martijn De Jongh (Martino), martijn.de.jongh@gmail.com
  * https://github.com/Martinomagnifico
  *
- * Verticator.js for Reveal.js 
+ * Verticator.js for Reveal.js
  * Version 1.0.9
- * 
- * @license 
+ *
+ * @license
  * MIT licensed
  *
  * Thanks to:
- *  - Hakim El Hattab, Reveal.js 
+ *  - Hakim El Hattab, Reveal.js
  ******************************************************************/
+
 
 
 (function (global, factory) {
@@ -228,7 +229,8 @@
 	      skipuncounted: false,
 	      clickable: true,
 	      position: 'right',
-	      offset: '3vmin'
+	      offset: '3vmin',
+        autogenerate: true
 	    };
 
 	    var defaults = function defaults(options, defaultOptions) {
