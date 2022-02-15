@@ -92,7 +92,8 @@ Reveal.initialize({
 		skipuncounted: false,
 		clickable: true,
 		position: 'right',
-		offset: '3vmin'
+		offset: '3vmin',
+        autogenerate: true
 	},
 	plugins: [ Verticator ]
 	// ... 
@@ -110,6 +111,7 @@ Reveal.initialize({
 * **`clickable`**: Allow navigation to a slide by clicking on the corresponding Verticator bullet. This behaviour is enabled by default.
 * **`position`**: Sets the position of Verticator in the presentation. Set to `right` by default, it can also be set to `left`.
 * **`offset`**: Sets the offset of Verticator from the edge (right or left, see 'position') of the screen. Set to `3vmin` by default, it can be set to any other valid CSS size and unit. 
+* **`autogenerate`**: Autogenerate a UL element with the class `verticator` if none is found. 
 
 ## Like it?
 
