@@ -55,9 +55,10 @@ const Plugin = () => {
 		let theVerticator = revealElement.querySelector('ul.verticator');
 
 		if (!theVerticator) {
+			if(!options.autogenerate) return
 			let ul = document.createElement('ul');
 			ul.className += "verticator";
-			revealElement.insertBefore(ul, revealElement.childNodes[0]); 
+			revealElement.insertBefore(ul, revealElement.childNodes[0]);
 			theVerticator = revealElement.querySelector('ul.verticator');
 		}
 
@@ -132,7 +133,7 @@ const Plugin = () => {
 
 		const createBullets = function (event, sections) {
 			theVerticator.classList.remove('visible');
-			
+
 			theVerticator.style.color = options.color;
 
 			let listHtml = '';
@@ -219,7 +220,8 @@ const Plugin = () => {
 			skipuncounted: false,
 			clickable: true,
 			position: 'right',
-			offset: '3vmin'
+			offset: '3vmin',
+			autogenerate: true
 		};
 
 

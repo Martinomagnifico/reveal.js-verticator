@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.0.9
+ * Version 1.1.0
  * 
  * @license 
  * MIT licensed
@@ -79,6 +79,7 @@ var Plugin = function Plugin() {
     var theVerticator = revealElement.querySelector('ul.verticator');
 
     if (!theVerticator) {
+      if (!options.autogenerate) return;
       var ul = document.createElement('ul');
       ul.className += "verticator";
       revealElement.insertBefore(ul, revealElement.childNodes[0]);
@@ -222,7 +223,8 @@ var Plugin = function Plugin() {
       skipuncounted: false,
       clickable: true,
       position: 'right',
-      offset: '3vmin'
+      offset: '3vmin',
+      autogenerate: true
     };
 
     var defaults = function defaults(options, defaultOptions) {
