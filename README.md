@@ -113,6 +113,7 @@ Reveal.initialize({
 * **`offset`**: Sets the offset of Verticator from the edge (right or left, see 'position') of the screen. Set to `3vmin` by default, it can be set to any other valid CSS size and unit. 
 * **`autogenerate`**: Autogenerate a UL element with the class `verticator` if none is found. Set to `true` by default.
 
+
 ## Like it?
 
 If you like it, please star this repo.

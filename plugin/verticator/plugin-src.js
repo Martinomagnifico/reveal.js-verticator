@@ -56,6 +56,7 @@ const Plugin = () => {
 
 		if (!theVerticator) {
 			if(!options.autogenerate) return
+
 			let ul = document.createElement('ul');
 			ul.className += "verticator";
 			revealElement.insertBefore(ul, revealElement.childNodes[0]);

@@ -10,8 +10,9 @@
  * MIT licensed
  *
  * Thanks to:
- *  - Hakim El Hattab, Reveal.js 
+ *  - Hakim El Hattab, Reveal.js
  ******************************************************************/
+
 
 
 (function (global, factory) {

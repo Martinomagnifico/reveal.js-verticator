@@ -1,4 +1,3 @@
-
 /*****************************************************************
  * @author: Martijn De Jongh (Martino), martijn.de.jongh@gmail.com
  * https://github.com/Martinomagnifico
@@ -10,7 +9,7 @@
  * MIT licensed
  *
  * Thanks to:
- *  - Hakim El Hattab, Reveal.js 
+ *  - Hakim El Hattab, Reveal.js
  ******************************************************************/
 
 
@@ -21,7 +20,7 @@ var Plugin = function Plugin() {
   } catch (t) {
     !function (t) {
       var e = /:scope(?![\w-])/gi,
-          r = u(t.querySelector);
+        r = u(t.querySelector);
 
       t.querySelector = function (t) {
         return r.apply(this, arguments);
@@ -67,7 +66,7 @@ var Plugin = function Plugin() {
 
   var getNodeindex = function getNodeindex(elm) {
     var c = elm.parentNode.children,
-        i = 0;
+      i = 0;
 
     for (; i < c.length; i++) {
       if (c[i] == elm) return i;
