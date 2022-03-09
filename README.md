@@ -2,7 +2,7 @@
 
 [![Version](https://img.shields.io/npm/v/reveal.js-verticator)]() [![Downloads](https://img.shields.io/npm/dt/reveal.js-verticator)]()
 
-A plugin for [Reveal.js](https://revealjs.com) 4 that adds indicators to show the amount of slides in a vertical stack. 
+A plugin for [Reveal.js](https://revealjs.com) that adds indicators to show the amount of slides in a vertical stack. 
 
 [![Screenshot](https://martinomagnifico.github.io/reveal.js-verticator/screenshot.png)](https://martinomagnifico.github.io/reveal.js-verticator/demo.html)
 
@@ -39,10 +39,6 @@ The Verticator plugin folder can then be referenced from `node_modules/reveal.js
 
 ### JavaScript
 
-The Verticator plugin has been rewritten for Reveal.js version 4. Verticator also works in setups with multiple Reveal instances.
-
-If you want to use Verticator with an older version of Reveal, use the [1.0.2 version](https://github.com/Martinomagnifico/reveal.js-verticator/releases).
-
 There are two JavaScript files for Verticator, a regular one, `verticator.js`, and a module one, `verticator.esm.js`. You only need one of them:
 
 #### Regular 
@@ -73,6 +69,17 @@ If you're using ES modules, you can add it like this:
 </script>
 ```
 
+
+### Styling
+
+You now need to add the Verticator stylesheet to your presentation. If you want to show tooltips as well, also add the tooltip stylesheet (and make sure to enable tooltips in the options). If you want to change the tooltip style, you can simply make your own style and use that stylesheet instead.
+
+```html
+<link rel="stylesheet" href="plugin/verticator/verticator.css">
+<link rel="stylesheet" href="plugin/verticator/tooltip.css">
+```
+
+
 ### HTML
 
 Verticator needs a UL with the class 'verticator' to insert the indicators. If there is not one already in the HTML, Verticator will generate it automatically for you. This can be disabled by setting the option `autogenerate` to `false`.
@@ -93,7 +100,9 @@ Reveal.initialize({
 		clickable: true,
 		position: 'right',
 		offset: '3vmin',
-        autogenerate: true
+		autogenerate: true,
+		tooltip: false,
+		scale: 1
 	},
 	plugins: [ Verticator ]
 	// ... 
@@ -112,11 +121,15 @@ Reveal.initialize({
 * **`position`**: Sets the position of Verticator in the presentation. Set to `right` by default, it can also be set to `left`.
 * **`offset`**: Sets the offset of Verticator from the edge (right or left, see 'position') of the screen. Set to `3vmin` by default, it can be set to any other valid CSS size and unit. 
 * **`autogenerate`**: Autogenerate a UL element with the class `verticator` if none is found. Set to `true` by default.
+* **`tooltip`**: Shows tooltips next to the Verticator bullets. Set to `false` by default, it can be enabled in two ways:
+    * `tooltip: 'data-name'`: When you use `tooltip: 'data-name'` or `tooltip: 'title'` or any other attribute with a string value, the tooltip will show that value. 
+    * `tooltip: 'auto'`: When you use `tooltip: 'auto'`, Verticator will check titles of each slide in the order: `data-verticator-tooltip`, `data-name`, `title`, and if none found, headings inside each slide in the order: `h1`, `h2`, `h3`, `h4`. Auto-mode is convenient for Verticator tooltips in Markdown slides. Set `data-verticator-tooltip="none"` or a class of `no-verticator-tooltip` on specific slides if you don't want the attribute- or auto-tooltip to show at all.
+* **`scale`**: While Verticator will now scale according to the scale factor of the main slides (since version 1.1.1), the option `scale` will resize it manually on top of that. Set to `1` by default, it can be set to a minimum of `0.5` and a maximum of `2`.
 
 
 ## Like it?
 
-If you like it, please star this repo.
+If you like it, please star this repo. 
 
 
 ## License

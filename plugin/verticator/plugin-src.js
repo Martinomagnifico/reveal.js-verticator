@@ -50,23 +50,39 @@ const Plugin = () => {
 
 	const verticate = function (deck, options) {
 
+		let userScale = options.scale;
+		userScale = (userScale > 2) ? 2 : (userScale < 0.5) ? 0.5 : userScale;
+
 		let revealElement = deck.getRevealElement();
 
 		let theVerticator = revealElement.querySelector('ul.verticator');
 
 		if (!theVerticator) {
-			if(!options.autogenerate) return
-
+			if (!options.autogenerate) return
 			let ul = document.createElement('ul');
 			ul.className += "verticator";
 			revealElement.insertBefore(ul, revealElement.childNodes[0]);
 			theVerticator = revealElement.querySelector('ul.verticator');
 		}
 
+		if (!options.clickable) {theVerticator.classList.add('no-click')}
+
+		let revealScale = deck.getScale();
+		let totalScale = revealScale > 1 ? revealScale * userScale : userScale;
+		theVerticator.style.setProperty('--verticator-scale', totalScale.toFixed(2));
+
+
+		deck.on( 'resize', event => {
+			revealScale = event.scale;
+			totalScale = revealScale > 1 ? revealScale * userScale : userScale;
+			theVerticator.style.setProperty('--verticator-scale', totalScale.toFixed(2));
+		} );
+
 		if (options.offset != '3vmin') {
-			theVerticator.style.left = options.offset;
+			theVerticator.style.right = options.offset;
 		}
 		if (options.position == 'left') {
+			theVerticator.classList.add('left');
 			theVerticator.style.right = 'auto';
 			theVerticator.style.left = options.offset;
 		}
@@ -96,7 +112,6 @@ const Plugin = () => {
 		const activateBullet = function (event) {
 
 			let listItems = selectionArray(theVerticator, 'li');
-			let bullets = selectionArray(theVerticator, 'li a')
 
 			if (revealElement.classList.contains('has-dark-background')) {
 				theVerticator.style.color = options.oppositecolor;
@@ -132,20 +147,50 @@ const Plugin = () => {
 
 		};
 
+		const ttName = function (element) {
+			if ( element.getAttribute("data-verticator-tooltip") && (element.getAttribute("data-verticator-tooltip")=="none" || element.getAttribute("data-verticator-tooltip")=="false") || element.classList.contains('no-verticator-tooltip') ) {
+				return
+			}
+			else if (options.tooltip != "auto" && element.getAttribute(`${options.tooltip}`)) {
+				return element.getAttribute(`${options.tooltip}`)
+			}
+			else if (options.tooltip == "auto") {
+				for (const attr of ["data-verticator-tooltip", "data-name", "title"]) {
+					if (element.getAttribute(attr)) {
+						return element.getAttribute(attr);
+					}
+				}
+				for (const slctr of ["h1", "h2", "h3", "h4"]) {
+					if (element.querySelector(slctr)) {
+						return element.querySelector(slctr).textContent;
+					}
+				}
+			}
+			else return false
+		}
+
 		const createBullets = function (event, sections) {
-			theVerticator.classList.remove('visible');
+
 
 			theVerticator.style.color = options.color;
-
+			theVerticator.classList.remove('visible');
 			let listHtml = '';
 
-
-
-			sections.forEach(function (i) {
-				var link = ' href="#/' + (event.indexh + options.indexbase) + "/" + (i + options.indexbase) + '"';
-				listHtml += '<li data-index="' + (i + options.indexbase) + '"><a ' +
-					(options.clickable ? link : '') + '></li>';
+			sections.forEach(function (section) {
+				let i = section[0];
+				let tooltipname = section[1];
+				let link = `href="#/${event.indexh + options.indexbase}/${i + options.indexbase}"`
+				let dataname = tooltipname ? `data-name="${tooltipname}"` : '';
+				let tooltip = tooltipname ? `<div class="tooltip"><span>${tooltipname}</span></div>` : '';
+				listHtml += `
+					<li data-index="${i + options.indexbase}">
+						<a ${options.clickable ? link : ''}${dataname}></a>
+						${tooltip}
+					</li>
+				`;
 			});
+
+			
 
 			setTimeout(function () {
 				theVerticator.innerHTML = listHtml;
@@ -172,8 +217,13 @@ const Plugin = () => {
 							indexedElem[1].getAttribute('data-visibility') !== 'uncounted')
 				})
 				.map(function (indexedElem) {
-					return indexedElem[0];
+					let ttname = '';
+					if (options.tooltip) {
+						ttname = ttName(indexedElem[1]);
+					}
+					return [indexedElem[0],ttname];
 				});
+
 
 			if (!parent.classList.contains('stack')) {
 				theVerticator.classList.remove('visible');
@@ -222,7 +272,9 @@ const Plugin = () => {
 			clickable: true,
 			position: 'right',
 			offset: '3vmin',
-			autogenerate: true
+			autogenerate: true,
+			tooltip: false,
+			scale: 1
 		};
 
 

@@ -10,6 +10,7 @@
   margin: 0 auto;
   -webkit-box-shadow: none;
           box-shadow: none;
+  border-radius: 4px;
   background: rgba(180, 180, 180, 0.5); }
 
 p code, p kbd {
@@ -47,3 +48,38 @@ a.github-corner:hover {
     color: white; }
   .has-light-background a.github-corner:hover {
     color: black; }
+
+.reveal pre {
+  font-size: 18px;
+  width: 100%;
+  margin: 0;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  cursor: default; }
+  .reveal pre:focus {
+    outline: none; }
+  .reveal pre code {
+    border-radius: 4px;
+    padding: 10px 15px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    line-height: 30px; }
+    .reveal pre code:focus {
+      outline: none; }
+  .reveal pre + pre {
+    margin-top: 20px; }
+
+li code {
+  padding: 0.05em 0.3em;
+  font-size: 0.8em;
+  border-radius: 4px;
+  background-color: rgba(39, 40, 34, 0.2); }

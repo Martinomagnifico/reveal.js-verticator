@@ -1,0 +1,72 @@
+:root {
+  --verticator-scale: 1; }
+
+.tooltip {
+  position: absolute;
+  top: 9px;
+  right: 24px;
+  top: calc(9px * var(--verticator-scale));
+  right: calc(24px * var(--verticator-scale));
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  -webkit-transform: translate3d(0, -50%, 1px);
+          transform: translate3d(0, -50%, 1px);
+  -webkit-box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.2);
+          box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: calc(4px * var(--verticator-scale)) calc(6px * var(--verticator-scale)) calc(16px * var(--verticator-scale)) rgba(0, 0, 0, 0.25);
+          box-shadow: calc(4px * var(--verticator-scale)) calc(6px * var(--verticator-scale)) calc(16px * var(--verticator-scale)) rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  background: white;
+  font-size: 1rem;
+  font-size: calc(1rem * var(--verticator-scale));
+  padding: 0.4em 0.6em;
+  border-radius: 0.2em;
+  min-width: 30px;
+  max-width: 15em;
+  display: block;
+  -webkit-font-smoothing: antialiased;
+  color: black; }
+  .tooltip span {
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+       text-overflow: ellipsis;
+    line-height: 1.25; }
+  .tooltip::after {
+    content: '';
+    display: block;
+    width: .66em;
+    height: .66em;
+    background: white;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    -webkit-transform: translate3d(50%, -50%, -1px) rotate(45deg);
+            transform: translate3d(50%, -50%, -1px) rotate(45deg); }
+
+.verticator.left .tooltip {
+  right: auto;
+  left: calc(12px * var(--verticator-scale) * 2);
+  -webkit-box-shadow: calc(-4px * var(--verticator-scale)) calc(6px * var(--verticator-scale)) calc(16px * var(--verticator-scale)) rgba(0, 0, 0, 0.25);
+          box-shadow: calc(-4px * var(--verticator-scale)) calc(6px * var(--verticator-scale)) calc(16px * var(--verticator-scale)) rgba(0, 0, 0, 0.25); }
+  .verticator.left .tooltip::after {
+    right: auto;
+    left: 0;
+    -webkit-transform: translate3d(-50%, -50%, -1px) rotate(45deg);
+            transform: translate3d(-50%, -50%, -1px) rotate(45deg); }
+
+.verticator li a + .tooltip {
+  pointer-events: none;
+  display: block;
+  opacity: 0;
+  -webkit-transition: opacity 0.125s ease-in-out;
+  -o-transition: opacity 0.125s ease-in-out;
+  transition: opacity 0.125s ease-in-out;
+  -webkit-transition-delay: .125s;
+       -o-transition-delay: .125s;
+          transition-delay: .125s; }
+
+.verticator li a:hover + .tooltip {
+  opacity: 1; }

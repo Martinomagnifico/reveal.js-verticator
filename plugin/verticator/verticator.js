@@ -4,15 +4,14 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.1.0
+ * Version 1.1.1
  * 
  * @license 
  * MIT licensed
  *
  * Thanks to:
- *  - Hakim El Hattab, Reveal.js
+ *  - Hakim El Hattab, Reveal.js 
  ******************************************************************/
-
 
 
 (function (global, factory) {
@@ -82,6 +81,8 @@
 	  };
 
 	  var verticate = function verticate(deck, options) {
+	    var userScale = options.scale;
+	    userScale = userScale > 2 ? 2 : userScale < 0.5 ? 0.5 : userScale;
 	    var revealElement = deck.getRevealElement();
 	    var theVerticator = revealElement.querySelector('ul.verticator');
 
@@ -93,11 +94,25 @@
 	      theVerticator = revealElement.querySelector('ul.verticator');
 	    }
 
+	    if (!options.clickable) {
+	      theVerticator.classList.add('no-click');
+	    }
+
+	    var revealScale = deck.getScale();
+	    var totalScale = revealScale > 1 ? revealScale * userScale : userScale;
+	    theVerticator.style.setProperty('--verticator-scale', totalScale.toFixed(2));
+	    deck.on('resize', function (event) {
+	      revealScale = event.scale;
+	      totalScale = revealScale > 1 ? revealScale * userScale : userScale;
+	      theVerticator.style.setProperty('--verticator-scale', totalScale.toFixed(2));
+	    });
+
 	    if (options.offset != '3vmin') {
-	      theVerticator.style.left = options.offset;
+	      theVerticator.style.right = options.offset;
 	    }
 
 	    if (options.position == 'left') {
+	      theVerticator.classList.add('left');
 	      theVerticator.style.right = 'auto';
 	      theVerticator.style.left = options.offset;
 	    }
@@ -126,7 +141,6 @@
 
 	    var activateBullet = function activateBullet(event) {
 	      var listItems = selectionArray(theVerticator, 'li');
-	      var bullets = selectionArray(theVerticator, 'li a');
 
 	      if (revealElement.classList.contains('has-dark-background')) {
 	        theVerticator.style.color = options.oppositecolor;
@@ -160,13 +174,41 @@
 	      }
 	    };
 
+	    var ttName = function ttName(element) {
+	      if (element.getAttribute("data-verticator-tooltip") && (element.getAttribute("data-verticator-tooltip") == "none" || element.getAttribute("data-verticator-tooltip") == "false") || element.classList.contains('no-verticator-tooltip')) {
+	        return;
+	      } else if (options.tooltip != "auto" && element.getAttribute("".concat(options.tooltip))) {
+	        return element.getAttribute("".concat(options.tooltip));
+	      } else if (options.tooltip == "auto") {
+	        for (var _i = 0, _arr = ["data-verticator-tooltip", "data-name", "title"]; _i < _arr.length; _i++) {
+	          var attr = _arr[_i];
+
+	          if (element.getAttribute(attr)) {
+	            return element.getAttribute(attr);
+	          }
+	        }
+
+	        for (var _i2 = 0, _arr2 = ["h1", "h2", "h3", "h4"]; _i2 < _arr2.length; _i2++) {
+	          var slctr = _arr2[_i2];
+
+	          if (element.querySelector(slctr)) {
+	            return element.querySelector(slctr).textContent;
+	          }
+	        }
+	      } else return false;
+	    };
+
 	    var createBullets = function createBullets(event, sections) {
-	      theVerticator.classList.remove('visible');
 	      theVerticator.style.color = options.color;
+	      theVerticator.classList.remove('visible');
 	      var listHtml = '';
-	      sections.forEach(function (i) {
-	        var link = ' href="#/' + (event.indexh + options.indexbase) + "/" + (i + options.indexbase) + '"';
-	        listHtml += '<li data-index="' + (i + options.indexbase) + '"><a ' + (options.clickable ? link : '') + '></li>';
+	      sections.forEach(function (section) {
+	        var i = section[0];
+	        var tooltipname = section[1];
+	        var link = "href=\"#/".concat(event.indexh + options.indexbase, "/").concat(i + options.indexbase, "\"");
+	        var dataname = tooltipname ? "data-name=\"".concat(tooltipname, "\"") : '';
+	        var tooltip = tooltipname ? "<div class=\"tooltip\"><span>".concat(tooltipname, "</span></div>") : '';
+	        listHtml += "\n\t\t\t\t\t<li data-index=\"".concat(i + options.indexbase, "\">\n\t\t\t\t\t\t<a ").concat(options.clickable ? link : '').concat(dataname, "></a>\n\t\t\t\t\t\t").concat(tooltip, "\n\t\t\t\t\t</li>\n\t\t\t\t");
 	      });
 	      setTimeout(function () {
 	        theVerticator.innerHTML = listHtml;
@@ -183,7 +225,13 @@
 	      }).filter(function (indexedElem) {
 	        return indexedElem[1].tagName == 'SECTION' && (!options.skipuncounted || indexedElem[1].getAttribute('data-visibility') !== 'uncounted');
 	      }).map(function (indexedElem) {
-	        return indexedElem[0];
+	        var ttname = '';
+
+	        if (options.tooltip) {
+	          ttname = ttName(indexedElem[1]);
+	        }
+
+	        return [indexedElem[0], ttname];
 	      });
 
 	      if (!parent.classList.contains('stack')) {
@@ -231,7 +279,9 @@
 	      clickable: true,
 	      position: 'right',
 	      offset: '3vmin',
-	      autogenerate: true
+	      autogenerate: true,
+	      tooltip: false,
+	      scale: 1
 	    };
 
 	    var defaults = function defaults(options, defaultOptions) {

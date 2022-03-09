@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../dist/reset.css">
     <link rel="stylesheet" href="../dist/reveal.css">
     <link rel="stylesheet" href="../dist/theme/white.css">
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
     <link rel="stylesheet" href="plugin/verticator/verticator.css">
     <link rel="stylesheet" href="css/demo.css">
 </head>
@@ -47,9 +48,6 @@
                 <section class="center" data-background="#1a1626">
                     <p>If a dark background (a hex color) is set through an attribute of data-background or data-background-color on a slide (a section), the Verticator bullet will be white.</p>
                 </section>
-                <section class="center" data-background="#1a1626">
-                    <p class="smallitalic">Keep in mind that not all themes will also change the color of regular text to an opposite color by changing this attribute! The themes 'simple', 'black' and 'white' work allright though. If needed, the code can be found in the beginning of those CSS files.</p>
-                </section>
             </section>
             <section class="center">
                 <section class="center">
@@ -66,6 +64,8 @@
                         <li>position</li>
                         <li>offset</li>
                         <li>autogenerate</li>
+                        <li>scale</li>
+                        <li>tooltip</li>
                     </ol>
                 </section>
                 <section class="center">
@@ -77,7 +77,7 @@
 		darktheme: true
 	},
 	plugins: [ Verticator ]
-	</code></pre>
+</code></pre>
                     <p class="small">Now the Verticator colors will be white on <em>all</em> normal slides and black on slides that are set to a light background with attributes.</p>
                 </section>
                 <section class="center">
@@ -146,17 +146,46 @@
 	verticator: {
 		offset: '40px'
 	},
-	plugins: [ Verticator ]</code></pre>
+	plugins: [ Verticator ]
+</code></pre>
                 </section>
                 <section class="center">
-                    <h4>Option 7: autogenerate</h4>
+                    <h4>Option 8: autogenerate</h4>
                     <p>Verticator will autogenerate bullets. In presentations with huge vertical stacks, this can result in an unsightly column of bullets. The user can then disable the autogeneration like this:</p>
                     <pre><code>Reveal.initialize({
 	...
 	verticator: {
 		autogenerate: false
 	},
+	plugins: [ Verticator ]
+</code></pre>
+                </section>
+                <section class="center">
+                    <h4>Option 9: tooltip</h4>
+                    <p>Verticator can show tooltips of page titles, like this:</p>
+                    <pre><code>Reveal.initialize({
+	...
+	verticator: {
+		tooltip: 'data-name'
+	},
 	plugins: [ Verticator ]</code></pre>
+                    <p class="small">It is turned off by default but can be enabled with these options:
+                    <ul class="small">
+                        <li><code>tooltip: 'data-name'</code> or any other attribute of the vertical slide. </li>
+                        <li><code>tooltip: 'auto'</code>. This will check titles of each slide in the order: <code>data-verticator-tooltip</code>, <code>data-name</code>, <code>title</code>, and if none found, headings inside each slide in the order: <code>h1</code>, <code>h2</code>, <code>h3</code>, <code>h4</code>.</li>
+                    </ul>
+                    </p>
+                </section>
+                <section class="center">
+                    <h4>Option 10: scale</h4>
+                    <p>Verticator will scale with the same ratio as the Reveal slides (since v1.1.1), but only up. To make the Verticator even bigger, you can manually set a scale. It is set to 1 by default, but can be changed like this:</p>
+                    <pre><code>Reveal.initialize({
+	...
+	verticator: {
+		scale: 1.2
+	},
+	plugins: [ Verticator ]
+</code></pre>
                 </section>
                 <section class="center">
                     <h4>Option demos</h4>
@@ -165,6 +194,7 @@
                         <li><a href="demodark.html">Dark theme with no color options</a></li>
                         <li><a href="democolor.html">Light theme with color options</a></li>
                         <li><a href="demodarkcolor.html">Dark theme with color options</a></li>
+                        <li><a href="demotooltip.html">Tooltip demo</a></li>
                     </ul>
                 </section>
             </section>
@@ -180,6 +210,7 @@
     </div>
     <script src="../dist/reveal.js"></script>
     <script src="plugin/verticator/verticator.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
     <script>
         Reveal.initialize({
             transition: "convex",
@@ -187,7 +218,8 @@
                 skipuncounted: true
             },
             plugins: [
-                Verticator
+                Verticator,
+                RevealHighlight
             ]
         });
     </script>
