@@ -7,7 +7,7 @@
 - Started keeping the changelog.
 
 ### Changed
-- Verticator will scale according to the scale factor of the main slides
+- Verticator will now scale according to the scale factor of the main slides
 
 
 
