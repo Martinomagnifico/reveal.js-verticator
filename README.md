@@ -12,7 +12,7 @@ Sometimes you would like to have an indication of how many slides are remaining 
 * [Dark theme with no color options](https://martinomagnifico.github.io/reveal.js-verticator/demodark.html)
 * [Light theme with color options](https://martinomagnifico.github.io/reveal.js-verticator/democolor.html)
 * [Dark theme with color options](https://martinomagnifico.github.io/reveal.js-verticator/demodarkcolor.html)
-
+* [Tooltip demo](https://martinomagnifico.github.io/reveal.js-verticator/demotooltip.html)
 
 Don't overdo it. You probably don’t want 30 bullets on the right-hand side of your presentation.
 
