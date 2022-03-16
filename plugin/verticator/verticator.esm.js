@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.1.1
+ * Version 1.1.2
  * 
  * @license 
  * MIT licensed
@@ -64,15 +64,6 @@ var Plugin = function Plugin() {
       }
     }(Element.prototype);
   }
-
-  var getNodeindex = function getNodeindex(elm) {
-    var c = elm.parentNode.children,
-        i = 0;
-
-    for (; i < c.length; i++) {
-      if (c[i] == elm) return i;
-    }
-  };
 
   var verticate = function verticate(deck, options) {
     var userScale = options.scale;
@@ -217,7 +208,9 @@ var Plugin = function Plugin() {
       var sections = Array.from(parent.children).map(function (elem, index) {
         return [index, elem];
       }).filter(function (indexedElem) {
-        return indexedElem[1].tagName == 'SECTION' && (!options.skipuncounted || indexedElem[1].getAttribute('data-visibility') !== 'uncounted');
+        var issection = indexedElem[1].tagName == 'SECTION' && indexedElem[1].parentNode.tagName == 'SECTION';
+        var isuncounted = options.skipuncounted && indexedElem[1].getAttribute('data-visibility') == 'uncounted';
+        return issection && !isuncounted;
       }).map(function (indexedElem) {
         var ttname = '';
 
@@ -228,10 +221,10 @@ var Plugin = function Plugin() {
         return [indexedElem[0], ttname];
       });
 
-      if (!parent.classList.contains('stack')) {
+      if (sections.length < 2) {
         theVerticator.classList.remove('visible');
         theVerticator.innerHTML = '';
-      } else if (sections.length > 1) {
+      } else {
         if (event.previousSlide) {
           var lastParent = event.previousSlide.parentNode;
 

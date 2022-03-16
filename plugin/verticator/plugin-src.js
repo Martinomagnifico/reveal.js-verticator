@@ -1,54 +1,9 @@
 const Plugin = () => {
 
 	// Scope support polyfill
-	try {
-		document.querySelector(":scope *")
-	} catch (t) {
-		! function (t) {
-			let e = /:scope(?![\w-])/gi,
-				r = u(t.querySelector);
-			t.querySelector = function (t) {
-				return r.apply(this, arguments)
-			};
-			let c = u(t.querySelectorAll);
-			if (t.querySelectorAll = function (t) {
-					return c.apply(this, arguments)
-				}, t.matches) {
-				let n = u(t.matches);
-				t.matches = function (t) {
-					return n.apply(this, arguments)
-				}
-			}
-			if (t.closest) {
-				let o = u(t.closest);
-				t.closest = function (t) {
-					return o.apply(this, arguments)
-				}
-			}
+	try { document.querySelector(":scope *") } catch (t) { ! function(t) { let e = /:scope(?![\w-])/gi, r = u(t.querySelector); t.querySelector = function(t) { return r.apply(this, arguments) }; let c = u(t.querySelectorAll); if (t.querySelectorAll = function(t) { return c.apply(this, arguments) }, t.matches) { let n = u(t.matches); t.matches = function(t) { return n.apply(this, arguments) } } if (t.closest) { let o = u(t.closest); t.closest = function(t) { return o.apply(this, arguments) } } function u(t) { return function(r) { if (r && e.test(r)) { let c = "q" + Math.floor(9e6 * Math.random()) + 1e6; arguments[0] = r.replace(e, "[" + c + "]"), this.setAttribute(c, ""); let n = t.apply(this, arguments); return this.removeAttribute(c), n } return t.apply(this, arguments) } } }(Element.prototype) }
 
-			function u(t) {
-				return function (r) {
-					if (r && e.test(r)) {
-						let c = "q" + Math.floor(9e6 * Math.random()) + 1e6;
-						arguments[0] = r.replace(e, "[" + c + "]"), this.setAttribute(c, "");
-						let n = t.apply(this, arguments);
-						return this.removeAttribute(c), n
-					}
-					return t.apply(this, arguments)
-				}
-			}
-		}(Element.prototype)
-	}
-
-
-	const getNodeindex = function (elm) {
-		var c = elm.parentNode.children,
-			i = 0;
-		for (; i < c.length; i++)
-			if (c[i] == elm) return i;
-	}
-
-	const verticate = function (deck, options) {
+	const verticate = function(deck, options) {
 
 		let userScale = options.scale;
 		userScale = (userScale > 2) ? 2 : (userScale < 0.5) ? 0.5 : userScale;
@@ -65,18 +20,19 @@ const Plugin = () => {
 			theVerticator = revealElement.querySelector('ul.verticator');
 		}
 
-		if (!options.clickable) {theVerticator.classList.add('no-click')}
+		if (!options.clickable) {
+			theVerticator.classList.add('no-click')
+		}
 
 		let revealScale = deck.getScale();
 		let totalScale = revealScale > 1 ? revealScale * userScale : userScale;
 		theVerticator.style.setProperty('--verticator-scale', totalScale.toFixed(2));
 
-
-		deck.on( 'resize', event => {
+		deck.on('resize', event => {
 			revealScale = event.scale;
 			totalScale = revealScale > 1 ? revealScale * userScale : userScale;
 			theVerticator.style.setProperty('--verticator-scale', totalScale.toFixed(2));
-		} );
+		});
 
 		if (options.offset != '3vmin') {
 			theVerticator.style.right = options.offset;
@@ -92,24 +48,26 @@ const Plugin = () => {
 
 		let activeclass = 'active';
 
-
-		const selectionArray = function (container, selectors) {
+		const selectionArray = function(container, selectors) {
 			let selections = container.querySelectorAll(selectors);
 			let selectionarray = Array.prototype.slice.call(selections);
 			return selectionarray;
 		};
 
-		const clickBullet = function (event) {
-			if ((event.target).matches('.verticator li a')) {
-				let currIndexh = (deck.getIndices()).h;
-				let currIndexf = (deck.getIndices()).v;
+		const clickBullet = function(event) {
+			if ((event.target)
+				.matches('.verticator li a')) {
+				let currIndexh = (deck.getIndices())
+					.h;
+				let currIndexf = (deck.getIndices())
+					.v;
 				let i = getNodeindex(event.target.parentNode);
 				event.preventDefault();
 				deck.slide(currIndexh, i, currIndexf);
 			}
 		}
 
-		const activateBullet = function (event) {
+		const activateBullet = function(event) {
 
 			let listItems = selectionArray(theVerticator, 'li');
 
@@ -133,7 +91,7 @@ const Plugin = () => {
 
 			var bestMatch = options.indexbase - 1;
 
-			listItems.forEach(function (listItem, i) {
+			listItems.forEach(function(listItem, i) {
 				if (parseInt(listItem.getAttribute("data-index")) <= event.indexv + options.indexbase) {
 					bestMatch = i;
 				}
@@ -147,14 +105,12 @@ const Plugin = () => {
 
 		};
 
-		const ttName = function (element) {
-			if ( element.getAttribute("data-verticator-tooltip") && (element.getAttribute("data-verticator-tooltip")=="none" || element.getAttribute("data-verticator-tooltip")=="false") || element.classList.contains('no-verticator-tooltip') ) {
+		const ttName = function(element) {
+			if (element.getAttribute("data-verticator-tooltip") && (element.getAttribute("data-verticator-tooltip") == "none" || element.getAttribute("data-verticator-tooltip") == "false") || element.classList.contains('no-verticator-tooltip')) {
 				return
-			}
-			else if (options.tooltip != "auto" && element.getAttribute(`${options.tooltip}`)) {
+			} else if (options.tooltip != "auto" && element.getAttribute(`${options.tooltip}`)) {
 				return element.getAttribute(`${options.tooltip}`)
-			}
-			else if (options.tooltip == "auto") {
+			} else if (options.tooltip == "auto") {
 				for (const attr of ["data-verticator-tooltip", "data-name", "title"]) {
 					if (element.getAttribute(attr)) {
 						return element.getAttribute(attr);
@@ -162,21 +118,20 @@ const Plugin = () => {
 				}
 				for (const slctr of ["h1", "h2", "h3", "h4"]) {
 					if (element.querySelector(slctr)) {
-						return element.querySelector(slctr).textContent;
+						return element.querySelector(slctr)
+							.textContent;
 					}
 				}
-			}
-			else return false
+			} else return false
 		}
 
-		const createBullets = function (event, sections) {
-
+		const createBullets = function(event, sections) {
 
 			theVerticator.style.color = options.color;
 			theVerticator.classList.remove('visible');
 			let listHtml = '';
 
-			sections.forEach(function (section) {
+			sections.forEach(function(section) {
 				let i = section[0];
 				let tooltipname = section[1];
 				let link = `href="#/${event.indexh + options.indexbase}/${i + options.indexbase}"`
@@ -190,45 +145,39 @@ const Plugin = () => {
 				`;
 			});
 
-			
-
-			setTimeout(function () {
+			setTimeout(function() {
 				theVerticator.innerHTML = listHtml;
 				activateBullet(event);
 				theVerticator.classList.add('visible');
 			}, 200);
 		}
 
-
-		const slideAppear = function (event) {
+		const slideAppear = function(event) {
 
 			let slide = event.currentSlide;
 			let parent = slide.parentNode;
 
-
-
 			let sections = Array.from(parent.children)
-				.map(function (elem, index) {
+				.map(function(elem, index) {
 					return [index, elem];
 				})
-				.filter(function (indexedElem) {
-					return indexedElem[1].tagName == 'SECTION' &&
-						(!options.skipuncounted ||
-							indexedElem[1].getAttribute('data-visibility') !== 'uncounted')
+				.filter(function(indexedElem) {
+					let issection = indexedElem[1].tagName == 'SECTION' && indexedElem[1].parentNode.tagName == 'SECTION';
+					let isuncounted = options.skipuncounted && indexedElem[1].getAttribute('data-visibility') == 'uncounted';
+					return issection && !isuncounted;
 				})
-				.map(function (indexedElem) {
+				.map(function(indexedElem) {
 					let ttname = '';
 					if (options.tooltip) {
 						ttname = ttName(indexedElem[1]);
 					}
-					return [indexedElem[0],ttname];
+					return [indexedElem[0], ttname];
 				});
 
-
-			if (!parent.classList.contains('stack')) {
+			if (sections.length < 2) {
 				theVerticator.classList.remove('visible');
 				theVerticator.innerHTML = '';
-			} else if (sections.length > 1) {
+			} else {
 				if (event.previousSlide) {
 					let lastParent = event.previousSlide.parentNode;
 
@@ -239,11 +188,10 @@ const Plugin = () => {
 					createBullets(event, sections);
 				}
 
-				setTimeout(function () {
+				setTimeout(function() {
 					activateBullet(event);
 				}, 150);
 			}
-
 		};
 
 		if (theVerticator) {
@@ -253,7 +201,8 @@ const Plugin = () => {
 			deck.on('ready', event => {
 				slideAppear(event)
 			});
-			if ((deck.getConfig()).embedded) {
+			if ((deck.getConfig())
+				.embedded) {
 				deck.on('click', event => {
 					clickBullet(event)
 				});
@@ -262,7 +211,7 @@ const Plugin = () => {
 
 	};
 
-	const init = function (deck) {
+	const init = function(deck) {
 
 		let defaultOptions = {
 			darktheme: false,
@@ -277,8 +226,7 @@ const Plugin = () => {
 			scale: 1
 		};
 
-
-		const defaults = function (options, defaultOptions) {
+		const defaults = function(options, defaultOptions) {
 			for (let i in defaultOptions) {
 				if (!options.hasOwnProperty(i)) {
 					options[i] = defaultOptions[i];
@@ -286,9 +234,11 @@ const Plugin = () => {
 			}
 		}
 
-		let options = deck.getConfig().verticator || {};
+		let options = deck.getConfig()
+			.verticator || {};
 
-		options.indexbase = deck.getConfig().hashOneBasedIndex ? 1 : 0;
+		options.indexbase = deck.getConfig()
+			.hashOneBasedIndex ? 1 : 0;
 
 		if (options.darktheme) {
 			if (!options.hasOwnProperty('color')) {
