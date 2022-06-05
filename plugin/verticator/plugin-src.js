@@ -285,8 +285,8 @@ const Plugin = () => {
 			return path;
 		}
 
-		let VerticatorStylePath = !!options.csspath.verticator ? options.csspath.verticator : null || `${pluginPath()}verticator.css` || 'plugin/verticator/verticator.css'
-		let TooltipStylePath =!!options.csspath.tooltip ? options.csspath.tooltip : null  || `${pluginPath()}tooltip.css`  || 'plugin/verticator/tooltip.css'
+		let VerticatorStylePath = options.csspath.verticator ? options.csspath.verticator : null || `${pluginPath()}verticator.css` || 'plugin/verticator/verticator.css'
+		let TooltipStylePath = options.csspath.tooltip ? options.csspath.tooltip : null  || `${pluginPath()}tooltip.css`  || 'plugin/verticator/tooltip.css'
 
 		if (options.debug) {
 			console.log(`Plugin path = ${pluginPath()}`);

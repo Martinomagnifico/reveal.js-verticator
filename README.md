@@ -74,7 +74,7 @@ If you're using ES modules, you can add it like this:
 
 Since version 1.1.3, the styling of Verticator is automatically inserted from the included CSS styles, either loaded through NPM or from the plugin folder. If you enable tooltips in the options, the same goes for those styles.
 
-If you want to change the Verticator or tooltip style, you can simply make your own style and use that stylesheet instead. Linking to your custom styles can be managed through the `path` option of Verticator.
+If you want to change the Verticator or tooltip style, you can simply make your own style and use that stylesheet instead. Linking to your custom styles can be managed through the `csspath` option of Verticator.
 
 
 ### HTML
@@ -100,7 +100,7 @@ Reveal.initialize({
 		autogenerate: true,
 		tooltip: false,
 		scale: 1,
-		path: {
+		csspath: {
 			verticator: '',
 			tooltip: ''
 		}
@@ -126,7 +126,7 @@ Reveal.initialize({
     * `tooltip: 'data-name'`: When you use `tooltip: 'data-name'` or `tooltip: 'title'` or any other attribute with a string value, the tooltip will show that value. 
     * `tooltip: 'auto'`: When you use `tooltip: 'auto'`, Verticator will check titles of each slide in the order: `data-verticator-tooltip`, `data-name`, `title`, and if none found, headings inside each slide in the order: `h1`, `h2`, `h3`, `h4`. Auto-mode is convenient for Verticator tooltips in Markdown slides. Set `data-verticator-tooltip="none"` or a class of `no-verticator-tooltip` on specific slides if you don't want the attribute- or auto-tooltip to show at all.
 * **`scale`**: While Verticator will now scale according to the scale factor of the main slides (since version 1.1.1), the option `scale` will resize it manually on top of that. Set to `1` by default, it can be set to a minimum of `0.5` and a maximum of `2`.
-* **`path`**: Verticator will automatically load the styling for the bullets and (if needed) the tooltips. If you want to customise the styling, you can link to your own CSS files here for each of the styles.
+* **`csspath`**: Verticator will automatically load the styling for the bullets and (if needed) the tooltips. If you want to customise the styling, you can link to your own CSS files here for each of the styles.
 
 
 ## Like it?

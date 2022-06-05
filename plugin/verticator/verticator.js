@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.1.3
+ * Version 1.1.4
  * 
  * @license 
  * MIT licensed
@@ -294,8 +294,8 @@
 	      return path;
 	    }
 
-	    var VerticatorStylePath = !!options.csspath.verticator ? options.csspath.verticator :  "".concat(pluginPath(), "verticator.css") || 'plugin/verticator/verticator.css';
-	    var TooltipStylePath = !!options.csspath.tooltip ? options.csspath.tooltip :  "".concat(pluginPath(), "tooltip.css") || 'plugin/verticator/tooltip.css';
+	    var VerticatorStylePath = options.csspath.verticator ? options.csspath.verticator :  "".concat(pluginPath(), "verticator.css") || 'plugin/verticator/verticator.css';
+	    var TooltipStylePath = options.csspath.tooltip ? options.csspath.tooltip :  "".concat(pluginPath(), "tooltip.css") || 'plugin/verticator/tooltip.css';
 
 	    if (options.debug) {
 	      console.log("Plugin path = ".concat(pluginPath()));

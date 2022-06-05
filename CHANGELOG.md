@@ -1,9 +1,14 @@
 # Changelog
 
+## [1.1.4] - 2022-06-04
+### Changed
+- Typo fix
+
+
 ## [1.1.3] - 2022-06-04
 ### Added
 - Autoload the CSS styling. 
-- Added a new `path` option if the user wants to override the autoloading of the included styles. For example, to customise the styling.
+- Added a new `csspath` option if the user wants to override the autoloading of the included styles. For example, to customise the styling.
 
 ## [1.1.2] - 2022-03-07
 ### Changed
