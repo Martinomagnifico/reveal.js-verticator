@@ -22,6 +22,40 @@ p code, p kbd {
 p kbd {
   font-family: monospace; }
 
+.centerblock {
+  height: 100%;
+  min-height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: auto; }
+
+ol.twocol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  counter-reset: item;
+  -webkit-column-count: 2;
+     -moz-column-count: 2;
+          column-count: 2;
+  -webkit-column-gap: 20px;
+     -moz-column-gap: 20px;
+          column-gap: 20px; }
+  ol.twocol li {
+    counter-increment: item;
+    padding-left: 1.7em; }
+    ol.twocol li:before {
+      content: counter(item) ".";
+      margin-left: -1.7em;
+      margin-right: 0.5em;
+      display: inline-block;
+      width: 1.2em;
+      text-align: right; }
+
 a.github-corner {
   position: absolute;
   z-index: 1;

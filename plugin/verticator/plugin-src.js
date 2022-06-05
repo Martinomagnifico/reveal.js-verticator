@@ -1,7 +1,28 @@
 const Plugin = () => {
 
-	// Scope support polyfill
-	try { document.querySelector(":scope *") } catch (t) { ! function(t) { let e = /:scope(?![\w-])/gi, r = u(t.querySelector); t.querySelector = function(t) { return r.apply(this, arguments) }; let c = u(t.querySelectorAll); if (t.querySelectorAll = function(t) { return c.apply(this, arguments) }, t.matches) { let n = u(t.matches); t.matches = function(t) { return n.apply(this, arguments) } } if (t.closest) { let o = u(t.closest); t.closest = function(t) { return o.apply(this, arguments) } } function u(t) { return function(r) { if (r && e.test(r)) { let c = "q" + Math.floor(9e6 * Math.random()) + 1e6; arguments[0] = r.replace(e, "[" + c + "]"), this.setAttribute(c, ""); let n = t.apply(this, arguments); return this.removeAttribute(c), n } return t.apply(this, arguments) } } }(Element.prototype) }
+	const loadStyle = function(url, type, callback) {
+		let head = document.querySelector('head');
+		let style;
+		style = document.createElement('link');
+		style.rel = 'stylesheet';
+		style.href = url;
+
+		let finish = function () {
+		  if (typeof callback === 'function') {
+			callback.call();
+			callback = null;
+		  }
+		};
+	
+		style.onload = finish;
+	
+		style.onreadystatechange = function () {
+		  if (this.readyState === 'loaded') {
+			finish();
+		  }
+		};
+		head.appendChild(style);
+	}
 
 	const verticate = function(deck, options) {
 
@@ -137,12 +158,7 @@ const Plugin = () => {
 				let link = `href="#/${event.indexh + options.indexbase}/${i + options.indexbase}"`
 				let dataname = tooltipname ? `data-name="${tooltipname}"` : '';
 				let tooltip = tooltipname ? `<div class="tooltip"><span>${tooltipname}</span></div>` : '';
-				listHtml += `
-					<li data-index="${i + options.indexbase}">
-						<a ${options.clickable ? link : ''}${dataname}></a>
-						${tooltip}
-					</li>
-				`;
+				listHtml += `<li data-index="${i + options.indexbase}"><a ${options.clickable ? link : ''}${dataname}></a>${tooltip}</li>`;
 			});
 
 			setTimeout(function() {
@@ -213,6 +229,8 @@ const Plugin = () => {
 
 	const init = function(deck) {
 
+		let es5Filename = "verticator.js"
+
 		let defaultOptions = {
 			darktheme: false,
 			color: 'black',
@@ -223,7 +241,12 @@ const Plugin = () => {
 			offset: '3vmin',
 			autogenerate: true,
 			tooltip: false,
-			scale: 1
+			scale: 1,
+			csspath: {
+				verticator: '',
+				tooltip: ''
+			},
+			debug: false
 		};
 
 		const defaults = function(options, defaultOptions) {
@@ -250,8 +273,34 @@ const Plugin = () => {
 		}
 
 		defaults(options, defaultOptions);
-		verticate(deck, options);
 
+		function pluginPath() {
+			let path;
+			let pluginScript = document.querySelector(`script[src$="${es5Filename}"]`);
+			if (pluginScript) {
+				path = pluginScript.getAttribute("src").slice(0, -1 * (es5Filename.length));
+			} else {
+				path = import.meta.url.slice(0, import.meta.url.lastIndexOf('/') + 1);
+			}
+			return path;
+		}
+
+		let VerticatorStylePath = !!options.csspath.verticator ? options.csspath.verticator : null || `${pluginPath()}verticator.css` || 'plugin/verticator/verticator.css'
+		let TooltipStylePath =!!options.csspath.tooltip ? options.csspath.tooltip : null  || `${pluginPath()}tooltip.css`  || 'plugin/verticator/tooltip.css'
+
+		if (options.debug) {
+			console.log(`Plugin path = ${pluginPath()}`);
+			console.log(`Verticator CSS path = ${VerticatorStylePath}`);
+			console.log(`Tooltip CSS path = ${TooltipStylePath}`);
+		}
+
+		loadStyle(VerticatorStylePath, 'stylesheet', function () {
+			if (options.tooltip) {
+				loadStyle(TooltipStylePath, 'stylesheet');
+			}
+		});
+
+		verticate(deck, options);
 	};
 
 	return {

@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="../dist/reveal.css">
     <link rel="stylesheet" href="../dist/theme/white.css">
     <link rel="stylesheet" href="plugin/highlight/monokai.css">
-    <link rel="stylesheet" href="plugin/verticator/verticator.css">
     <link rel="stylesheet" href="css/demo.css">
 </head>
 
@@ -54,121 +53,133 @@
                     <h2>Options</h2>
                 </section>
                 <section class="center">
-                    <h3>Options</h3>
-                    <ol>
-                        <li>darktheme</li>
-                        <li>color</li>
-                        <li>oppositecolor</li>
-                        <li>skipuncounted</li>
-                        <li>clickable</li>
-                        <li>position</li>
-                        <li>offset</li>
-                        <li>autogenerate</li>
-                        <li>scale</li>
-                        <li>tooltip</li>
-                    </ol>
+                    <div class="centerblock" style="width: 80%">
+                        <h3>Options</h3>
+                        <ol class="twocol">
+                            <li>darktheme</li>
+                            <li>color</li>
+                            <li>oppositecolor</li>
+                            <li>skipuncounted</li>
+                            <li>clickable</li>
+                            <li>position</li>
+                            <li>offset</li>
+                            <li>autogenerate</li>
+                            <li>scale</li>
+                            <li>tooltip</li>
+                            <li>path</li>
+                        </ol>
+                    </div>
                 </section>
                 <section class="center">
                     <h4>Option 1: darktheme</h4>
                     <p>If your theme is dark, let Verticator know by setting it in the options: </p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		darktheme: true
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                     <p class="small">Now the Verticator colors will be white on <em>all</em> normal slides and black on slides that are set to a light background with attributes.</p>
                 </section>
                 <section class="center">
                     <h4>Option 2: color</h4>
                     <p>You can set the main color of the Verticator bullets to a specific color. You can use standard CSS named colors, hex or rgb ones:</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		color: 'red'
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                     <p class="small">For a light theme, the Verticator colors will be red on <em>all</em> normal slides and (still) white on slides that are set to a dark background with attributes.</p>
                 </section>
                 <section class="center">
                     <h4>Option 3: oppositecolor</h4>
                     <p>You can set the opposite color of the Verticator bullets to a specific color. These apply if a slide has an opposite color to the main background of the theme.</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		oppositecolor: 'yellow'
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                     <p class="small">For a light theme, the Verticator colors will (still) be black on normal slides and yellow on slides that are set to a dark background with attributes.</p>
                 </section>
                 <section class="center" data-visibility="uncounted">
                     <h4>Option 4: skipuncounted</h4>
                     <p>To omit drawing Verticator bullets for certain slides, set a data-attribute <kbd>data-visibility="uncounted"</kbd> to the slide. Then set this option (disabled by default, enabled in this demo) to true:</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		skipuncounted: true
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                     <p class="small">The data-attribute is the Reveal way to hide progress and skipping page numbers for certain slides.</p>
                 </section>
                 <section class="center">
                     <h4>Option 5: clickable</h4>
                     <p>Clicking on a a Verticator bullet jumps to to the corresponding page. This behaviour is enabled by default but can be disabled.</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		clickable: false
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                 </section>
                 <section class="center">
                     <h4>Option 6: position</h4>
                     <p>By default, Verticator is positioned on the right-hand side of the presentation. It can also be set on the left-hand side like this:</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		position: 'left'
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                 </section>
                 <section class="center">
                     <h4>Option 7: offset</h4>
                     <p>By default, Verticator is positioned '3vmin' off the edge of the presentation. It can be set to any other valid CSS size and unit:</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		offset: '40px'
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                 </section>
                 <section class="center">
                     <h4>Option 8: autogenerate</h4>
                     <p>Verticator will autogenerate bullets. In presentations with huge vertical stacks, this can result in an unsightly column of bullets. The user can then disable the autogeneration like this:</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		autogenerate: false
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                 </section>
                 <section class="center">
                     <h4>Option 9: tooltip</h4>
                     <p>Verticator can show tooltips of page titles, like this:</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		tooltip: 'data-name'
 	},
-	plugins: [ Verticator ]</code></pre>
+	plugins: [ Verticator ]
+})</code></pre>
                     <p class="small">It is turned off by default but can be enabled with these options:
                     <ul class="small">
                         <li><code>tooltip: 'data-name'</code> or any other attribute of the vertical slide. </li>
@@ -179,13 +190,28 @@
                 <section class="center">
                     <h4>Option 10: scale</h4>
                     <p>Verticator will scale with the same ratio as the Reveal slides (since v1.1.1), but only up. To make the Verticator even bigger, you can manually set a scale. It is set to 1 by default, but can be changed like this:</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		scale: 1.2
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
+                </section>
+                <section class="center">
+                    <h4>Option 11: path</h4>
+                    <p>Verticator will automatically load the styling for the bullets and (if needed) the tooltips. If you want to change the styling, you can link to your own CSS files:</p>
+                    <pre><code class="javascript">Reveal.initialize({
+	...
+	verticator: {
+		path: {
+			verticator:  'path-to/my-css-files/customverticator.css',
+			tooltip: 'path-to/my-css-files/customtooltip.css'
+		}
+	},
+	plugins: [ Verticator ]
+})</code></pre>
                 </section>
                 <section class="center">
                     <h4>Option demos</h4>

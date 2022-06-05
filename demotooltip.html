@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="../dist/reveal.css">
     <link rel="stylesheet" href="../dist/theme/white.css">
     <link rel="stylesheet" href="plugin/highlight/monokai.css">
-    <link rel="stylesheet" href="plugin/verticator/verticator.css">
-    <link rel="stylesheet" href="plugin/verticator/tooltip.css">
     <link rel="stylesheet" href="css/demo.css">
 </head>
 
@@ -40,12 +38,13 @@
                 <section class="center">
                     <h3>Tooltip: section attribute</h3>
                     <p class="small">When you use <code>tooltip: 'data-name'</code> or <code>tooltip: 'title'</code> or any other attribute with a string value, the tooltip will show that value.</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		tooltip: 'data-name',
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                     <pre><code><section data-name="Tooltip: section attribute">Content</section>
 </code></pre>
@@ -53,24 +52,26 @@
                 <section class="center" data-name="Tooltip: auto mode">
                     <h3>Tooltip: auto</h3>
                     <p class="small">When you use <code>tooltip: 'auto'</code>, Verticator will check titles of each slide in the order: <code>data-verticator-tooltip</code>, <code>data-name</code>, <code>title</code>, and if none found, headings inside each slide in the order: <code>h1</code>, <code>h2</code>, <code>h3</code>, <code>h4</code>. For this slide it will use the first attribute in the list that it can find: <code>data-name</code>.</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		tooltip: 'auto',
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                     <pre><code><section title="Not this" data-name="Tooltip: auto mode">Content</section></code></pre>
                 </section>
                 <section class="center">
                     <h3>Heading for the tooltip</h3>
                     <p class="small">This section has no attribute set, and because the auto-mode is set, will return the first heading it can find for the text inside the tooltip.</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		tooltip: 'auto',
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                     <pre><code><section>Content</section></code></pre>
                     <p class="small">Auto-mode is convenient for Verticator tooltips in Markdown slides.</p>
@@ -78,12 +79,13 @@
                 <section class="center" data-verticator-tooltip="false" data-name="Not this">
                     <h3>No tooltip at all</h3>
                     <p class="small">To avoid showing the tooltip, set <code>data-verticator-tooltip="none"</code>. This will turn off the tooltip for only that section.</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		tooltip: 'auto',
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                     <pre><code><section data-verticator-tooltip="none" data-name="Not this">Content</section></code></pre>
                 </section>

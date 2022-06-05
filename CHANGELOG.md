@@ -1,6 +1,16 @@
 # Changelog
 
-## [1.1.1] - 2020-03-07
+## [1.1.3] - 2022-06-04
+### Added
+- Autoload the CSS styling. 
+- Added a new `path` option if the user wants to override the autoloading of the included styles. For example, to customise the styling.
+
+## [1.1.2] - 2022-03-07
+### Changed
+- Bugfix
+
+
+## [1.1.1] - 2022-03-07
 ### Added
 - Added a new `tooltip` option
 - Added a new `scale` option

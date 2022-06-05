@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="../dist/reset.css">
     <link rel="stylesheet" href="../dist/reveal.css">
     <link rel="stylesheet" href="../dist/theme/white.css">
-    <link rel="stylesheet" href="plugin/verticator/verticator.css">
     <link rel="stylesheet" href="css/demo.css">
 </head>
 
@@ -31,13 +30,14 @@
                     <h3>This theme has a light background</h3>
                     <p>No need to set the option for 'darktheme'.</p>
                     <p>Replace the colors to your liking.</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		color: 'green',
 		oppositecolor: 'orange'
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                 </section>
                 <section class="center" data-background="#fff">

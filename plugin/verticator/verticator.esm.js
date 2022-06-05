@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.1.2
+ * Version 1.1.3
  * 
  * @license 
  * MIT licensed
@@ -15,55 +15,30 @@
 
 
 var Plugin = function Plugin() {
-  // Scope support polyfill
-  try {
-    document.querySelector(":scope *");
-  } catch (t) {
-    !function (t) {
-      var e = /:scope(?![\w-])/gi,
-          r = u(t.querySelector);
+  var loadStyle = function loadStyle(url, type, callback) {
+    var head = document.querySelector('head');
+    var style;
+    style = document.createElement('link');
+    style.rel = 'stylesheet';
+    style.href = url;
 
-      t.querySelector = function (t) {
-        return r.apply(this, arguments);
-      };
-
-      var c = u(t.querySelectorAll);
-
-      if (t.querySelectorAll = function (t) {
-        return c.apply(this, arguments);
-      }, t.matches) {
-        var n = u(t.matches);
-
-        t.matches = function (t) {
-          return n.apply(this, arguments);
-        };
+    var finish = function finish() {
+      if (typeof callback === 'function') {
+        callback.call();
+        callback = null;
       }
+    };
 
-      if (t.closest) {
-        var o = u(t.closest);
+    style.onload = finish;
 
-        t.closest = function (t) {
-          return o.apply(this, arguments);
-        };
+    style.onreadystatechange = function () {
+      if (this.readyState === 'loaded') {
+        finish();
       }
+    };
 
-      function u(t) {
-        return function (r) {
-          if (r && e.test(r)) {
-            var _c = "q" + Math.floor(9e6 * Math.random()) + 1e6;
-
-            arguments[0] = r.replace(e, "[" + _c + "]"), this.setAttribute(_c, "");
-
-            var _n = t.apply(this, arguments);
-
-            return this.removeAttribute(_c), _n;
-          }
-
-          return t.apply(this, arguments);
-        };
-      }
-    }(Element.prototype);
-  }
+    head.appendChild(style);
+  };
 
   var verticate = function verticate(deck, options) {
     var userScale = options.scale;
@@ -193,7 +168,7 @@ var Plugin = function Plugin() {
         var link = "href=\"#/".concat(event.indexh + options.indexbase, "/").concat(i + options.indexbase, "\"");
         var dataname = tooltipname ? "data-name=\"".concat(tooltipname, "\"") : '';
         var tooltip = tooltipname ? "<div class=\"tooltip\"><span>".concat(tooltipname, "</span></div>") : '';
-        listHtml += "\n\t\t\t\t\t<li data-index=\"".concat(i + options.indexbase, "\">\n\t\t\t\t\t\t<a ").concat(options.clickable ? link : '').concat(dataname, "></a>\n\t\t\t\t\t\t").concat(tooltip, "\n\t\t\t\t\t</li>\n\t\t\t\t");
+        listHtml += "<li data-index=\"".concat(i + options.indexbase, "\"><a ").concat(options.clickable ? link : '').concat(dataname, "></a>").concat(tooltip, "</li>");
       });
       setTimeout(function () {
         theVerticator.innerHTML = listHtml;
@@ -258,6 +233,7 @@ var Plugin = function Plugin() {
   };
 
   var init = function init(deck) {
+    var es5Filename = "verticator.js";
     var defaultOptions = {
       darktheme: false,
       color: 'black',
@@ -268,7 +244,12 @@ var Plugin = function Plugin() {
       offset: '3vmin',
       autogenerate: true,
       tooltip: false,
-      scale: 1
+      scale: 1,
+      csspath: {
+        verticator: '',
+        tooltip: ''
+      },
+      debug: false
     };
 
     var defaults = function defaults(options, defaultOptions) {
@@ -293,6 +274,34 @@ var Plugin = function Plugin() {
     }
 
     defaults(options, defaultOptions);
+
+    function pluginPath() {
+      var path;
+      var pluginScript = document.querySelector("script[src$=\"".concat(es5Filename, "\"]"));
+
+      if (pluginScript) {
+        path = pluginScript.getAttribute("src").slice(0, -1 * es5Filename.length);
+      } else {
+        path = import.meta.url.slice(0, import.meta.url.lastIndexOf('/') + 1);
+      }
+
+      return path;
+    }
+
+    var VerticatorStylePath = !!options.csspath.verticator ? options.csspath.verticator :  "".concat(pluginPath(), "verticator.css") || 'plugin/verticator/verticator.css';
+    var TooltipStylePath = !!options.csspath.tooltip ? options.csspath.tooltip :  "".concat(pluginPath(), "tooltip.css") || 'plugin/verticator/tooltip.css';
+
+    if (options.debug) {
+      console.log("Plugin path = ".concat(pluginPath()));
+      console.log("Verticator CSS path = ".concat(VerticatorStylePath));
+      console.log("Tooltip CSS path = ".concat(TooltipStylePath));
+    }
+
+    loadStyle(VerticatorStylePath, 'stylesheet', function () {
+      if (options.tooltip) {
+        loadStyle(TooltipStylePath);
+      }
+    });
     verticate(deck, options);
   };
 

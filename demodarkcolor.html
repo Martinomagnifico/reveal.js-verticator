@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="../dist/reset.css">
     <link rel="stylesheet" href="../dist/reveal.css">
     <link rel="stylesheet" href="../dist/theme/black.css">
-    <link rel="stylesheet" href="plugin/verticator/verticator.css">
     <link rel="stylesheet" href="css/demo.css">
     <style>
         .backgrounds {
@@ -36,7 +35,7 @@
                     <h3>This theme has a dark background</h3>
                     <p>Let Verticator know this by setting 'darktheme' to true.</p>
                     <p>Replace the colors to your liking.</p>
-                    <pre><code>Reveal.initialize({
+                    <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
 		darktheme: true,
@@ -44,6 +43,7 @@
 		oppositecolor: 'red'
 	},
 	plugins: [ Verticator ]
+})
 </code></pre>
                 </section>
                 <section class="center" data-background="#fff">
