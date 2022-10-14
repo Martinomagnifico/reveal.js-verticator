@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.1.4
+ * Version 1.1.5
  * 
  * @license 
  * MIT licensed
@@ -101,8 +101,30 @@ var Plugin = function Plugin() {
 
     var activateBullet = function activateBullet(event) {
       var listItems = selectionArray(theVerticator, 'li');
+      var hasDarkBackground = false;
+      var hasLightBackground = false;
 
       if (revealElement.classList.contains('has-dark-background')) {
+        hasDarkBackground = true;
+      }
+
+      if (revealElement.classList.contains('has-light-background')) {
+        hasLightBackground = true;
+      }
+
+      if (event.currentSlide.dataset.state) {
+        var currentState = event.currentSlide.dataset.state.split(' ');
+
+        if (currentState.includes("has-dark-background")) {
+          hasDarkBackground = true;
+        }
+
+        if (currentState.includes("has-light-background")) {
+          hasLightBackground = true;
+        }
+      }
+
+      if (hasDarkBackground) {
         theVerticator.style.color = options.oppositecolor;
         theVerticator.style.setProperty('--bullet-maincolor', options.oppositecolor);
       } else {
@@ -111,7 +133,7 @@ var Plugin = function Plugin() {
       }
 
       if (options.darktheme) {
-        if (revealElement.classList.contains('has-light-background')) {
+        if (hasLightBackground) {
           theVerticator.style.color = options.oppositecolor;
           theVerticator.style.setProperty('--bullet-maincolor', options.oppositecolor);
         } else {
@@ -220,9 +242,6 @@ var Plugin = function Plugin() {
       deck.on('slidechanged', function (event) {
         slideAppear(event);
       });
-      deck.on('ready', function (event) {
-        slideAppear(event);
-      });
 
       if (deck.getConfig().embedded) {
         deck.on('click', function (event) {
@@ -288,8 +307,8 @@ var Plugin = function Plugin() {
       return path;
     }
 
-    var VerticatorStylePath = options.csspath.verticator ? options.csspath.verticator :  "".concat(pluginPath(), "verticator.css") || 'plugin/verticator/verticator.css';
-    var TooltipStylePath = options.csspath.tooltip ? options.csspath.tooltip :  "".concat(pluginPath(), "tooltip.css") || 'plugin/verticator/tooltip.css';
+    var VerticatorStylePath = options.csspath.verticator ? options.csspath.verticator : "".concat(pluginPath(), "verticator.css") || 'plugin/verticator/verticator.css';
+    var TooltipStylePath = options.csspath.tooltip ? options.csspath.tooltip : "".concat(pluginPath(), "tooltip.css") || 'plugin/verticator/tooltip.css';
 
     if (options.debug) {
       console.log("Plugin path = ".concat(pluginPath()));
@@ -299,7 +318,7 @@ var Plugin = function Plugin() {
 
     loadStyle(VerticatorStylePath, 'stylesheet', function () {
       if (options.tooltip) {
-        loadStyle(TooltipStylePath);
+        loadStyle(TooltipStylePath, 'stylesheet');
       }
     });
     verticate(deck, options);
@@ -311,4 +330,4 @@ var Plugin = function Plugin() {
   };
 };
 
-export default Plugin;
+export { Plugin as default };

@@ -1,9 +1,11 @@
 .small {
-  font-size: .7em; }
+  font-size: 0.7em;
+}
 
 .smallitalic {
-  font-size: .7em;
-  font-style: italic; }
+  font-size: 0.7em;
+  font-style: italic;
+}
 
 .reveal pre {
   width: 100%;
@@ -11,16 +13,19 @@
   -webkit-box-shadow: none;
           box-shadow: none;
   border-radius: 4px;
-  background: rgba(180, 180, 180, 0.5); }
+  background: rgba(180, 180, 180, 0.5);
+}
 
 p code, p kbd {
   background: rgba(180, 180, 180, 0.2);
   font-size: 0.8em;
   padding: 5px 10px;
-  border-radius: 4px; }
+  border-radius: 4px;
+}
 
 p kbd {
-  font-family: monospace; }
+  font-family: monospace;
+}
 
 .centerblock {
   height: 100%;
@@ -32,7 +37,8 @@ p kbd {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin: auto; }
+  margin: auto;
+}
 
 ol.twocol {
   padding: 0;
@@ -44,17 +50,20 @@ ol.twocol {
           column-count: 2;
   -webkit-column-gap: 20px;
      -moz-column-gap: 20px;
-          column-gap: 20px; }
-  ol.twocol li {
-    counter-increment: item;
-    padding-left: 1.7em; }
-    ol.twocol li:before {
-      content: counter(item) ".";
-      margin-left: -1.7em;
-      margin-right: 0.5em;
-      display: inline-block;
-      width: 1.2em;
-      text-align: right; }
+          column-gap: 20px;
+}
+ol.twocol li {
+  counter-increment: item;
+  padding-left: 1.7em;
+}
+ol.twocol li:before {
+  content: counter(item) ".";
+  margin-left: -1.7em;
+  margin-right: 0.5em;
+  display: inline-block;
+  width: 1.2em;
+  text-align: right;
+}
 
 a.github-corner {
   position: absolute;
@@ -64,24 +73,31 @@ a.github-corner {
   line-height: 0;
   color: var(--r-main-color);
   opacity: 0.5;
-  -webkit-transition: opacity .3s;
-  -o-transition: opacity .3s;
-  transition: opacity .3s; }
-  .has-dark-background a.github-corner {
-    color: white; }
-  .has-light-background a.github-corner {
-    color: black; }
-  a.github-corner.bottom {
-    top: auto;
-    bottom: 3px; }
+  -webkit-transition: opacity 0.3s;
+  -o-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+.has-dark-background a.github-corner {
+  color: white;
+}
+.has-light-background a.github-corner {
+  color: black;
+}
+a.github-corner.bottom {
+  top: auto;
+  bottom: 3px;
+}
 
 a.github-corner:hover {
   color: var(--r-main-color);
-  opacity: 1; }
-  .has-dark-background a.github-corner:hover {
-    color: white; }
-  .has-light-background a.github-corner:hover {
-    color: black; }
+  opacity: 1;
+}
+.has-dark-background a.github-corner:hover {
+  color: white;
+}
+.has-light-background a.github-corner:hover {
+  color: black;
+}
 
 .reveal pre {
   font-size: 18px;
@@ -98,22 +114,28 @@ a.github-corner:hover {
   word-break: break-all;
   word-wrap: break-word;
   white-space: pre-wrap;
-  cursor: default; }
-  .reveal pre:focus {
-    outline: none; }
-  .reveal pre code {
-    border-radius: 4px;
-    padding: 10px 15px;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    line-height: 30px; }
-    .reveal pre code:focus {
-      outline: none; }
-  .reveal pre + pre {
-    margin-top: 20px; }
+  cursor: default;
+}
+.reveal pre:focus {
+  outline: none;
+}
+.reveal pre code {
+  border-radius: 4px;
+  padding: 10px 15px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  line-height: 30px;
+}
+.reveal pre code:focus {
+  outline: none;
+}
+.reveal pre + pre {
+  margin-top: 20px;
+}
 
 li code {
   padding: 0.05em 0.3em;
   font-size: 0.8em;
   border-radius: 4px;
-  background-color: rgba(39, 40, 34, 0.2); }
+  background-color: rgba(39, 40, 34, 0.2);
+}

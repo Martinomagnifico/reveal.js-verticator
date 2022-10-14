@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.1.4
+ * Version 1.1.5
  * 
  * @license 
  * MIT licensed
@@ -17,8 +17,8 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
 	typeof define === 'function' && define.amd ? define(factory) :
-	(global = global || self, global.Verticator = factory());
-}(this, (function () { 'use strict';
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Verticator = factory());
+})(this, (function () { 'use strict';
 
 	var Plugin = function Plugin() {
 	  var loadStyle = function loadStyle(url, type, callback) {
@@ -107,8 +107,30 @@
 
 	    var activateBullet = function activateBullet(event) {
 	      var listItems = selectionArray(theVerticator, 'li');
+	      var hasDarkBackground = false;
+	      var hasLightBackground = false;
 
 	      if (revealElement.classList.contains('has-dark-background')) {
+	        hasDarkBackground = true;
+	      }
+
+	      if (revealElement.classList.contains('has-light-background')) {
+	        hasLightBackground = true;
+	      }
+
+	      if (event.currentSlide.dataset.state) {
+	        var currentState = event.currentSlide.dataset.state.split(' ');
+
+	        if (currentState.includes("has-dark-background")) {
+	          hasDarkBackground = true;
+	        }
+
+	        if (currentState.includes("has-light-background")) {
+	          hasLightBackground = true;
+	        }
+	      }
+
+	      if (hasDarkBackground) {
 	        theVerticator.style.color = options.oppositecolor;
 	        theVerticator.style.setProperty('--bullet-maincolor', options.oppositecolor);
 	      } else {
@@ -117,7 +139,7 @@
 	      }
 
 	      if (options.darktheme) {
-	        if (revealElement.classList.contains('has-light-background')) {
+	        if (hasLightBackground) {
 	          theVerticator.style.color = options.oppositecolor;
 	          theVerticator.style.setProperty('--bullet-maincolor', options.oppositecolor);
 	        } else {
@@ -226,9 +248,6 @@
 	      deck.on('slidechanged', function (event) {
 	        slideAppear(event);
 	      });
-	      deck.on('ready', function (event) {
-	        slideAppear(event);
-	      });
 
 	      if (deck.getConfig().embedded) {
 	        deck.on('click', function (event) {
@@ -288,14 +307,14 @@
 	      if (pluginScript) {
 	        path = pluginScript.getAttribute("src").slice(0, -1 * es5Filename.length);
 	      } else {
-	        path = (typeof document === 'undefined' ? new (require('u' + 'rl').URL)('file:' + __filename).href : (document.currentScript && document.currentScript.src || new URL('verticator.js', document.baseURI).href)).slice(0, (typeof document === 'undefined' ? new (require('u' + 'rl').URL)('file:' + __filename).href : (document.currentScript && document.currentScript.src || new URL('verticator.js', document.baseURI).href)).lastIndexOf('/') + 1);
+	        path = (typeof document === 'undefined' && typeof location === 'undefined' ? new (require('u' + 'rl').URL)('file:' + __filename).href : typeof document === 'undefined' ? location.href : (document.currentScript && document.currentScript.src || new URL('verticator.js', document.baseURI).href)).slice(0, (typeof document === 'undefined' && typeof location === 'undefined' ? new (require('u' + 'rl').URL)('file:' + __filename).href : typeof document === 'undefined' ? location.href : (document.currentScript && document.currentScript.src || new URL('verticator.js', document.baseURI).href)).lastIndexOf('/') + 1);
 	      }
 
 	      return path;
 	    }
 
-	    var VerticatorStylePath = options.csspath.verticator ? options.csspath.verticator :  "".concat(pluginPath(), "verticator.css") || 'plugin/verticator/verticator.css';
-	    var TooltipStylePath = options.csspath.tooltip ? options.csspath.tooltip :  "".concat(pluginPath(), "tooltip.css") || 'plugin/verticator/tooltip.css';
+	    var VerticatorStylePath = options.csspath.verticator ? options.csspath.verticator : "".concat(pluginPath(), "verticator.css") || 'plugin/verticator/verticator.css';
+	    var TooltipStylePath = options.csspath.tooltip ? options.csspath.tooltip : "".concat(pluginPath(), "tooltip.css") || 'plugin/verticator/tooltip.css';
 
 	    if (options.debug) {
 	      console.log("Plugin path = ".concat(pluginPath()));
@@ -305,7 +324,7 @@
 
 	    loadStyle(VerticatorStylePath, 'stylesheet', function () {
 	      if (options.tooltip) {
-	        loadStyle(TooltipStylePath);
+	        loadStyle(TooltipStylePath, 'stylesheet');
 	      }
 	    });
 	    verticate(deck, options);
@@ -319,4 +338,4 @@
 
 	return Plugin;
 
-})));
+}));

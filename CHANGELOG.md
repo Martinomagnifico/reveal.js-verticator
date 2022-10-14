@@ -1,5 +1,13 @@
 # Changelog
 
+
+## [1.1.5] - 2022-10-14
+### Changed
+- In some cases the 'has-dark-background' (or light) was not correctly applied to the Reveal element. This fix now also looks at the slides that request these class changes.
+- Verticator margin set to 0.
+- Increase specificity of the tooltip.
+
+
 ## [1.1.4] - 2022-06-04
 ### Changed
 - Typo fix

@@ -1,7 +1,8 @@
 :root {
-  --verticator-scale: 1; }
+  --verticator-scale: 1;
+}
 
-.tooltip {
+.verticator .tooltip {
   position: absolute;
   top: 9px;
   right: 24px;
@@ -26,36 +27,41 @@
   max-width: 15em;
   display: block;
   -webkit-font-smoothing: antialiased;
-  color: black; }
-  .tooltip span {
-    white-space: nowrap;
-    display: block;
-    overflow: hidden;
-    -o-text-overflow: ellipsis;
-       text-overflow: ellipsis;
-    line-height: 1.25; }
-  .tooltip::after {
-    content: '';
-    display: block;
-    width: .66em;
-    height: .66em;
-    background: white;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    -webkit-transform: translate3d(50%, -50%, -1px) rotate(45deg);
-            transform: translate3d(50%, -50%, -1px) rotate(45deg); }
+  color: black;
+}
+.verticator .tooltip span {
+  white-space: nowrap;
+  display: block;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+     text-overflow: ellipsis;
+  line-height: 1.25;
+}
+.verticator .tooltip::after {
+  content: "";
+  display: block;
+  width: 0.66em;
+  height: 0.66em;
+  background: white;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -webkit-transform: translate3d(50%, -50%, -1px) rotate(45deg);
+          transform: translate3d(50%, -50%, -1px) rotate(45deg);
+}
 
 .verticator.left .tooltip {
   right: auto;
   left: calc(12px * var(--verticator-scale) * 2);
   -webkit-box-shadow: calc(-4px * var(--verticator-scale)) calc(6px * var(--verticator-scale)) calc(16px * var(--verticator-scale)) rgba(0, 0, 0, 0.25);
-          box-shadow: calc(-4px * var(--verticator-scale)) calc(6px * var(--verticator-scale)) calc(16px * var(--verticator-scale)) rgba(0, 0, 0, 0.25); }
-  .verticator.left .tooltip::after {
-    right: auto;
-    left: 0;
-    -webkit-transform: translate3d(-50%, -50%, -1px) rotate(45deg);
-            transform: translate3d(-50%, -50%, -1px) rotate(45deg); }
+          box-shadow: calc(-4px * var(--verticator-scale)) calc(6px * var(--verticator-scale)) calc(16px * var(--verticator-scale)) rgba(0, 0, 0, 0.25);
+}
+.verticator.left .tooltip::after {
+  right: auto;
+  left: 0;
+  -webkit-transform: translate3d(-50%, -50%, -1px) rotate(45deg);
+          transform: translate3d(-50%, -50%, -1px) rotate(45deg);
+}
 
 .verticator li a + .tooltip {
   pointer-events: none;
@@ -64,9 +70,11 @@
   -webkit-transition: opacity 0.125s ease-in-out;
   -o-transition: opacity 0.125s ease-in-out;
   transition: opacity 0.125s ease-in-out;
-  -webkit-transition-delay: .125s;
-       -o-transition-delay: .125s;
-          transition-delay: .125s; }
+  -webkit-transition-delay: 0.125s;
+       -o-transition-delay: 0.125s;
+          transition-delay: 0.125s;
+}
 
 .verticator li a:hover + .tooltip {
-  opacity: 1; }
+  opacity: 1;
+}

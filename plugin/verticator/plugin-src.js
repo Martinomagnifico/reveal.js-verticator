@@ -91,8 +91,27 @@ const Plugin = () => {
 		const activateBullet = function(event) {
 
 			let listItems = selectionArray(theVerticator, 'li');
+			let hasDarkBackground = false;
+			let hasLightBackground = false;
 
 			if (revealElement.classList.contains('has-dark-background')) {
+				hasDarkBackground = true;
+			}
+			if (revealElement.classList.contains('has-light-background')) {
+				hasLightBackground = true;
+			}
+
+			if (event.currentSlide.dataset.state) {
+				let currentState = event.currentSlide.dataset.state.split(' ');	
+				if (currentState.includes("has-dark-background")) {
+					hasDarkBackground = true;
+				}
+				if (currentState.includes("has-light-background")) {
+					hasLightBackground = true;
+				}
+			}
+
+			if (hasDarkBackground) {
 				theVerticator.style.color = options.oppositecolor;
 				theVerticator.style.setProperty('--bullet-maincolor', options.oppositecolor);
 			} else {
@@ -101,7 +120,7 @@ const Plugin = () => {
 			}
 
 			if (options.darktheme) {
-				if (revealElement.classList.contains('has-light-background')) {
+				if (hasLightBackground) {
 					theVerticator.style.color = options.oppositecolor;
 					theVerticator.style.setProperty('--bullet-maincolor', options.oppositecolor);
 				} else {
@@ -212,9 +231,6 @@ const Plugin = () => {
 
 		if (theVerticator) {
 			deck.on('slidechanged', event => {
-				slideAppear(event)
-			});
-			deck.on('ready', event => {
 				slideAppear(event)
 			});
 			if ((deck.getConfig())
