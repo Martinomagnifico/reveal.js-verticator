@@ -1,6 +1,13 @@
 # Changelog
 
 
+## [1.2.0] - 2022-11-11
+### Changed
+- Verticator now uses the theme’s colors
+- Colors can now be overridden per slide
+- The position is now automatically set by the `rtl` setting
+
+
 ## [1.1.5] - 2022-10-14
 ### Changed
 - In some cases the 'has-dark-background' (or light) was not correctly applied to the Reveal element. This fix now also looks at the slides that request these class changes.

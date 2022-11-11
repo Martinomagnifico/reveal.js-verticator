@@ -10,13 +10,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="../dist/reset.css">
     <link rel="stylesheet" href="../dist/reveal.css">
-    <link rel="stylesheet" href="../dist/theme/black.css">
+    <link rel="stylesheet" href="../dist/theme/white.css">
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
     <link rel="stylesheet" href="css/demo.css">
-    <style>
-        .backgrounds {
-            background: #1a1626;
-        }
-    </style>
 </head>
 
 <body>
@@ -28,27 +24,28 @@
             <section class="center">
                 <h1>Verticator</h1>
                 <h3>for Reveal.js</h3>
-                <h4>Dark theme</h4>
+                <h4>Light theme with color options</h4>
             </section>
             <section class="center">
                 <section class="center">
                     <h3>This theme has a dark background</h3>
-                    <p>Let Verticator know this by setting 'darktheme' to true.</p>
+                    <p>Replace the colors to your liking.</p>
                     <pre><code class="javascript">Reveal.initialize({
 	...
 	verticator: {
-		darktheme: true
+		color: 'blue',
+		inversecolor: 'orange'
 	},
 	plugins: [ Verticator ]
 })
 </code></pre>
                 </section>
                 <section class="center" data-background="#fff">
-                    <p>This slide has a light data-background attribute (while the theme is dark). The bullets will be black.</p>
+                    <p>This slide has a light data-background attribute.</p>
+                    <p>It has no effect on the Verticator bullets, because the theme is already light.</p>
                 </section>
                 <section class="center" data-background="#112266">
                     <p>This slide has a dark data-background attribute.</p>
-                    <p>It has no effect on the Verticator bullets, because the theme is already dark.</p>
                 </section>
                 <section class="center">
                     <h3>And a regular slide</h3>
@@ -58,14 +55,19 @@
     </div>
     <script src="../dist/reveal.js"></script>
     <script src="plugin/verticator/verticator.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
     <script>
         Reveal.initialize({
             transition: "slide",
+            width: 1024,
+            margin: 0.07,
             verticator: {
-                darktheme: true
+                color: "blue",
+                inversecolor: "orange"
             },
             plugins: [
-                Verticator
+                Verticator,
+                RevealHighlight
             ]
         });
     </script>

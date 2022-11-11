@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.1.5
+ * Version 1.2.0
  * 
  * @license 
  * MIT licensed
@@ -21,6 +21,13 @@
 })(this, (function () { 'use strict';
 
 	var Plugin = function Plugin() {
+	  var lightClass = "has-light-background";
+	  var darkClass = "has-dark-background";
+	  var themeColorVar = "--c-theme-color";
+	  var vertiColorVar = "--v-color";
+	  var forceColorVar = "--v-forcecolor";
+	  var activeclass = 'active';
+
 	  var loadStyle = function loadStyle(url, type, callback) {
 	    var head = document.querySelector('head');
 	    var style;
@@ -46,6 +53,48 @@
 	    head.appendChild(style);
 	  };
 
+	  var findThemeColors = function findThemeColors(parent, tag) {
+	    var themeColors = {};
+	    var colorSection = document.createElement("section");
+	    var sectionChild = document.createElement(tag);
+	    parent.getElementsByClassName('slides')[0].appendChild(colorSection).appendChild(sectionChild);
+	    themeColors.regular = getComputedStyle(sectionChild).getPropertyValue('color');
+	    colorSection.classList.add(lightClass);
+	    themeColors.inverse = getComputedStyle(sectionChild).getPropertyValue('color');
+
+	    if (themeColors.regular == themeColors.inverse) {
+	      themeColors.theme = "light";
+	      colorSection.classList.remove(lightClass);
+	      colorSection.classList.add(darkClass);
+	      themeColors.inverse = getComputedStyle(sectionChild).getPropertyValue('color');
+	    } else {
+	      themeColors.theme = "dark";
+	    }
+
+	    colorSection.remove();
+	    return themeColors;
+	  };
+
+	  var swapColors = function swapColors(needToSwap, options, colors, revealElement, theVerticator) {
+	    if (needToSwap) {
+	      revealElement.style.setProperty(themeColorVar, colors.themeinverse);
+
+	      if (options.inversecolor || options.oppositecolor) {
+	        theVerticator.style.setProperty(vertiColorVar, colors.verticatorinverse);
+	      } else {
+	        theVerticator.style.removeProperty(vertiColorVar);
+	      }
+	    } else {
+	      revealElement.style.setProperty(themeColorVar, colors.themeregular);
+
+	      if (options.color) {
+	        theVerticator.style.setProperty(vertiColorVar, colors.verticatorregular);
+	      } else {
+	        theVerticator.style.removeProperty(vertiColorVar);
+	      }
+	    }
+	  };
+
 	  var verticate = function verticate(deck, options) {
 	    var userScale = options.scale;
 	    userScale = userScale > 2 ? 2 : userScale < 0.5 ? 0.5 : userScale;
@@ -67,6 +116,105 @@
 	    var revealScale = deck.getScale();
 	    var totalScale = revealScale > 1 ? revealScale * userScale : userScale;
 	    theVerticator.style.setProperty('--verticator-scale', totalScale.toFixed(2));
+	    var colors = {};
+	    var themeColors = findThemeColors(revealElement, options.themetag ? options.themetag : 'section');
+	    colors.theme = themeColors.theme;
+	    colors.themeregular = themeColors.regular;
+	    colors.themeinverse = themeColors.inverse;
+	    colors.verticatorregular = options.color ? options.color : themeColors.regular;
+	    colors.verticatorinverse = options.inversecolor ? options.inversecolor : options.oppositecolor ? options.oppositecolor : themeColors.inverse;
+
+	    if (options.debug) {
+	      console.log("Theme regular color is: \"".concat(colors.themeregular, "\""));
+	      console.log("Theme inverse color is: \"".concat(colors.themeinverse, "\""));
+
+	      if (options.color) {
+	        console.log("Verticator regular color is: \"".concat(colors.verticatorregular, "\""));
+	      }
+
+	      if (options.inversecolor || options.oppositecolor) {
+	        console.log("Verticator inverse color is: \"".concat(colors.verticatorinverse, "\""));
+	      }
+	    }
+
+	    revealElement.style.setProperty(themeColorVar, colors.themeregular);
+
+	    if (options.color) {
+	      theVerticator.style.setProperty(vertiColorVar, colors.verticatorregular);
+	    }
+
+	    var sectionState = {};
+	    sectionState.dark = revealElement.classList.contains(darkClass);
+	    sectionState.light = revealElement.classList.contains(lightClass);
+	    sectionState.rtl = revealElement.classList.contains('rtl');
+	    var revealElementObserver = new MutationObserver(function (mutations) {
+	      mutations.forEach(function (mutation) {
+	        mutation.target;
+
+	        if (mutation.attributeName === 'class') {
+	          var hasLightBg = mutation.target.classList.contains(lightClass);
+	          var hasDarkBg = mutation.target.classList.contains(darkClass);
+	          var leftAligned = mutation.target.classList.contains('rtl');
+
+	          if (sectionState.dark !== hasDarkBg || sectionState.light !== hasLightBg) {
+	            if (colors.theme == "dark" && sectionState.light !== hasLightBg) {
+	              sectionState.light = hasLightBg;
+	              swapColors(hasLightBg, options, colors, revealElement, theVerticator);
+	            }
+
+	            if (colors.theme == "light" && sectionState.dark !== hasDarkBg) {
+	              sectionState.dark = hasDarkBg;
+	              swapColors(hasDarkBg, options, colors, revealElement, theVerticator);
+	            }
+	          }
+
+	          if (options.position == "auto") {
+	            if (sectionState.rtl !== leftAligned) {
+	              sectionState.rtl = leftAligned;
+
+	              if (leftAligned) {
+	                theVerticator.style.left = options.offset;
+	                theVerticator.style.right = "auto";
+	                theVerticator.classList.add('left');
+	              } else {
+	                theVerticator.style.right = options.offset;
+	                theVerticator.style.left = "auto";
+	                theVerticator.classList.remove('left');
+	              }
+	            }
+	          }
+	        }
+	      });
+	    });
+	    revealElementObserver.observe(revealElement, {
+	      attributes: true,
+	      attributeFilter: ['class']
+	    });
+	    deck.on('slidechanged', function (event) {
+	      if (event.currentSlide.dataset.verticator) {
+	        if (event.currentSlide.dataset.verticator == "regular") {
+	          theVerticator.style.setProperty(forceColorVar, colors.verticatorregular);
+
+	          if (options.debug) {
+	            console.log("Verticator forced to: \"".concat(colors.verticatorregular, "\""));
+	          }
+	        } else if (event.currentSlide.dataset.verticator == "inverse") {
+	          theVerticator.style.setProperty(forceColorVar, colors.verticatorinverse);
+
+	          if (options.debug) {
+	            console.log("Verticator forced to: \"".concat(colors.verticatorinverse, "\""));
+	          }
+	        } else {
+	          theVerticator.style.setProperty(forceColorVar, deck.getCurrentSlide().dataset.verticator);
+
+	          if (options.debug) {
+	            console.log("Verticator forced to: \"".concat(deck.getCurrentSlide().dataset.verticator, "\""));
+	          }
+	        }
+	      } else {
+	        theVerticator.style.removeProperty(forceColorVar);
+	      }
+	    });
 	    deck.on('resize', function (event) {
 	      revealScale = event.scale;
 	      totalScale = revealScale > 1 ? revealScale * userScale : userScale;
@@ -77,17 +225,17 @@
 	      theVerticator.style.right = options.offset;
 	    }
 
-	    if (options.position == 'left') {
-	      theVerticator.classList.add('left');
-	      theVerticator.style.right = 'auto';
-	      theVerticator.style.left = options.offset;
-	    }
+	    theVerticator.style.right = options.offset;
 
-	    if (options.position != 'left' && options.position != 'right') {
-	      options.position = 'right';
-	    }
+	    if (options.position !== "auto") {
+	      var opposite = options.position == "left" ? "right" : "left";
+	      theVerticator.style[options.position] = options.offset;
+	      theVerticator.style[opposite] = "auto";
 
-	    var activeclass = 'active';
+	      if (options.position == "left" && options.tooltip !== false) {
+	        theVerticator.classList.add('left');
+	      }
+	    }
 
 	    var selectionArray = function selectionArray(container, selectors) {
 	      var selections = container.querySelectorAll(selectors);
@@ -107,50 +255,9 @@
 
 	    var activateBullet = function activateBullet(event) {
 	      var listItems = selectionArray(theVerticator, 'li');
-	      var hasDarkBackground = false;
-	      var hasLightBackground = false;
-
-	      if (revealElement.classList.contains('has-dark-background')) {
-	        hasDarkBackground = true;
-	      }
-
-	      if (revealElement.classList.contains('has-light-background')) {
-	        hasLightBackground = true;
-	      }
-
-	      if (event.currentSlide.dataset.state) {
-	        var currentState = event.currentSlide.dataset.state.split(' ');
-
-	        if (currentState.includes("has-dark-background")) {
-	          hasDarkBackground = true;
-	        }
-
-	        if (currentState.includes("has-light-background")) {
-	          hasLightBackground = true;
-	        }
-	      }
-
-	      if (hasDarkBackground) {
-	        theVerticator.style.color = options.oppositecolor;
-	        theVerticator.style.setProperty('--bullet-maincolor', options.oppositecolor);
-	      } else {
-	        theVerticator.style.color = options.color;
-	        theVerticator.style.setProperty('--bullet-maincolor', options.color);
-	      }
-
-	      if (options.darktheme) {
-	        if (hasLightBackground) {
-	          theVerticator.style.color = options.oppositecolor;
-	          theVerticator.style.setProperty('--bullet-maincolor', options.oppositecolor);
-	        } else {
-	          theVerticator.style.color = options.color;
-	          theVerticator.style.setProperty('--bullet-maincolor', options.color);
-	        }
-	      }
-
 	      var bestMatch = options.indexbase - 1;
 	      listItems.forEach(function (listItem, i) {
-	        if (parseInt(listItem.getAttribute("data-index")) <= event.indexv + options.indexbase) {
+	        if (parseInt(listItem.dataset.index) <= event.indexv + options.indexbase) {
 	          bestMatch = i;
 	        }
 
@@ -163,7 +270,7 @@
 	    };
 
 	    var ttName = function ttName(element) {
-	      if (element.getAttribute("data-verticator-tooltip") && (element.getAttribute("data-verticator-tooltip") == "none" || element.getAttribute("data-verticator-tooltip") == "false") || element.classList.contains('no-verticator-tooltip')) {
+	      if (element.dataset.verticatorTooltip && (element.dataset.verticatorTooltip == "none" || element.dataset.verticatorTooltip == "false") || element.classList.contains('no-verticator-tooltip')) {
 	        return;
 	      } else if (options.tooltip != "auto" && element.getAttribute("".concat(options.tooltip))) {
 	        return element.getAttribute("".concat(options.tooltip));
@@ -187,7 +294,6 @@
 	    };
 
 	    var createBullets = function createBullets(event, sections) {
-	      theVerticator.style.color = options.color;
 	      theVerticator.classList.remove('visible');
 	      var listHtml = '';
 	      sections.forEach(function (section) {
@@ -198,11 +304,11 @@
 	        var tooltip = tooltipname ? "<div class=\"tooltip\"><span>".concat(tooltipname, "</span></div>") : '';
 	        listHtml += "<li data-index=\"".concat(i + options.indexbase, "\"><a ").concat(options.clickable ? link : '').concat(dataname, "></a>").concat(tooltip, "</li>");
 	      });
+	      theVerticator.innerHTML = listHtml;
+	      activateBullet(event);
 	      setTimeout(function () {
-	        theVerticator.innerHTML = listHtml;
-	        activateBullet(event);
 	        theVerticator.classList.add('visible');
-	      }, 200);
+	      }, 300);
 	    };
 
 	    var slideAppear = function slideAppear(event) {
@@ -238,15 +344,16 @@
 	          createBullets(event, sections);
 	        }
 
-	        setTimeout(function () {
-	          activateBullet(event);
-	        }, 150);
+	        activateBullet(event);
 	      }
 	    };
 
 	    if (theVerticator) {
-	      deck.on('slidechanged', function (event) {
-	        slideAppear(event);
+	      var eventnames = ['ready', 'slidechanged'];
+	      eventnames.forEach(function (eventname) {
+	        return deck.on(eventname, function (event) {
+	          slideAppear(event);
+	        });
 	      });
 
 	      if (deck.getConfig().embedded) {
@@ -260,12 +367,12 @@
 	  var init = function init(deck) {
 	    var es5Filename = "verticator.js";
 	    var defaultOptions = {
-	      darktheme: false,
-	      color: 'black',
-	      oppositecolor: 'white',
+	      themetag: 'h1',
+	      color: '',
+	      inversecolor: '',
 	      skipuncounted: false,
 	      clickable: true,
-	      position: 'right',
+	      position: 'auto',
 	      offset: '3vmin',
 	      autogenerate: true,
 	      tooltip: false,
@@ -287,17 +394,6 @@
 
 	    var options = deck.getConfig().verticator || {};
 	    options.indexbase = deck.getConfig().hashOneBasedIndex ? 1 : 0;
-
-	    if (options.darktheme) {
-	      if (!options.hasOwnProperty('color')) {
-	        defaultOptions.color = 'white';
-	      }
-
-	      if (!options.hasOwnProperty('oppositecolor')) {
-	        defaultOptions.oppositecolor = 'black';
-	      }
-	    }
-
 	    defaults(options, defaultOptions);
 
 	    function pluginPath() {

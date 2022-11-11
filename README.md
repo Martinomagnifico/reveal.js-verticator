@@ -8,16 +8,33 @@ A plugin for [Reveal.js](https://revealjs.com) that adds indicators to show the 
 
 Sometimes you would like to have an indication of how many slides are remaining in a vertical stack. This plugin does just that. It is visually similar to the indicators at [fullPage.js](https://alvarotrigo.com/fullPage/). 
 
-* [Demo (no options set)](https://martinomagnifico.github.io/reveal.js-verticator/demo.html)
-* [Dark theme with no color options](https://martinomagnifico.github.io/reveal.js-verticator/demodark.html)
-* [Light theme with color options](https://martinomagnifico.github.io/reveal.js-verticator/democolor.html)
+* [Demo (dark theme, no options set)](https://martinomagnifico.github.io/reveal.js-verticator/demo.html)
 * [Dark theme with color options](https://martinomagnifico.github.io/reveal.js-verticator/demodarkcolor.html)
+* [Light theme, no color options](https://martinomagnifico.github.io/reveal.js-verticator/demolight.html)
+* [Light theme with color options](https://martinomagnifico.github.io/reveal.js-verticator/demolightcolor.html)
 * [Tooltip demo](https://martinomagnifico.github.io/reveal.js-verticator/demotooltip.html)
 
 Don't overdo it. You probably don’t want 30 bullets on the right-hand side of your presentation.
 
+# Breaking changes
 
+In previous versions, the Verticator bullets would be black on white slides, and white on black slides, although that could be overridden. The use then also needed to indicate if the theme was dark or not. 
 
+In the latest version, Verticator will automatically detect the tint of the theme, and (if not overridden) will use the same colors used for the headings in the theme, for the bullets. This can also be configured to an other element. Although 'oppositecolor' has been renamed to 'inversecolor', the old naming will still work.
+
+## Verticator follows your theme
+
+If you do not override the colors in the configuration, Verticator detects what colors you use in your theme CSS. This works on both regular slides and on slides that have an inverted color. For example, if the theme is dark, and you use `<section(data-background-color="#fff")></section>` on one or more slides, those slides will then have a white background. In standard Reveal themes, the text in those white slides will then invert to be very dark gray. Verticator just copies that behaviour. The theme color is set as a CSS variable (`--c-theme-color`) in the Reveal element, and can also be used by other elements. 
+
+### Overriding colors
+
+Overriding colors can be done in several ways: 
+
+* For the whole presentation: through the Verticator configuration
+* Per slide, with a data-attribute of `data-verticator="*"`. The wildcard can have 3 options:
+	* Force the inverse color (themed or overridden): `data-verticator="inverse"`
+	* Force the regular color (themed or overridden): `data-verticator="regular"`
+	* Force a specific color: `data-verticator="*"` where the wildcard is any CSS color.
 
 ## Installation
 
@@ -72,7 +89,7 @@ If you're using ES modules, you can add it like this:
 
 ### Styling
 
-Since version 1.1.3, the styling of Verticator is automatically inserted from the included CSS styles, either loaded through NPM or from the plugin folder. If you enable tooltips in the options, the same goes for those styles.
+The styling of Verticator is automatically inserted from the included CSS styles, either loaded through NPM or from the plugin folder. If you enable tooltips in the options, the same goes for those styles.
 
 If you want to change the Verticator or tooltip style, you can simply make your own style and use that stylesheet instead. Linking to your custom styles can be managed through the `csspath` option of Verticator.
 
@@ -90,12 +107,12 @@ There are a few options that you can change from the Reveal.js options. The valu
 Reveal.initialize({
 	// ...
 	verticator: {
-		darktheme: false,
-		color: 'black',
-		oppositecolor: 'white',
+		themetag: 'h1',
+		color: '',
+		inversecolor: '',
 		skipuncounted: false,
 		clickable: true,
-		position: 'right',
+		position: 'auto',
 		offset: '3vmin',
 		autogenerate: true,
 		tooltip: false,
@@ -111,21 +128,18 @@ Reveal.initialize({
 });
 ```
 
-* **`darktheme`**: Verticator assumes a light theme by default. Let Verticator know if your theme is dark with this option.
-    * By default, the Verticator bullets are black, and will be white on a dark slide. By setting `darktheme: true`, this behaviour is inverted. 
-    * Reveal.js offers an option to let certain slides have an other background than the rest. For example, if the theme is light, and you use `<section(data-background-color="#000")></section>` on one or more slides, those slides will then be black. For dark themes, you simply use a light color in the data-attribute. The value of the data-attribute needs to be hexadecimal, because Reveal.js does a calculation on it to see if that color is light or dark. The Verticator bullets will invert on those slides.
-    * Some of the themes ('simple', 'black' and 'white') will also invert the text colors in that case. If you use another theme, you need to copy that CSS to your own theme. The Verticator inverting behaviour will always work, even if the theme text colors are not inverted.
-* **`color`**: To override the default black color (or the white color if `darktheme` is `true`), simply give a new color here. You can use standard CSS -, hexadecimal - or RGB colors.
-* **`oppositecolor`**: To override the default white color (or the black color if `darktheme` is `true`) on slides that have a dark color (or light color if `darktheme` is `true`) set through the data-attribute, simply give a new color here. You can use standard CSS -, hexadecimal - or RGB colors.
-* **`skipuncounted`**: Omit drawing Verticator bullets for slides that are marked with Reveal.js 4.0' `data-visibility="uncounted"`. This behaviour is disabled by default.
+* **`themetag`**: By default, Verticator sets the bullet colors to be the same as the color of the `h1` headings, but you can also set it to an other tag, like `p`.
+* **`color`**: Verticator gets the main color from the theme as described above. To override it, simply give a new color here. You can use standard CSS -, hexadecimal - or RGB colors.
+* **`inversecolor`**: Verticator gets the inverse color from the theme as described above, if the slide has an opposite background. To override it, simply give a new color here. You can use standard CSS -, hexadecimal - or RGB colors.
+* **`skipuncounted`**: Omit drawing Verticator bullets for slides that are marked with Reveal.js' `data-visibility="uncounted"`. This behaviour is disabled by default.
 * **`clickable`**: Allow navigation to a slide by clicking on the corresponding Verticator bullet. This behaviour is enabled by default.
-* **`position`**: Sets the position of Verticator in the presentation. Set to `right` by default, it can also be set to `left`.
+* **`position`**: Sets the position of Verticator in the presentation. It is set to `'auto'` by default, and takes the `rtl` setting of your presentation to set the position. When `rtl = true` for example in Hebrew or Arabic presentations, Verticator will alight to the left, otherwise to the right. The position can also be set manually with `'left'` or `'right'`.
 * **`offset`**: Sets the offset of Verticator from the edge (right or left, see 'position') of the screen. Set to `3vmin` by default, it can be set to any other valid CSS size and unit. 
 * **`autogenerate`**: Autogenerate a UL element with the class `verticator` if none is found. Set to `true` by default.
 * **`tooltip`**: Shows tooltips next to the Verticator bullets. Set to `false` by default, it can be enabled in two ways:
     * `tooltip: 'data-name'`: When you use `tooltip: 'data-name'` or `tooltip: 'title'` or any other attribute with a string value, the tooltip will show that value. 
     * `tooltip: 'auto'`: When you use `tooltip: 'auto'`, Verticator will check titles of each slide in the order: `data-verticator-tooltip`, `data-name`, `title`, and if none found, headings inside each slide in the order: `h1`, `h2`, `h3`, `h4`. Auto-mode is convenient for Verticator tooltips in Markdown slides. Set `data-verticator-tooltip="none"` or a class of `no-verticator-tooltip` on specific slides if you don't want the attribute- or auto-tooltip to show at all.
-* **`scale`**: While Verticator will now scale according to the scale factor of the main slides (since version 1.1.1), the option `scale` will resize it manually on top of that. Set to `1` by default, it can be set to a minimum of `0.5` and a maximum of `2`.
+* **`scale`**: While Verticator will scale according to the scale factor of the main slides, the option `scale` will resize it manually on top of that. Set to `1` by default, it can be set to a minimum of `0.5` and a maximum of `2`.
 * **`csspath`**: Verticator will automatically load the styling for the bullets and (if needed) the tooltips. If you want to customise the styling, you can link to your own CSS files here for each of the styles.
 
 
