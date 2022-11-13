@@ -18,7 +18,7 @@ Don't overdo it. You probably don’t want 30 bullets on the right-hand side of 
 
 # Breaking changes
 
-In previous versions, the Verticator bullets would be black on white slides, and white on black slides, although that could be overridden. The use then also needed to indicate if the theme was dark or not. 
+In previous versions, the Verticator bullets would be black on white slides, and white on black slides, although that could be overridden. The user then also needed to indicate if the theme was dark or not. 
 
 In the latest version, Verticator will automatically detect the tint of the theme, and (if not overridden) will use the same colors used for the headings in the theme, for the bullets. This can also be configured to an other element. Although 'oppositecolor' has been renamed to 'inversecolor', the old naming will still work.
 
