@@ -4,7 +4,7 @@
 
 A plugin for [Reveal.js](https://revealjs.com) that adds indicators to show the amount of slides in a vertical stack. 
 
-[![Screenshot](https://martinomagnifico.github.io/reveal.js-verticator/screenshot.png)](https://martinomagnifico.github.io/reveal.js-verticator/demo.html)
+[<img src="https://martinomagnifico.github.io/reveal.js-verticator/screenshot.png" width="100%">](https://martinomagnifico.github.io/reveal.js-verticator/demo.html)
 
 Sometimes you would like to have an indication of how many slides are remaining in a vertical stack. This plugin does just that. It is visually similar to the indicators at [fullPage.js](https://alvarotrigo.com/fullPage/). 
 
