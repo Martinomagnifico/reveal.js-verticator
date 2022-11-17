@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.2.0
+ * Version 1.2.1
  * 
  * @license 
  * MIT licensed
@@ -110,6 +110,8 @@ var Plugin = function Plugin() {
     var revealScale = deck.getScale();
     var totalScale = revealScale > 1 ? revealScale * userScale : userScale;
     theVerticator.style.setProperty('--verticator-scale', totalScale.toFixed(2));
+    var tooltipScaleDamper = 1 / Math.sqrt(totalScale);
+    theVerticator.style.setProperty('--verticator-tooltip-scale', tooltipScaleDamper.toFixed(2));
     var colors = {};
     var themeColors = findThemeColors(revealElement, options.themetag ? options.themetag : 'section');
     colors.theme = themeColors.theme;
@@ -371,10 +373,7 @@ var Plugin = function Plugin() {
       autogenerate: true,
       tooltip: false,
       scale: 1,
-      csspath: {
-        verticator: '',
-        tooltip: ''
-      },
+      csspath: '',
       debug: false
     };
 
@@ -403,20 +402,14 @@ var Plugin = function Plugin() {
       return path;
     }
 
-    var VerticatorStylePath = options.csspath.verticator ? options.csspath.verticator : "".concat(pluginPath(), "verticator.css") || 'plugin/verticator/verticator.css';
-    var TooltipStylePath = options.csspath.tooltip ? options.csspath.tooltip : "".concat(pluginPath(), "tooltip.css") || 'plugin/verticator/tooltip.css';
+    var VerticatorStylePath = options.csspath.verticator ? options.csspath.verticator : options.csspath ? options.csspath : "".concat(pluginPath(), "verticator.css") || 'plugin/verticator/verticator.css';
 
     if (options.debug) {
       console.log("Plugin path = ".concat(pluginPath()));
       console.log("Verticator CSS path = ".concat(VerticatorStylePath));
-      console.log("Tooltip CSS path = ".concat(TooltipStylePath));
     }
 
-    loadStyle(VerticatorStylePath, 'stylesheet', function () {
-      if (options.tooltip) {
-        loadStyle(TooltipStylePath, 'stylesheet');
-      }
-    });
+    loadStyle(VerticatorStylePath);
     verticate(deck, options);
   };
 

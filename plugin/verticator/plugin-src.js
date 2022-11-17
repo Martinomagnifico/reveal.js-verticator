@@ -80,6 +80,8 @@ const Plugin = () => {
 		let revealScale = deck.getScale();
 		let totalScale = revealScale > 1 ? revealScale * userScale : userScale;
 		theVerticator.style.setProperty('--verticator-scale', totalScale.toFixed(2));
+		let tooltipScaleDamper = ( 1 / Math.sqrt(totalScale));
+		theVerticator.style.setProperty('--verticator-tooltip-scale', tooltipScaleDamper.toFixed(2));
 
 		const colors = {};
 		const themeColors = findThemeColors(revealElement, options.themetag ? options.themetag : 'section');
@@ -337,10 +339,7 @@ const Plugin = () => {
 			autogenerate: true,
 			tooltip: false,
 			scale: 1,
-			csspath: {
-				verticator: '',
-				tooltip: ''
-			},
+			csspath: '',
 			debug: false
 		};
 
@@ -370,20 +369,14 @@ const Plugin = () => {
 			}
 			return path;
 		}
-		let VerticatorStylePath = options.csspath.verticator ? options.csspath.verticator : null || `${pluginPath()}verticator.css` || 'plugin/verticator/verticator.css'
-		let TooltipStylePath = options.csspath.tooltip ? options.csspath.tooltip : null  || `${pluginPath()}tooltip.css`  || 'plugin/verticator/tooltip.css'
+
+		let VerticatorStylePath = options.csspath.verticator ? options.csspath.verticator : options.csspath ? options.csspath : null  || `${pluginPath()}verticator.css` || 'plugin/verticator/verticator.css'
 
 		if (options.debug) {
 			console.log(`Plugin path = ${pluginPath()}`);
 			console.log(`Verticator CSS path = ${VerticatorStylePath}`);
-			console.log(`Tooltip CSS path = ${TooltipStylePath}`);
 		}
-		loadStyle(VerticatorStylePath, 'stylesheet', function () {
-			if (options.tooltip) {
-				loadStyle(TooltipStylePath, 'stylesheet');
-			}
-		});
-
+		loadStyle(VerticatorStylePath, 'stylesheet');
 		verticate(deck, options);
 	};
 

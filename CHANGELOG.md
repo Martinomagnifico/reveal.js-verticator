@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.1] - 2022-11-17
+### Changed
+- Tooltip styling is not a separate stylesheet anymore
+- As there is only 1 CSS file, the option `csspath` is no longer an object of multiple paths, but just the path to the verticator.css file.
+- Some small fixes
+
 
 ## [1.2.0] - 2022-11-11
 ### Changed
