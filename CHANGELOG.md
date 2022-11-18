@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.2] - 2022-11-18
+### Changed
+- Avoid loading the Verticator style multiple times if there are multiple Reveal.js instances
+- Avoid loading the Verticator style through scripting if in a Quarto setup
+
+
 ## [1.2.1] - 2022-11-17
 ### Changed
 - Tooltip styling is not a separate stylesheet anymore

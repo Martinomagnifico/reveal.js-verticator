@@ -7,18 +7,21 @@ const Plugin = () => {
 	const forceColorVar = `--v-forcecolor`;
 	const activeclass = 'active';
 
-	const loadStyle = function(url, type, callback) {
+	const loadStyle = function(url, title, callback) {
 		let head = document.querySelector('head');
-		let style;
-		style = document.createElement('link');
-		style.rel = 'stylesheet';
-		style.href = url;
-
-		let finish = function () { if (typeof callback === 'function') { callback.call(); callback = null }};
-		style.onload = finish;
-	
-		style.onreadystatechange = function () { if (this.readyState === 'loaded') { finish() }};
-		head.appendChild(style);
+		let style = document.querySelector(`[title="${title}"]`);
+		if (typeof(style) == 'undefined' || style == null) {
+			style = document.createElement('link');
+			style.rel = 'stylesheet';
+			style.href = url;
+			style.title=title;
+		
+			let finish = function () { if (typeof callback === 'function') { callback.call(); callback = null }};
+			style.onload = finish;
+		
+			style.onreadystatechange = function () { if (this.readyState === 'loaded') { finish() }};
+			head.appendChild(style);
+		}
 	}
 
 	const findThemeColors = function(parent, tag) {
@@ -370,13 +373,19 @@ const Plugin = () => {
 			return path;
 		}
 
+
 		let VerticatorStylePath = options.csspath.verticator ? options.csspath.verticator : options.csspath ? options.csspath : null  || `${pluginPath()}verticator.css` || 'plugin/verticator/verticator.css'
 
 		if (options.debug) {
 			console.log(`Plugin path = ${pluginPath()}`);
 			console.log(`Verticator CSS path = ${VerticatorStylePath}`);
 		}
-		loadStyle(VerticatorStylePath, 'stylesheet');
+
+		const generator = document.querySelector('[name=generator]');
+		if (!(generator && generator.content.includes("quarto"))) {
+			loadStyle(VerticatorStylePath, 'verticatorstyle');
+		}
+
 		verticate(deck, options);
 	};
 

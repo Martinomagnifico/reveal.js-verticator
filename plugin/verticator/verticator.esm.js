@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.2.1
+ * Version 1.2.2
  * 
  * @license 
  * MIT licensed
@@ -22,29 +22,33 @@ var Plugin = function Plugin() {
   var forceColorVar = "--v-forcecolor";
   var activeclass = 'active';
 
-  var loadStyle = function loadStyle(url, type, callback) {
+  var loadStyle = function loadStyle(url, title, callback) {
     var head = document.querySelector('head');
-    var style;
-    style = document.createElement('link');
-    style.rel = 'stylesheet';
-    style.href = url;
+    var style = document.querySelector("[title=\"".concat(title, "\"]"));
 
-    var finish = function finish() {
-      if (typeof callback === 'function') {
-        callback.call();
-        callback = null;
-      }
-    };
+    if (typeof style == 'undefined' || style == null) {
+      style = document.createElement('link');
+      style.rel = 'stylesheet';
+      style.href = url;
+      style.title = title;
 
-    style.onload = finish;
+      var finish = function finish() {
+        if (typeof callback === 'function') {
+          callback.call();
+          callback = null;
+        }
+      };
 
-    style.onreadystatechange = function () {
-      if (this.readyState === 'loaded') {
-        finish();
-      }
-    };
+      style.onload = finish;
 
-    head.appendChild(style);
+      style.onreadystatechange = function () {
+        if (this.readyState === 'loaded') {
+          finish();
+        }
+      };
+
+      head.appendChild(style);
+    }
   };
 
   var findThemeColors = function findThemeColors(parent, tag) {
@@ -409,7 +413,12 @@ var Plugin = function Plugin() {
       console.log("Verticator CSS path = ".concat(VerticatorStylePath));
     }
 
-    loadStyle(VerticatorStylePath);
+    var generator = document.querySelector('[name=generator]');
+
+    if (!(generator && generator.content.includes("quarto"))) {
+      loadStyle(VerticatorStylePath, 'verticatorstyle');
+    }
+
     verticate(deck, options);
   };
 
