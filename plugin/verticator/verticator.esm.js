@@ -4,7 +4,7 @@
  * https://github.com/Martinomagnifico
  *
  * Verticator.js for Reveal.js 
- * Version 1.2.2
+ * Version 1.2.3
  * 
  * @license 
  * MIT licensed
