@@ -1,0 +1,37 @@
+@import '_base', '_githubcorner';
+
+// VERTICATOR DEMO
+
+.verticator ~ .backgrounds .slide-background-content,
+.verticator ~ .slides .scroll-page .slide-background-content {
+    background-color: inherit;
+    &:before {
+        content: '';
+        position: absolute;
+        width: 60%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-color: inherit;
+    }
+}
+
+[data-state*="split-view"] .row {
+	display: grid;
+	width: 100%;
+	grid-template-columns: 1.2fr 0.8fr;
+	grid-gap: 30px;
+}
+
+.reveal-viewport {
+    &:not(.reveal-scroll) {
+        .scrollvisible {
+            display: none
+        }
+    }
+    &.reveal-scroll {
+        .scrollvisible {
+            display: inline-block
+        }
+    }
+}

@@ -1,0 +1,150 @@
+$transitionspeed: 200ms;
+$fasttransitionspeed: 100ms;
+$slowtransitionspeed: 300ms;
+$bullet-activesize: 12px;
+$bullet-inactivescale: 0.4;
+$bullet-inactiveopacity: 0.4;
+$bullet-hoverscale: 0.75;
+$verticator-inactiveopacity: 0.6;
+$bullet-maincolor: black;
+$bullet-oppositecolor: white;
+
+ul.verticator, 
+.reveal ul.verticator {
+	opacity: 0;
+	pointer-events: none;
+	will-change: color;
+	color: white;
+	color: var(--v-forcecolor, var(--v-color, var(--c-theme-color, $bullet-oppositecolor)));
+	transition: opacity $slowtransitionspeed cubic-bezier(0.26, 0.86, 0.44, 0.985);
+	list-style: none;
+
+	top: 50%;
+	transform: translateY(-50%) translateZ(0);
+	z-index: 2;
+
+	position: sticky;
+	width: max-content;
+	display: flex;
+	flex-direction: column;
+
+	.verticator-holder {
+		position: absolute;
+		top: 0;
+		right: 0;
+		transform: translateY(-50%);
+		display: flex;
+		flex-direction: column;
+		padding: calc(#{$bullet-activesize} * var(--verticator-scale));
+	}
+
+	&:not(.left) {
+		margin: 0 0 0 auto;
+	}
+	&.left {
+		margin: 0 auto 0 0;
+		.verticator-holder {
+			right: auto;
+			left: 0;
+		}
+	}
+
+	&.visible {
+		opacity: $verticator-inactiveopacity;
+		pointer-events: inherit;
+		&:hover {
+			opacity: 1;
+		}
+	}
+	&.resizing, &.resizing.visible {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	&.no-click {
+		pointer-events: none;
+	}
+	& li {
+		display: block;
+		position: relative;
+		will-change: color;
+		color: inherit;
+		margin: 0;
+		transition: opacity $slowtransitionspeed cubic-bezier(0.26, 0.86, 0.44, 0.985);
+		opacity: 0;
+
+		&:before {
+			display: none;
+		}
+
+		a {
+			color: inherit;
+			will-change: color;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-decoration: none;
+			width: calc(#{$bullet-activesize * 1.5} * var(--verticator-scale));
+			height: calc(#{$bullet-activesize * 1.5} * var(--verticator-scale));
+
+			&:after {
+				content: "";
+				will-change: color;
+				color: inherit;
+				background-color: currentColor;
+				display: block;
+				width: calc(12px * var(--verticator-scale));
+				height: calc(12px * var(--verticator-scale));
+				opacity: 0.6;
+				-webkit-transform: translateZ(0) scale(0.4);
+				transform: translateZ(0) scale(0.4);
+				border-radius: 100%;
+				transition: transform $slowtransitionspeed cubic-bezier(0.26, 0.86, 0.44, 0.985), opacity $transitionspeed cubic-bezier(0.26, 0.86, 0.44, 0.985);
+				transition-delay: 50ms;
+				
+			}
+			&:hover {
+				color: inherit;
+	
+				&:after {
+					opacity: 1;
+					transform: translateZ(0) scale($bullet-hoverscale);
+				}
+			}
+		}
+
+		&.active {
+			a {
+				cursor: default;
+				&:after {
+					transform: translateZ(0) scale(1);
+					opacity: 1;
+				}
+			}
+		}
+	}
+	&.visible li {
+		opacity: 1;
+	}
+
+	.reveal-viewport.reveal-scroll & {
+		display: none
+	}
+}
+
+.print-pdf,
+.overview {
+	.verticator {
+		display: none;
+	}
+}
+
+// Added styling for text inside double opposite backgrounds
+
+section.has-light-background section.has-dark-background,
+section.has-dark-background section.has-light-background {
+	color: var(--r-main-color);
+	h1, h2, h3, h4, h5, h6 {
+		color: var(--r-heading-color);
+	}
+}

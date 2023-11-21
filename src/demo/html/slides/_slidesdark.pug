@@ -1,0 +1,247 @@
+
+section.center
+	h1 Verticator
+	h2 for Reveal.js
+	p.scrollvisible (Demo not for mobile devices)
+
+section.center
+	section.center
+		h2 What does it do?
+	section.center
+		p Verticator shows vertical indicators
+	section.center
+		p On vertical slides only
+	section.center
+		p If you do not override the colors in the options, Verticator will use your theme colors: the bullets will be the same color as text in your presentation.
+		p.small The theme color is set as a CSS variable (#[code --c-theme-color]) in the Reveal element, and can also be used by other elements. On this page, it is #[code rgb(255, 255, 255)], because that is also the text color.
+	section.center(data-background="silver")
+		p Verticator detects if the slide background is set to a different color. If you do not override the colors in the options, the bullets will still take on the heading- or textcolor of the slide.
+		p.small On this page, the CSS variable (#[code --c-theme-color]) is #[code rgb(34, 34, 34)], because that is also the text color.
+	section.center(data-background="silver")
+		p Verticator also fixes the appearance of text inside double opposite backgrounds, for example when the theme is dark, the stack is light and the slide is dark again.
+	section.center
+		p Verticator is configurable globally through the Reveal options, but the colors can also be changed per slide.
+
+section.center
+	section.center
+		h2 Global options
+		.centerblock
+			ol.twocol
+				li themetag
+				li color
+				li inversecolor
+				li skipuncounted
+				li clickable
+				li position
+				li offset
+				li autogenerate
+				li scale
+				li tooltip
+				li csspath
+
+
+	section.center
+		h4 Option 1: themetag
+		p Verticator uses your headings to get the color for the bullets, but you can also use other elements:
+		pre
+			code.hljs.js(data-line-numbers="4").
+				Reveal.initialize({
+				    ...
+				    verticator: {
+				        themetag: "h1" // Can be set to other tags like "p"
+				    },
+				    plugins: [ Verticator ]
+				})
+
+	section.center
+		h4 Option 2: color
+		p You can override the (themed) color of the bullets to a specific color. You can use named colors, hex and rgb:
+		pre
+			code.hljs.js(data-line-numbers="4").
+				Reveal.initialize({
+				    ...
+				    verticator: {
+				        color: "" // Can be set to any CSS color
+				    },
+				    plugins: [ Verticator ]
+				})
+
+	section.center
+		h4 Option 3: inversecolor
+		p You can override the (themed) inverse color of the bullets to a specific color. These apply if a slide has an inverse color to the main background of the theme.
+		pre
+			code.hljs.js(data-line-numbers="4").
+				Reveal.initialize({
+				    ...
+				    verticator: {
+				        inversecolor: "" // Can be set to any CSS color
+				    },
+				    plugins: [ Verticator ]
+				})
+
+	section.center(data-visibility="uncounted")
+		h4 Option 4: skipuncounted
+		p To skip bullets for certain slides, set the option #[code skipuncounted] to true. Then set a data-attribute #[code data-visibility="uncounted"] to the slide. 
+
+		pre
+			code.hljs.js(data-line-numbers="4").
+				Reveal.initialize({
+				    ...
+				    verticator: {
+				        skipuncounted: false // Can be set to true
+				    },
+				    plugins: [ Verticator ]
+				})
+
+		p.small Reveal uses #[code data-visibility="uncounted"] to hide progress and skipping page numbers for certain slides. In this presentation, skipuncounted is set to true, and this section has the data-attribute.
+
+	section.center
+		h4 Option 5: clickable
+		p Clicking on a a Verticator bullet jumps to to the corresponding page. This behaviour is enabled by default but can be disabled.
+		pre
+			code.hljs.js(data-line-numbers="4").
+				Reveal.initialize({
+				    ...
+				    verticator: {
+				        clickable: true // Can be set to false
+				    },
+				    plugins: [ Verticator ]
+				})
+
+	section.center
+		h4 Option 6: position
+		p Verticator is automatically positioned depending on the #[code rtl] setting of Reveal.js. This setting is used in languages like Hebrew and Arabic. Verticator will be on the left in that case. It can also be manually positioned.
+		pre
+			code.hljs.js(data-line-numbers="4").
+				Reveal.initialize({
+				    ...
+				    verticator: {
+				        position: "auto" // Can be set to "left" or "right"
+				    },
+				    plugins: [ Verticator ]
+				})
+
+	section.center
+		h4 Option 7: offset
+		p By default, Verticator is positioned '3vmin' off the edge of the presentation. It can be set to any other valid CSS size and unit:
+		pre
+			code.hljs.js(data-line-numbers="4").
+				Reveal.initialize({
+				    ...
+				    verticator: {
+				        offset: "3vmin" // Can be set to any CSS size and unit, like "40px"
+				    },
+				    plugins: [ Verticator ]
+				})
+
+	section.center
+		h4 Option 8: autogenerate
+		p Verticator will autogenerate bullets. In presentations with huge vertical stacks, this can result in an unsightly column of bullets. The user can then disable the autogeneration.
+		pre
+			code.hljs.js(data-line-numbers="4").
+				Reveal.initialize({
+				    ...
+				    verticator: {
+				        autogenerate: true // Can be set to false
+				    },
+				    plugins: [ Verticator ]
+				})
+
+	section.center
+		h4 Option 9: tooltip
+		p Verticator can show tooltips of page titles, like this:
+		pre
+			code.hljs.js(data-line-numbers="4").
+				Reveal.initialize({
+				    ...
+				    verticator: {
+				        tooltip: false // Can be set to "data-name" or "auto"
+				    },
+				    plugins: [ Verticator ]
+				})
+		//-
+		p.small It is turned off by default but can be enabled with these options:
+			ul.small
+				li #[code tooltip: "data-name"] or any other attribute of the vertical slide. 
+				li #[code tooltip: "auto"]. This will check titles of each slide in the order: #[code data-verticator-tooltip], #[code data-name], #[code title], and if none found, headings inside each slide in the order: #[code h1], #[code h2], #[code h3], #[code h4].
+
+	section.center
+		h4 Option 10: scale
+		p Verticator will scale with the same ratio as the Reveal slides. To tweak that scaling, you can manually set it.
+		pre
+			code.hljs.js(data-line-numbers="4").
+				Reveal.initialize({
+				    ...
+				    verticator: {
+				        scale: 1 // Can be set to a value between 0.5 and 2.
+				    },
+				    plugins: [ Verticator ]
+				})
+		//-
+	section.center
+		h4 Option 11: csspath
+		p Verticator will automatically load the styling for the bullets. 
+		
+		pre
+			code.hljs.js(data-line-numbers="4").
+				Reveal.initialize({
+				    ...
+				    verticator: {
+				        csspath: "" // Can be a path to a CSS file
+				    },
+				    plugins: [ Verticator ]
+				})
+		//-
+		
+		p.small If you want to change the styling, you can link to your own CSS files.
+
+section.center
+	section.center
+		h2 Slide options
+		ol
+			li Force inverse color
+			li Force regular color
+			li Force specific color
+
+
+
+	//- dark: #051525 // light: #eee8d5
+	section.center(data-state="split-view image-right", data-background-color="#051525", data-background-image="assets/img/pexels-brett-sayles-12106896.jpg", data-verticator="inverse")
+		.row
+			.col
+				h4 Option 1: Force inverse color
+				p Force the bullets to use the inverse color with a data-attribute of #[code data-verticator="inverse"], even on slides with unchanged background colors.
+				p.small Photo by Brett Sayles from #[a(href="https://www.pexels.com/photo/snow-covered-mountain-under-blue-sky-12106896/", target="blank") Pexels].
+
+			.col
+
+	section.center(data-state="split-view image-right", data-background-color="silver", data-background-image="assets/img/pexels-tyler-lastovich-937783.jpg", data-verticator="regular")
+		.row
+			.col
+				h4 Option 2: Force regular color
+				p Force the bullets to use the regular color with a data-attribute of #[code data-verticator="regular"], even on slides with inverse background colors.
+				p.small Photo by Tyler Lastovich from #[a(href="https://www.pexels.com/photo/body-of-water-near-silhouette-of-mountain-under-white-clouds-during-sunset-937783/", target="blank") Pexels].
+
+			.col
+
+	section.center(data-verticator="orange")
+		h4 Option 3: Force specific color
+		p The Verticator color can also be set specifically (per slide) with a data-attribute of #[code data-verticator="*"] where the wildcard is a CSS color.
+
+
+section.center
+	section.center
+		p Don’t overdo it: limit vertical slides. You probably don’t want 30 bullets on the right-hand side of your presentation.
+	section.center
+		p Really.
+
+	section.center
+		h4 Option demos
+		ul
+			li Dark theme with no options: this demo
+			//- li #[a(href="demodark.html") Dark theme with no color options]
+			li #[a(href="demodarkcolor.html") Dark theme with color options]
+			li #[a(href="demolight.html") Light theme with no color options]
+			li #[a(href="demolightcolor.html") Light theme with color options]
+			li #[a(href="demotooltip.html") Tooltip demo]
+

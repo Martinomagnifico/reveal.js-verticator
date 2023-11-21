@@ -1,0 +1,40 @@
+extends /demo/html/_templates/layouts/_reveal.pug
+
+append variables
+	- page.theme = "white"
+	- page.title = locals.name
+
+append styles
+	style.
+		:root {
+			--r-background-color: #FFFFFF;
+		}
+
+
+block slides
+	include slides/_slideslightoptions
+
+block append scripts
+	script(src="dist/reveal.js")
+	script(src="plugin/highlight/highlight.js")
+	script(src=`plugin/${pluginName}/${pluginName}.js`)
+
+	script.
+		const deck = document.querySelector(".reveal");
+
+		// Define the plugins (Using strings)
+		let plugins = ["!{plugin}", "RevealHighlight"];
+
+		// Check the plugins
+		const pluginCheck = (plugs) => plugs.reduce((a, p) => typeof window[p] === "function" ? (a.push(window[p]), a) : (console.warn(`Plugin "${p}" does not exist.`), a), []);
+
+		let revealdeck = new Reveal(deck);
+			revealdeck.initialize({
+			history: true,
+			overview: false,
+			center: true,
+			margin: 0.15,
+			controlsTutorial: false,
+			verticator: { color: 'blue', inversecolor: 'orange' },
+			plugins: pluginCheck(plugins)
+		});

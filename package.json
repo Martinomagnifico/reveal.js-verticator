@@ -1,16 +1,62 @@
 {
-    "name": "reveal.js-verticator",
-    "version": "1.2.3",
-    "description": "A plugin for Reveal.js that adds indicators to show the amount of slides in a vertical stack",
-    "keywords": "reveal, reveal.js, vertical bullets, reveal-plugin, plugin, fullPage.js",
-    "homepage": "https://github.com/Martinomagnifico/reveal.js-verticator",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Martinomagnifico/reveal.js-verticator.git"
-    },
-    "author": "Martijn De Jongh",
-    "license": "MIT, Copyright (C) 2022 Martijn De Jongh",
-    "peerDependencies": {
-        "reveal.js": "^4.2"
-    }
+  "name": "reveal.js-verticator",
+  "version": "1.2.4",
+  "description": "A plugin for Reveal.js that adds indicators to show the amount of slides in a vertical stack",
+  "keywords": [
+    "reveal",
+    "reveal.js",
+    "reveal-plugin",
+    "plugin",
+    "vertical bullets",
+    "fullPage.js"
+  ],
+  "main": "plugin/verticator/verticator.js",
+  "module": "plugin/verticator/verticator.esm.js",
+  "author": {
+    "name": "Martijn De Jongh (Martino)",
+    "email": "martijn.de.jongh@gmail.com",
+    "web": "https://martinomagnifico.github.io",
+    "username": "martinomagnifico"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/martinomagnifico/reveal.js-verticator.git"
+  },
+  "functionname": "Verticator",
+  "license": "MIT",
+  "scripts": {
+    "start": "gulp demo",
+    "build": "NODE_ENV=prod gulp build"
+  },
+  "overrides": {
+    "chokidar": "3.5.3",
+    "glob-parent": "6.0.2",
+    "axios": "1.6.1"
+  },
+  "browserslist": "> 2%, not dead",
+  "devDependencies": {
+    "@babel/preset-env": "^7.23.2",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "browser-sync": "^2.29.3",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-header": "^2.0.9",
+    "gulp-plumber": "^1.2.1",
+    "gulp-pug": "^5.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "merge-stream": "^2.0.0",
+    "rollup": "^4.2.0",
+    "sass": "^1.63.6"
+  },
+  "dependencies": {
+    "reveal.js": "^5.0.2"
+  },
+  "copydependencies": [
+    "reveal.js"
+  ]
 }

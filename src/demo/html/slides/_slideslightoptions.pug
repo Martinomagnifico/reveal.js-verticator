@@ -1,0 +1,31 @@
+section.center
+	h1 Verticator
+	h2 for Reveal.js
+	h3 Light theme with color options
+	p.scrollvisible (Demo not for mobile devices)
+	
+section.center
+	section.center
+		h3 This theme has a light background
+		p Replace the colors to your liking.
+
+		pre
+			code.javascript.
+				Reveal.initialize({
+					...
+					verticator: {
+						color: 'blue',
+						inversecolor: 'orange'
+					},
+					plugins: [ Verticator ]
+				})
+
+	section.center(data-background="#fff")
+		p This slide has a light data-background attribute.
+		p It has no effect on the Verticator bullets, because the theme is already light.
+
+	section.center(data-background="#112266")
+		p This slide has a dark data-background attribute.
+
+	section.center
+		h3 And a regular slide

@@ -1,0 +1,68 @@
+$bullet-activesize: 12px;
+
+.verticator {
+	--verticator-tooltip-scale: 1;
+}
+.verticator .tooltip {
+	position: absolute;
+	top: $bullet-activesize * 0.75;
+	right: $bullet-activesize * 2.5;
+	top: calc(#{$bullet-activesize * 0.75} * var(--verticator-scale));
+	right: calc(#{$bullet-activesize * 2.5} * var(--verticator-scale)  + 1.5px * var(--verticator-tooltip-scale) * var(--verticator-tooltip-scale)) ;
+	transform: translate3d(0, -50%, 1px);
+	box-shadow: calc(4px * var(--verticator-scale)) calc(6px * var(--verticator-scale)) calc(16px * var(--verticator-scale)) rgba(black, 0.25);
+	pointer-events: none;
+	background: white;
+	font-size: calc(1.25rem * var(--verticator-tooltip-scale) * var(--verticator-scale));
+	padding: 0.4em 0.6em;
+	border-radius: 0.2em;
+	min-width: 30px;
+	max-width: 15em;
+	display: block;
+	-webkit-font-smoothing: antialiased;
+	color: black;
+
+	span {
+		white-space: nowrap;
+		display: block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		line-height: 1.25;
+	}
+
+	&::after {
+		content: '';
+		display: block;
+		width: .66em;
+		height: .66em;
+		background: white;
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translate3d(45%, -50%, -1px) rotate(45deg);
+	}
+}
+
+.verticator.left .tooltip {
+	right: auto;
+	left: calc(#{$bullet-activesize * 2.5} * var(--verticator-scale)  + 1.5px * var(--verticator-tooltip-scale) * var(--verticator-tooltip-scale)) ;
+	box-shadow: calc(-4px * var(--verticator-scale)) calc(6px * var(--verticator-scale)) calc(16px * var(--verticator-scale)) rgba(black, 0.25);
+
+	&::after {
+		right: auto;
+		left: 0;
+		transform: translate3d(-45%, -50%, -1px) rotate(45deg);
+	}
+}
+
+.verticator li a + .tooltip {
+	pointer-events: none;
+	display: block;
+	opacity: 0;
+	transition: opacity 0.125s ease-in-out;
+	transition-delay: .0625s;
+}
+
+.verticator li a:hover + .tooltip {
+	opacity: 1;
+}

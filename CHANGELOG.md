@@ -1,5 +1,24 @@
 # Changelog
 
+
+## [1.2.4] - 2023-11-21
+### Added
+- Added detection for light or dark stacks, with or without light or dark sections
+- Expanded the above to also fix text for double negative slide backgrounds
+
+### Changed
+- Rewrote plugin so that the demo can be easily started from the command line
+- Hide Verticator on presentation in scroll mode
+- Correct the Verticator state when going back into classic view
+
+
+## [1.2.3] - 2022-11-19
+### Changed
+- Changed documentation to show default settings first
+- Fix `rtl` setting to read Reveal config correctly
+- Fix click on Verticator bullet if embedded with multiple presentations
+
+
 ## [1.2.2] - 2022-11-18
 ### Changed
 - Avoid loading the Verticator style multiple times if there are multiple Reveal.js instances
