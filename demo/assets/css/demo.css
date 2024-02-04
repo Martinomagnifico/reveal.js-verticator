@@ -110,11 +110,13 @@ p.code, p code, small code, .small code, li code {
   border: 4px solid transparent;
   border-radius: 8px;
 }
+.reveal.embedded:not(.focused) {
+  cursor: pointer;
+}
 .reveal.embedded.focused {
   border-color: #42affa;
   box-shadow: 0 4px 16px rgba(5, 21, 37, 0.3);
 }
-
 .reveal.embedded .progress {
   background: rgba(66, 175, 250, 0.3);
   font-size: 10px;
@@ -154,7 +156,7 @@ a.github-corner.bottom {
   margin-top: auto;
   top: calc(100% - 70px);
 }
-.reveal.embedded a.github-corner {
+.reveal.embedded a.github-corner, .reveal-viewport.reveal-scroll a.github-corner {
   display: none;
 }
 a.github-corner svg {

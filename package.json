@@ -1,6 +1,6 @@
 {
   "name": "reveal.js-verticator",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "A plugin for Reveal.js that adds indicators to show the amount of slides in a vertical stack",
   "keywords": [
     "reveal",
@@ -31,7 +31,10 @@
   "overrides": {
     "chokidar": "3.5.3",
     "glob-parent": "6.0.2",
-    "axios": "1.6.1"
+    "axios": "1.6.2",
+    "localtunnel": {
+      "axios": "1.6.2"
+    }
   },
   "browserslist": "> 2%, not dead",
   "devDependencies": {
@@ -54,7 +57,7 @@
     "sass": "^1.63.6"
   },
   "dependencies": {
-    "reveal.js": "^5.0.2"
+    "reveal.js": "^5.0.4"
   },
   "copydependencies": [
     "reveal.js"
