@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.5] - 2024-02-04
+### Changed
+- Override change in Package.json
+- Change for mobile view
+- Latest Reveal.js version
 
 ## [1.2.4] - 2023-11-21
 ### Added
