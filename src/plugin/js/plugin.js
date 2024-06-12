@@ -98,6 +98,7 @@ const Plugin = () => {
 			autogenerate: true,
 			tooltip: false,
 			scale: 1,
+			cssautoload: true,
 			csspath: '',
 			debug: false
 		};
@@ -105,16 +106,16 @@ const Plugin = () => {
 		options = mergeDeep(defaultOptions, deck.getConfig().verticator || {});
 		options.indexbase = deck.getConfig().hashOneBasedIndex ? 1 : 0;
 
-		let VerticatorStylePath = options.csspath.verticator ? options.csspath.verticator : options.csspath ? options.csspath : null || `${pluginPath()}verticator.css` || 'plugin/verticator/verticator.css'
+		let PluginStylePath = options.csspath.verticator ? options.csspath.verticator : options.csspath ? options.csspath : null || `${pluginPath()}verticator.css` || 'plugin/verticator/verticator.css'
 
 		if (options.debug) {
 			console.log(`Plugin path = ${pluginPath()}`);
-			console.log(`Verticator CSS path = ${VerticatorStylePath}`);
+			console.log(`Verticator CSS path = ${PluginStylePath}`);
 		}
 
 		const generator = document.querySelector('[name=generator]');
-		if (!(generator && generator.content.includes("quarto"))) {
-			loadResource(VerticatorStylePath, 'stylesheet');
+		if (options.cssautoload && !(generator && generator.content.includes("quarto"))) {
+			loadResource(PluginStylePath, 'stylesheet');
 		}
 
 		Verticate(deck, options);

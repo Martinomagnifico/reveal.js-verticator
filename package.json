@@ -1,6 +1,6 @@
 {
   "name": "reveal.js-verticator",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "A plugin for Reveal.js that adds indicators to show the amount of slides in a vertical stack",
   "keywords": [
     "reveal",
@@ -29,12 +29,7 @@
     "build": "NODE_ENV=prod gulp build"
   },
   "overrides": {
-    "chokidar": "3.5.3",
-    "glob-parent": "6.0.2",
-    "axios": "1.6.2",
-    "localtunnel": {
-      "axios": "1.6.2"
-    }
+    "pug": "3.0.3"
   },
   "browserslist": "> 2%, not dead",
   "devDependencies": {
@@ -43,15 +38,15 @@
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
-    "browser-sync": "^2.29.3",
+    "browser-sync": "^3.0.2",
     "del": "^5.1.0",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.0",
     "gulp-autoprefixer": "^8.0.0",
-    "gulp-header": "^2.0.9",
     "gulp-plumber": "^1.2.1",
     "gulp-pug": "^5.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.1.0",
+    "gulp-tap": "^2.0.0",
     "merge-stream": "^2.0.0",
     "rollup": "^4.2.0",
     "sass": "^1.63.6"

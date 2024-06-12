@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.6] - 2024-06-12
+### Added
+- Added a 'cssautoload' option that can be disabled if the user wants to use npm imports for the CSS file. This is useful for users who want to use a bundler like Webpack or Parcel.
+
+### Changed
+- Changed some devDependencies
+
+
 ## [1.2.5] - 2024-02-04
 ### Changed
 - Override change in Package.json

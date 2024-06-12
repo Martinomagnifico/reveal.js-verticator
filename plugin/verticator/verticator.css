@@ -2,7 +2,7 @@
 /*****************************************************************
  *
  * Verticator for Reveal.js 
- * Version 1.2.5
+ * Version 1.2.6
  * 
  * @author: Martijn De Jongh (Martino), martijn.de.jongh@gmail.com
  * https://github.com/martinomagnifico
@@ -13,6 +13,8 @@
  * Copyright (C) 2023 Martijn De Jongh (Martino)
  *
  ******************************************************************/
+
+
 
 ul.verticator,
 .reveal ul.verticator {
