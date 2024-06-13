@@ -89,9 +89,17 @@ If you're using ES modules, you can add it like this:
 
 ### Styling
 
-The styling of Verticator is automatically inserted from the included CSS styles, either loaded through NPM or from the plugin folder.
+The styling of Verticator is automatically inserted **when the verticator folder is manually copied** to the Reveal.js plugin folder.
 
-If you want to change the Verticator or tooltip style, you can simply make your own style and use that stylesheet instead. Linking to your custom style can be managed through the `csspath` option of Verticator.
+If you **import** reveal.js-verticator from npm, you will need to **import** the CSS file yourself. Depending on your setup this can be something like this:
+
+```
+import 'reveal.js-copycode/plugin/verticator/verticator.css';
+```
+
+Note that if you use 'import' like this, then in the `csspath` option (in the Reveal verticator options) should be set to false. But if you know the actual full path to the CSS file, then you can still use the csspath option and keep `cssautoload` set to `true`.
+
+If you want to change the Verticator or tooltip style, you do a lot of that via the Reveal.js options. Or you can simply make your own style and use that stylesheet instead. Linking to your custom style can be managed through the `csspath` option of Verticator.
 
 
 ### HTML
@@ -117,6 +125,7 @@ Reveal.initialize({
 		autogenerate: true,
 		tooltip: false,
 		scale: 1,
+		cssautoload: true,
 		csspath: ''
 		}
 	},
@@ -138,6 +147,7 @@ Reveal.initialize({
     * `tooltip: 'data-name'`: When you use `tooltip: 'data-name'` or `tooltip: 'title'` or any other attribute with a string value, the tooltip will show that value. 
     * `tooltip: 'auto'`: When you use `tooltip: 'auto'`, Verticator will check titles of each slide in the order: `data-verticator-tooltip`, `data-name`, `title`, and if none found, headings inside each slide in the order: `h1`, `h2`, `h3`, `h4`. Auto-mode is convenient for Verticator tooltips in Markdown slides. Set `data-verticator-tooltip="none"` or a class of `no-verticator-tooltip` on specific slides if you don't want the attribute- or auto-tooltip to show at all.
 * **`scale`**: While Verticator will scale according to the scale factor of the main slides, the option `scale` will resize it manually on top of that. Set to `1` by default, it can be set to a minimum of `0.5` and a maximum of `2`.
+* **`cssautoload`**: Verticator will automatically load the styling for the bullets and the tooltips. If you want to customise the styling, you can link to your own CSS file here.
 * **`csspath`**: Verticator will automatically load the styling for the bullets and the tooltips. If you want to customise the styling, you can link to your own CSS file here.
 
 
