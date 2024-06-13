@@ -147,7 +147,7 @@ Reveal.initialize({
     * `tooltip: 'data-name'`: When you use `tooltip: 'data-name'` or `tooltip: 'title'` or any other attribute with a string value, the tooltip will show that value. 
     * `tooltip: 'auto'`: When you use `tooltip: 'auto'`, Verticator will check titles of each slide in the order: `data-verticator-tooltip`, `data-name`, `title`, and if none found, headings inside each slide in the order: `h1`, `h2`, `h3`, `h4`. Auto-mode is convenient for Verticator tooltips in Markdown slides. Set `data-verticator-tooltip="none"` or a class of `no-verticator-tooltip` on specific slides if you don't want the attribute- or auto-tooltip to show at all.
 * **`scale`**: While Verticator will scale according to the scale factor of the main slides, the option `scale` will resize it manually on top of that. Set to `1` by default, it can be set to a minimum of `0.5` and a maximum of `2`.
-* **`cssautoload`**: Verticator will automatically load the styling for the bullets and the tooltips. If you want to customise the styling, you can link to your own CSS file here.
+* **`cssautoload`**: Verticator will load the CSS if this is set to `true`. If you import reveal.js-verticator from npm, you will need to import the CSS file yourself. If you use 'import', then `csspath` should be set to `false`. If you know the path to the CSS file, you can use the `csspath` option and keep `cssautoload` set to `true`.
 * **`csspath`**: Verticator will automatically load the styling for the bullets and the tooltips. If you want to customise the styling, you can link to your own CSS file here.
 
 
