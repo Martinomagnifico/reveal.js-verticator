@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Verticator demo: using tooltips</title>
+    <meta name="author" content="Martijn De Jongh (Martino)">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="assets/css/demo.css">
+  </head>
+  <body>
+    <div class="reveal" id="deck1">
+      <div class="slides">
+        <section class="center">
+          <h1>Verticator</h1>
+          <h2>for Reveal.js</h2>
+          <h3>Tooltip demo</h3>
+          <p class="scrollvisible">(Demo not for mobile devices)</p>
+        </section>
+        <section class="center">
+          <section class="center">
+            <h2>Setup</h2>
+            <p>To get tooltips next to the Verticator bullets, set the option 'tooltip' to either of these values:</p>
+            <ul>
+              <li><code>tooltip: 'data-name'</code> or any other attribute. </li>
+              <li><code>tooltip: true</code> or <code>tooltip: 'auto'</code></li>
+            </ul>
+          </section>
+          <section class="center">
+            <h3>Tooltip: section attribute</h3>
+            <p class="small">When you use <code>tooltip: 'data-name'</code> or <code>tooltip: 'title'</code> or any other attribute with a string value, the tooltip will show that value.</p>
+            <pre><code class="hljs js" data-line-numbers="4">Reveal.initialize({
+    ...
+    verticator: {
+        tooltip: 'data-name',
+    },
+    plugins: [ Verticator ]
+})
+</code></pre>
+            <pre><code class="hljs html">&lt;section data-name="Tooltip: section attribute"&gt;Content&lt;/section&gt;
+</code></pre>
+          </section>
+          <section class="center" title="Not this" data-name="Tooltip: auto mode">
+            <h3>Tooltip: auto</h3>
+            <p class="small">When you use <code>tooltip: true</code> (or <code>tooltip: 'auto'</code>), Verticator will check attributes of each slide in this order: <code>data-verticator-tooltip</code>, <code>data-name</code>, <code>title</code>, and if none found, headings inside each slide in the order: <code>h1</code>, <code>h2</code>, <code>h3</code>, <code>h4</code>. This slide uses the first attribute found in the list: <code>data-name</code>.</p>
+            <pre><code class="hljs js" data-line-numbers="4">Reveal.initialize({
+    ...
+    verticator: {
+      tooltip: true // or 'auto',
+    },
+    plugins: [ Verticator ]
+})
+</code></pre>
+            <pre><code class="hljs html">&lt;section title="Not this" data-name="Tooltip: auto mode"&gt;Content&lt;/section&gt;</code></pre>
+          </section>
+          <section class="center">
+            <h3>Use slide heading for the tooltip</h3>
+            <p class="small">This section has no attribute set, and because the auto-mode is set, will return the first heading it can find for the text inside the tooltip.</p>
+            <pre><code class="hljs js" data-line-numbers="4">Reveal.initialize({
+    ...
+    verticator: {
+        tooltip: true // or 'auto',
+    },
+    plugins: [ Verticator ]
+})
+</code></pre>
+            <pre><code class="hljs html">&lt;section&gt;
+    &lt;h3&gt;Use slide heading for the tooltip&lt;/h3&gt;
+&lt;/section&gt;</code></pre>
+            <p class="small">Auto-mode is convenient for Verticator tooltips in Markdown slides.</p>
+          </section>
+          <section class="center" data-verticator-tooltip="false" data-name="Not this">
+            <h3>No tooltip at all</h3>
+            <p class="small">To avoid showing the tooltip, set <code>data-verticator-tooltip="none"</code>. This will turn off the tooltip for only that section.</p>
+            <pre><code class="hljs js" data-line-numbers="4">Reveal.initialize({
+    ...
+    verticator: {
+        tooltip: 'auto',
+    },
+    plugins: [ Verticator ]
+})
+</code></pre>
+            <pre><code class="hljs html">&lt;section data-verticator-tooltip="none" data-name="Not this"&gt;Content&lt;/section&gt;</code></pre>
+          </section>
+        </section>
+      </div>
+    </div>
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/verticator/verticator.js"></script>
+    <script>
+      Reveal.initialize({
+      	margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+      	history: true, center: true, controlsTutorial: false,
+      	plugins: [ Verticator, RevealHighlight ],
+      	verticator: {
+      		tooltip: 'auto'
+      	}
+      });
+    </script>
+  </body>
+</html>

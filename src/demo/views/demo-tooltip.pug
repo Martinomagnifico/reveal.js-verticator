@@ -1,0 +1,34 @@
+extends templates/layouts/_reveal.pug
+
+append variables
+	- presentation.title = presentation.title + ": using tooltips"
+
+block slides
+	include slides/_slidestooltip
+
+block append scripts
+	+revealsrc("script", "plugin/highlight/highlight.js")
+
+	if process.env.NODE_ENV === 'production'
+		script(src=`plugin/${plugin.name}/${plugin.name}.js`)
+		script.
+			Reveal.initialize({
+				margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+				history: true, center: true, controlsTutorial: false,
+				plugins: [ Verticator, RevealHighlight ],
+				verticator: {
+					tooltip: 'auto'
+				}
+			});
+	else
+		script(type="module").
+			import Verticator from '@/plugin/js/index';
+			Reveal.initialize({
+				margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+				history: true, center: true, controlsTutorial: false,
+				plugins: [ Verticator, RevealHighlight ],
+				verticator: {
+					debug: true,
+					tooltip: 'auto'
+				}
+			});

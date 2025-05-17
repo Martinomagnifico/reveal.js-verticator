@@ -1,0 +1,30 @@
+extends templates/layouts/_reveal.pug
+
+append variables
+	- presentation.theme = "white"
+	- presentation.title = presentation.title + ": Dark theme, custom colors"
+
+block slides
+	include slides/_slidesdarkoptions
+
+block append scripts
+	+revealsrc("script", "plugin/highlight/highlight.js")
+
+	if process.env.NODE_ENV === 'production'
+		script(src=`plugin/${plugin.name}/${plugin.name}.js`)
+		script.
+			Reveal.initialize({
+				margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+				history: true, center: true, controlsTutorial: false,
+				plugins: [ Verticator, RevealHighlight ],
+				verticator: { color: 'yellow', inversecolor: 'blue'}
+			});
+	else
+		script(type="module").
+			import Verticator from '@/plugin/js/index';
+			Reveal.initialize({
+				margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+				history: true, center: true, controlsTutorial: false,
+				plugins: [ Verticator, RevealHighlight ],
+				verticator: { debug: true, color: 'yellow', inversecolor: 'blue'}
+			});

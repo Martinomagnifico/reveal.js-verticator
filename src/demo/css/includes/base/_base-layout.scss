@@ -1,0 +1,56 @@
+
+.centerblock {
+    height: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.reveal .slides {
+    ul, ol {
+        --li-gap: 0.33em;
+        --col-gap: 4em;
+
+        li {
+            margin-bottom: var(--li-gap);
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &.twocol {
+            overflow: hidden; // Needed in Markdown
+            padding-left: calc( 0.5 * var(--col-gap));
+            width: 80%;
+            position: relative;
+            margin: 0 auto;
+            column-count: 2;
+            column-gap: var(--col-gap);
+            column-fill: balance;
+            counter-reset: optionnr;
+
+            li {
+                display: inline-flex;
+                gap: calc(var(--li-gap) * 2);
+                width: 100%;
+                margin-bottom: var(--li-gap);
+
+                &:before {
+                    counter-increment: optionnr;
+                    content: counter(optionnr) ".";
+                }
+            }
+            
+            &::after {
+                content: '';
+                width: 1px;
+                height: calc(100% - var(--li-gap));
+                background: rgba(white, 0.3);
+                position: absolute;
+                top: 0;
+                left: 50%;
+            }
+        }
+    }
+}

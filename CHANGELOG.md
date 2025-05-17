@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0] - 2025-05-17
+### Changed
+- This new version is built with Vite
+- Verticator now uses slidechanged-h and slidechanged-v events to update the bullets more efficiently
+- Verticator will now check if scrollmode is enabled/entered and will not show the bullets in that case. Exiting scrollmode (by browser resize or other means) will re-enable the bullets en activate the correct slide bullet.
+
+
 ## [1.2.6] - 2024-06-12
 ### Added
 - Added a 'cssautoload' option that can be disabled if the user wants to use npm imports for the CSS file. This is useful for users who want to use a bundler like Webpack or Parcel.
@@ -13,6 +20,7 @@
 - Override change in Package.json
 - Change for mobile view
 - Latest Reveal.js version
+
 
 ## [1.2.4] - 2023-11-21
 ### Added

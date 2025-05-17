@@ -16,12 +16,6 @@ Sometimes you would like to have an indication of how many slides are remaining 
 
 Don't overdo it. You probably don’t want 30 bullets on the right-hand side of your presentation.
 
-# Breaking changes
-
-In previous versions, the Verticator bullets would be black on light-background slides, and white on dark-background slides, although that could be overridden. The user then also needed to indicate if the theme was dark or not. 
-
-In the latest version, Verticator will automatically detect the tint of the theme, and (if not overridden) will use the same colors used for the headings in the theme, for the bullets. This can also be configured to an other element. Although 'oppositecolor' has been renamed to 'inversecolor', the old naming will still work.
-
 ## Verticator follows your theme
 
 If you do not override the colors in the configuration, Verticator detects what colors you use in your theme CSS. This works on both regular slides and on slides that have an inverted color. For example, if the theme is dark, and you use `<section(data-background-color="#fff")></section>` on one or more slides, those slides will then have a white background. In standard Reveal themes, the text in those white slides will then invert to be very dark gray. Verticator just copies that behaviour. The theme color is set as a CSS variable (`--c-theme-color`) in the Reveal element, and can also be used by other elements. 
@@ -49,10 +43,9 @@ This plugin is published to, and can be installed from, npm.
 ```console
 npm install reveal.js-verticator
 ```
-The Verticator plugin folder can then be referenced from `node_modules/reveal.js-verticator/plugin/verticator `
 
 
-## Setup
+## Adding Verticator to your presentation
 
 ### JavaScript
 
@@ -71,20 +64,37 @@ If you're not using ES modules, for example, to be able to run your presentation
 	});
 </script>
 ```
-#### As a module 
-If you're using ES modules, you can add it like this:
+
+#### From npm
+
+You can run it directly from npm:
 
 ```html
 <script type="module">
-	// This will need a server
-	import Reveal from './dist/reveal.esm.js';
-	import Verticator from './plugin/verticator/verticator.esm.js';
+	import Reveal from 'reveal.js';
+	import Verticator from 'reveal.js-verticator';
+	import 'reveal.js-verticator/plugin/verticator/verticator.css';
 	Reveal.initialize({
 		// ...
 		plugins: [ Verticator ]
 	});
 </script>
 ```
+
+Otherwise, you may want to copy the plugin into a plugin folder or an other location::
+
+```html
+<script type="module">
+	import Reveal from './dist/reveal.mjs';
+	import Verticator from './plugin/verticator/verticator.mjs';
+	import './plugin/verticator/verticator.css';
+	Reveal.initialize({
+		// ...
+		plugins: [ Verticator ]
+	});
+</script>
+```
+
 
 
 ### Styling
@@ -94,12 +104,22 @@ The styling of Verticator is automatically inserted **when the verticator folder
 If you **import** reveal.js-verticator from npm, you will need to **import** the CSS file yourself. Depending on your setup this can be something like this:
 
 ```
-import 'reveal.js-copycode/plugin/verticator/verticator.css';
+import 'reveal.js-verticator/plugin/verticator/verticator.css';
 ```
 
-Note that if you use 'import' like this, then in the `csspath` option (in the Reveal verticator options) should be set to false. But if you know the actual full path to the CSS file, then you can still use the csspath option and keep `cssautoload` set to `true`.
+Verticator will detect if it runs in a module environment and will then not autoload the CSS. You can still set `cssautoload` to `true` if you like, but your bundler (Vite, Webpack) may not like that. In any of these cases, `import` the CSS file yourself.
 
-If you want to change the Verticator or tooltip style, you do a lot of that via the Reveal.js options. Or you can simply make your own style and use that stylesheet instead. Linking to your custom style can be managed through the `csspath` option of Verticator.
+If you want to change the Verticator or tooltip style, you do a lot of that via the Reveal.js options. Or you can simply make your own style and use that stylesheet instead. Linking to your custom styles can be managed through the `csspath` option of Verticator or through `import` when using modules.
+
+
+#### Custom CSS
+If and when you decide to create your own CSS file, make sure that you also include the following CSS variable, that is used by the plugin to avoid loading the CSS multiple times, and to avoid using the autoloading feature when using modules:
+
+```css
+:root {
+    --cssimported-verticator: true;
+}
+```
 
 
 ### HTML
@@ -147,8 +167,8 @@ Reveal.initialize({
     * `tooltip: 'data-name'`: When you use `tooltip: 'data-name'` or `tooltip: 'title'` or any other attribute with a string value, the tooltip will show that value. 
     * `tooltip: 'auto'`: When you use `tooltip: 'auto'`, Verticator will check titles of each slide in the order: `data-verticator-tooltip`, `data-name`, `title`, and if none found, headings inside each slide in the order: `h1`, `h2`, `h3`, `h4`. Auto-mode is convenient for Verticator tooltips in Markdown slides. Set `data-verticator-tooltip="none"` or a class of `no-verticator-tooltip` on specific slides if you don't want the attribute- or auto-tooltip to show at all.
 * **`scale`**: While Verticator will scale according to the scale factor of the main slides, the option `scale` will resize it manually on top of that. Set to `1` by default, it can be set to a minimum of `0.5` and a maximum of `2`.
-* **`cssautoload`**: Verticator will load the CSS if this is set to `true`. If you import reveal.js-verticator from npm, you will need to import the CSS file yourself. If you use 'import', then `csspath` should be set to `false`. If you know the path to the CSS file, you can use the `csspath` option and keep `cssautoload` set to `true`.
-* **`csspath`**: Verticator will automatically load the styling for the bullets and the tooltips. If you want to customise the styling, you can link to your own CSS file here.
+* **`cssautoload`**: Verticator will load the CSS if this is set to `true`. If Verticator runs in a bundler or module environment, where you should use `import` for your styling, it will automatically turn off autoloading. You can still turn on autoloading, but you will need to manually add this setting like shown above.
+* **`csspath`**: Verticator will automatically load the styling for the bullets and the tooltips. If you really want to change things that you can't override from the Reveal.js config, you can link to your own CSS file here. This will not work in a bundler or module environment where you should use `import`.
 
 
 ## Like it?

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Verticator demo: Dark theme, custom colors</title>
+    <meta name="author" content="Martijn De Jongh (Martino)">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/white.css">
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+    <link rel="stylesheet" href="assets/css/demo.css">
+  </head>
+  <body>
+    <div class="reveal" id="deck1">
+      <div class="slides">
+        <section class="center">
+          <h1>Verticator</h1>
+          <h2>for Reveal.js</h2>
+          <h3>Dark theme with color options</h3>
+          <p class="scrollvisible">(Demo not for mobile devices)</p>
+        </section>
+        <section class="center">
+          <section class="center">
+            <h3>This theme has a dark background</h3>
+            <p>Replace the colors to your liking.</p>
+            <pre><code class="javascript">Reveal.initialize({
+	...
+	verticator: {
+		color: 'yellow',
+		inversecolor: 'blue'
+	},
+	plugins: [ Verticator ]
+})
+</code></pre>
+          </section>
+          <section class="center" data-background="#112266">
+            <p>This slide has a dark data-background attribute.</p>
+            <p>It has no effect on the Verticator bullets, because the theme is already dark.</p>
+          </section>
+          <section class="center" data-background="#fff">
+            <p>This slide has a light data-background attribute.</p>
+          </section>
+          <section class="center">
+            <h3>And a regular slide</h3>
+          </section>
+        </section>
+      </div>
+    </div>
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/verticator/verticator.js"></script>
+    <script>
+      Reveal.initialize({
+      	margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+      	history: true, center: true, controlsTutorial: false,
+      	plugins: [ Verticator, RevealHighlight ],
+      	verticator: { color: 'yellow', inversecolor: 'blue'}
+      });
+    </script>
+  </body>
+</html>

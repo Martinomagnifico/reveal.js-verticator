@@ -1,0 +1,42 @@
+extends templates/layouts/_reveal.pug
+
+append variables
+	- presentation.theme = "white"
+	- presentation.title = presentation.title + ": Light theme"
+
+block append styles
+	style.
+		:root {
+			--r-background-color: #FFFFFF;
+		}
+
+
+
+block slides
+	include slides/_slideslight
+
+block beforeslides
+	+badge(plugin.name.toLowerCase())
+
+block append scripts
+	+revealsrc("script", "plugin/highlight/highlight.js")
+
+	if process.env.NODE_ENV === 'production'
+		script(src=`plugin/${plugin.name}/${plugin.name}.js`)
+		script.
+			Reveal.initialize({
+				margin: 0.15, maxScale: 1.8, width: 1080, height: 700,
+				history: true, center: true, controlsTutorial: false,
+				plugins: [ Verticator, RevealHighlight ]
+			});
+	else
+		script(type="module").
+			import Verticator from '@/plugin/js/index';
+			Reveal.initialize({
+				margin: 0.15, maxScale: 1.8, width: 1080, height: 700,
+				history: true, center: true, controlsTutorial: false,
+				plugins: [ Verticator, RevealHighlight ],
+				verticator: {
+					debug: true
+				}
+			});

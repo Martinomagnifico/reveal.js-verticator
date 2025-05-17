@@ -1,0 +1,62 @@
+extends templates/layouts/_reveal-embed.pug
+
+append variables
+	- presentation.title = presentation.title + ": embedded"
+
+block slides
+	include slides/_slidesdark.pug
+
+
+block slidestwo
+	include slides/_slidesdarkoptions.pug
+
+append styles
+	style.
+		body {background: var(--r-background-color)}
+
+block append scripts
+	+revealsrc("script", "plugin/highlight/highlight.js")
+
+	if process.env.NODE_ENV === 'production'
+		script(src=`plugin/${plugin.name}/${plugin.name}.js`)
+		script.
+			const deck1 = new Reveal(document.querySelector("#deck1"), {
+				embedded: true, keyboardCondition: 'focused',
+				margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+				overview: false, center: true, controlsTutorial: false,
+				plugins: [ Verticator, RevealHighlight ]
+			});
+
+			const deck2 = new Reveal(document.querySelector("#deck2"), {
+				embedded: true, keyboardCondition: 'focused',
+				margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
+				overview: false, center: true, controlsTutorial: false,
+				plugins: [ Verticator, RevealHighlight ],
+				verticator: { color: 'yellow', inversecolor: 'blue', position: 'left', offset: '8px'},
+			});
+			deck1.initialize();
+			deck2.initialize();
+
+	else
+		script(type="module").
+			import Verticator from '@/plugin/js/index';
+
+			const deck1 = new Reveal(document.querySelector("#deck1"), {
+				embedded: true,
+				keyboardCondition: 'focused',
+				overview: false,
+				controlsTutorial: false,
+				plugins: [ debug: true, Verticator, RevealHighlight ]
+			});
+
+			const deck2 = new Reveal(document.querySelector("#deck2"), {
+				embedded: true, keyboardCondition: 'focused',
+				overview: false,
+				controlsTutorial: false,
+				plugins: [ Verticator, RevealHighlight ],
+				verticator: { debug: true, color: 'yellow', inversecolor: 'blue', position: 'left', offset: '8px'},
+			});
+
+			deck1.initialize();
+			deck2.initialize();
+
