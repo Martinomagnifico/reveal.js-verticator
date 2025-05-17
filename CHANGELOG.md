@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.3.1] - 2025-05-17
+### Changed
+- Fix demo typo
+
 ## [1.3.0] - 2025-05-17
 ### Changed
 - This new version is built with Vite
