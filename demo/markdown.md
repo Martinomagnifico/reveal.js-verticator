@@ -175,7 +175,7 @@ Reveal.initialize({
 
 #### Option 8: autogenerate
 
-Verticator will autogenerate bullets. In presentations with huge vertical stacks, this can result in an unsightly column of bullets. The user can then disable the autogeneration.
+Verticator needs a UL with the class 'verticator' to insert the indicators. If there is not one already in the HTML, Verticator will generate it automatically for you. This can be disabled by setting the option `autogenerate` to `false`.
 
 ```js [4]
 Reveal.initialize({

@@ -156,7 +156,7 @@
           </section>
           <section class="center">
             <h4>Option 8: autogenerate</h4>
-            <p>Verticator will autogenerate bullets. In presentations with huge vertical stacks, this can result in an unsightly column of bullets. The user can then disable the autogeneration.</p>
+            <p>Verticator needs a UL with the class 'verticator' to insert the indicators. If there is not one already in the HTML, Verticator will generate it automatically for you. This can be disabled by setting the option <code>autogenerate</code> to <code>false</code>.</p>
             <pre><code class="hljs js" data-line-numbers="4">Reveal.initialize({
     ...
     verticator: {
@@ -280,12 +280,7 @@
       Reveal.initialize({
       	margin: 0.15, maxScale: 1.8, width: 1080, height: 700,
       	history: true, center: true, controlsTutorial: false,
-      	plugins: [ RevealHighlight, Verticator ],
-      	verticator: {
-      		debug: true,
-      		cssautoload: true,
-      		csspath: 'plugin/verticator/verticatoring.css',
-      	}
+      	plugins: [ RevealHighlight, Verticator ]
       });
     </script>
   </body>
