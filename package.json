@@ -68,15 +68,5 @@
     },
     "peerDependencies": {
         "reveal.js": ">=4.0.0"
-    },
-    "functionname": "Verticator",
-    "demo": {
-        "presentation": {
-            "title": "Verticator demo",
-            "theme": "black"
-        },
-        "server": {
-            "open": "index.html"
-        }
     }
 }
