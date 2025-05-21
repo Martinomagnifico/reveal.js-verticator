@@ -1,7 +1,7 @@
  /*****************************************************************
  *
  * reveal.js-verticator for Reveal.js 
- * Version 1.3.0
+ * Version 1.3.1
  * 
  * @link
  * https://github.com/martinomagnifico/reveal.js-verticator
