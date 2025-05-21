@@ -1,7 +1,7 @@
 // Basic imports
 import type { Config } from "../config";
-import type { VerticatorColors } from "../types";
 import consts from "../consts";
+import type { VerticatorColors } from "../types";
 
 // Helper imports
 import { pluginDebug as debug } from "reveal.js-plugintoolkit";
@@ -43,7 +43,6 @@ export const setupColors = (
 			? config.oppositecolor
 			: themeColors.inverse;
 
-
 	debug.log(`Theme regular color is: "${colors.themeregular}"`);
 	debug.log(`Theme inverse color is: "${colors.themeinverse}"`);
 
@@ -53,7 +52,6 @@ export const setupColors = (
 	if (config.inversecolor || config.oppositecolor) {
 		debug.log(`Verticator inverse color is: "${colors.verticatorinverse}"`);
 	}
-
 
 	if (config.color) {
 		theVerticator.style.setProperty(consts.vertiColorVar, colors.verticatorregular);

@@ -1,8 +1,8 @@
 // Basic imports
 import type { Api } from "reveal.js";
 import type { Config } from "../config";
-import type { RevealSlideEvent, VerticatorColors } from "../types";
 import consts from "../consts";
+import type { RevealSlideEvent, VerticatorColors } from "../types";
 
 /**
  * Change the verticator color based on current slide attributes

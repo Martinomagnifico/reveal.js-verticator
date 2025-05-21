@@ -1,12 +1,11 @@
 // Basic imports
 import type { Api } from "reveal.js";
 import type { Config } from "../config";
-import type { VerticatorColors, SectionState } from "../types";
 import consts from "../consts";
+import type { SectionState, VerticatorColors } from "../types";
 
 // Function imports
 import { swapColors } from "./swap-colors";
-
 
 /**
  * Observe background state changes in the presentation

@@ -19,7 +19,6 @@ export interface SectionState {
 	lightParent: boolean;
 }
 
-
 export interface RevealResizeEvent {
 	scale: number;
 }

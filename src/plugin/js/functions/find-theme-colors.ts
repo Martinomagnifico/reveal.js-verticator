@@ -1,6 +1,6 @@
 // Basic imports
-import type { ThemeColors } from "../types";
 import consts from "../consts";
+import type { ThemeColors } from "../types";
 
 export const findThemeColors = (parent: HTMLElement, tag: string): ThemeColors => {
 	const themeColors: ThemeColors = {

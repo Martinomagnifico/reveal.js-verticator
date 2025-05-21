@@ -1,7 +1,7 @@
 // Basic imports
 import type { Config } from "../config";
-import type { VerticatorColors } from "../types";
 import consts from "../consts";
+import type { VerticatorColors } from "../types";
 
 export const swapColors = (
 	needToSwap: boolean,

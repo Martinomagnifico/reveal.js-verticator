@@ -11,8 +11,6 @@ import { PluginBase, pluginDebug as debug, pluginCSS } from "reveal.js-plugintoo
 // Function imports
 import { Verticator } from "./main";
 
-
-
 const PLUGIN_ID = "verticator";
 
 const init = async (plugin: PluginBase<Config>, deck: Api, config: Config): Promise<void> => {

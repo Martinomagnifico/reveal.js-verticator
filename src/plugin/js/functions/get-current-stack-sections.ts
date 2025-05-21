@@ -4,7 +4,6 @@ import type { Config } from "../config";
 // Helper imports
 import { sectionTools } from "reveal.js-plugintoolkit";
 
-
 const getStack = sectionTools.getStack;
 
 // Helper function for auto tooltip logic

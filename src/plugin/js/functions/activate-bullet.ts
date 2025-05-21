@@ -1,7 +1,7 @@
 // Basic imports
 import type { Api } from "reveal.js";
-import type { RevealSlideEvent } from "../types";
 import consts from "../consts";
+import type { RevealSlideEvent } from "../types";
 
 // Function imports
 import { getIndexBase } from "../helpers";

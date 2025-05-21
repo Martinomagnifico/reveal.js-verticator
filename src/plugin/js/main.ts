@@ -6,11 +6,11 @@ import type { RevealSlideEvent, VerticatorColors } from "./types";
 // Helper imports
 import { eventTools } from "reveal.js-plugintoolkit";
 
-// Function imports
-import { setupColors } from "./functions/setup-colors";
 import { activateBullet } from "./functions/activate-bullet";
 import { changeVerticatorColor } from "./functions/change-verticator-color";
 import { observeStates } from "./functions/observe-states";
+// Function imports
+import { setupColors } from "./functions/setup-colors";
 import { getVerticator, setScaleAndPosition } from "./functions/setup-dom";
 import { slideAppear } from "./functions/slide-appear";
 

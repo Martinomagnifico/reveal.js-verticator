@@ -3,7 +3,6 @@ import type { Api } from "reveal.js";
 import type { Config } from "../config";
 import type { RevealSlideEvent } from "../types";
 
-
 // Helper imports
 import { sectionTools } from "reveal.js-plugintoolkit";
 
