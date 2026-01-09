@@ -9,9 +9,9 @@ A plugin for [Reveal.js](https://revealjs.com) that adds indicators to show the 
 Sometimes you would like to have an indication of how many slides are remaining in a vertical stack. This plugin does just that. It is visually similar to the indicators at [fullPage.js](https://alvarotrigo.com/fullPage/). 
 
 * [Demo (dark theme, no options set)](https://martinomagnifico.github.io/reveal.js-verticator/demo/demo.html)
-* [Dark theme with color options](https://martinomagnifico.github.io/reveal.js-verticator/demo/demodarkcolor.html)
-* [Light theme, no color options](https://martinomagnifico.github.io/reveal.js-verticator/demo/demolight.html)
-* [Light theme with color options](https://martinomagnifico.github.io/reveal.js-verticator/demo/demolightcolor.html)
+* [Dark theme with color options](https://martinomagnifico.github.io/reveal.js-verticator/demo/demo-darkcolor.html)
+* [Light theme, no color options](https://martinomagnifico.github.io/reveal.js-verticator/demo/demo-light.html)
+* [Light theme with color options](https://martinomagnifico.github.io/reveal.js-verticator/demo/demo-lightcolor.html)
 * [Tooltip demo](https://martinomagnifico.github.io/reveal.js-verticator/demo/demotooltip.html)
 
 Don't overdo it. You probably don’t want 30 bullets on the right-hand side of your presentation.

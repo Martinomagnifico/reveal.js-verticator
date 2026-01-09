@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2] - 2026-01-09
+### Changed
+- Uses newer version of pluginToolkit that fixes CSS loading in fixed/prod/static modes
+- Newer version of Vite used
+- Fixed demo links in README.md
+
+
 ## [1.3.1] - 2025-05-17
 ### Changed
 - Fix demo typo

@@ -1,6 +1,6 @@
 {
     "name": "reveal.js-verticator",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "description": "A plugin for Reveal.js that adds indicators to show the amount of slides in a vertical stack",
     "keywords": [
         "reveal",
@@ -51,6 +51,7 @@
         "format": "biome format --write .",
         "lint": "biome lint .",
         "check": "biome check --write .",
+        "preview": "vite preview",
         "ci": "biome ci ."
     },
     "devDependencies": {
@@ -59,7 +60,7 @@
         "@types/reveal.js": "^5.0.4",
         "@vituum/vite-plugin-pug": "latest",
         "fs-extra": "latest",
-        "reveal.js-plugintoolkit": "0.2.4",
+        "reveal.js-plugintoolkit": "1.0.2",
         "rimraf": "^6.0.1",
         "sass": "latest",
         "typescript": "^5.7.2",

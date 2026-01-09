@@ -1,4 +1,5 @@
-@import '_verticatorbase', '_tooltipbase';
+@use '_verticatorbase';
+@use '_tooltipbase';
 
 :root {
     --cssimported-verticator: true;

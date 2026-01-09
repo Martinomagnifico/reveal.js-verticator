@@ -32,7 +32,7 @@ block append scripts
 				margin: 0.1, maxScale: 1.8, width: 1080, height: 700,
 				overview: false, center: true, controlsTutorial: false,
 				plugins: [ Verticator, RevealHighlight ],
-				verticator: { color: 'yellow', inversecolor: 'blue', position: 'left', offset: '8px'},
+				verticator: { color: 'yellow', inversecolor: 'blue'},
 			});
 			deck1.initialize();
 			deck2.initialize();
@@ -46,7 +46,8 @@ block append scripts
 				keyboardCondition: 'focused',
 				overview: false,
 				controlsTutorial: false,
-				plugins: [ debug: true, Verticator, RevealHighlight ]
+				plugins: [ Verticator, RevealHighlight ],
+				verticator: { debug: true},
 			});
 
 			const deck2 = new Reveal(document.querySelector("#deck2"), {
@@ -54,7 +55,7 @@ block append scripts
 				overview: false,
 				controlsTutorial: false,
 				plugins: [ Verticator, RevealHighlight ],
-				verticator: { debug: true, color: 'yellow', inversecolor: 'blue', position: 'left', offset: '8px'},
+				verticator: { debug: true, color: 'yellow', inversecolor: 'blue'},
 			});
 
 			deck1.initialize();

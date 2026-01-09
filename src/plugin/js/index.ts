@@ -14,6 +14,7 @@ import { Verticator } from "./main";
 const PLUGIN_ID = "verticator";
 
 const init = async (plugin: PluginBase<Config>, deck: Api, config: Config): Promise<void> => {
+	
 	if (debug && config.debug) {
 		debug.initialize(true, PLUGIN_ID);
 	}

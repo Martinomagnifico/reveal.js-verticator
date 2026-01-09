@@ -12,15 +12,12 @@
  * @license 
  * MIT
  * 
- * Copyright (C) 2025 Martijn De Jongh (Martino)
+ * Copyright (C) 2026 Martijn De Jongh (Martino)
  *
  ******************************************************************/
 
 
-var J = Object.defineProperty;
-var Q = (r, t, e) => t in r ? J(r, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : r[t] = e;
-var L = (r, t, e) => Q(r, typeof t != "symbol" ? t + "" : t, e);
-const X = {
+const Z = {
   themetag: "h1",
   color: "",
   inversecolor: "",
@@ -35,132 +32,127 @@ const X = {
   csspath: "",
   plaintextonly: !1
 };
-function ee(r) {
+function J(r) {
   return r && r.__esModule && Object.prototype.hasOwnProperty.call(r, "default") ? r.default : r;
 }
-var P, j;
-function te() {
-  if (j) return P;
-  j = 1;
-  var r = function(u) {
-    return t(u) && !e(u);
+var O, x;
+function Q() {
+  if (x) return O;
+  x = 1;
+  var r = function(c) {
+    return t(c) && !e(c);
   };
   function t(l) {
     return !!l && typeof l == "object";
   }
   function e(l) {
-    var u = Object.prototype.toString.call(l);
-    return u === "[object RegExp]" || u === "[object Date]" || n(l);
+    var c = Object.prototype.toString.call(l);
+    return c === "[object RegExp]" || c === "[object Date]" || o(l);
   }
-  var s = typeof Symbol == "function" && Symbol.for, i = s ? Symbol.for("react.element") : 60103;
-  function n(l) {
-    return l.$$typeof === i;
-  }
+  var i = typeof Symbol == "function" && Symbol.for, s = i ? /* @__PURE__ */ Symbol.for("react.element") : 60103;
   function o(l) {
+    return l.$$typeof === s;
+  }
+  function n(l) {
     return Array.isArray(l) ? [] : {};
   }
-  function a(l, u) {
-    return u.clone !== !1 && u.isMergeableObject(l) ? m(o(l), l, u) : l;
+  function a(l, c) {
+    return c.clone !== !1 && c.isMergeableObject(l) ? p(n(l), l, c) : l;
   }
-  function c(l, u, d) {
-    return l.concat(u).map(function(b) {
-      return a(b, d);
+  function u(l, c, d) {
+    return l.concat(c).map(function(v) {
+      return a(v, d);
     });
   }
-  function g(l, u) {
-    if (!u.customMerge)
-      return m;
-    var d = u.customMerge(l);
-    return typeof d == "function" ? d : m;
+  function g(l, c) {
+    if (!c.customMerge)
+      return p;
+    var d = c.customMerge(l);
+    return typeof d == "function" ? d : p;
   }
-  function v(l) {
-    return Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(l).filter(function(u) {
-      return Object.propertyIsEnumerable.call(l, u);
+  function m(l) {
+    return Object.getOwnPropertySymbols ? Object.getOwnPropertySymbols(l).filter(function(c) {
+      return Object.propertyIsEnumerable.call(l, c);
     }) : [];
   }
-  function S(l) {
-    return Object.keys(l).concat(v(l));
+  function y(l) {
+    return Object.keys(l).concat(m(l));
   }
-  function y(l, u) {
+  function b(l, c) {
     try {
-      return u in l;
+      return c in l;
     } catch {
       return !1;
     }
   }
-  function C(l, u) {
-    return y(l, u) && !(Object.hasOwnProperty.call(l, u) && Object.propertyIsEnumerable.call(l, u));
+  function S(l, c) {
+    return b(l, c) && !(Object.hasOwnProperty.call(l, c) && Object.propertyIsEnumerable.call(l, c));
   }
-  function E(l, u, d) {
-    var b = {};
-    return d.isMergeableObject(l) && S(l).forEach(function(f) {
-      b[f] = a(l[f], d);
-    }), S(u).forEach(function(f) {
-      C(l, f) || (y(l, f) && d.isMergeableObject(u[f]) ? b[f] = g(f, d)(l[f], u[f], d) : b[f] = a(u[f], d));
-    }), b;
+  function C(l, c, d) {
+    var v = {};
+    return d.isMergeableObject(l) && y(l).forEach(function(f) {
+      v[f] = a(l[f], d);
+    }), y(c).forEach(function(f) {
+      S(l, f) || (b(l, f) && d.isMergeableObject(c[f]) ? v[f] = g(f, d)(l[f], c[f], d) : v[f] = a(c[f], d));
+    }), v;
   }
-  function m(l, u, d) {
-    d = d || {}, d.arrayMerge = d.arrayMerge || c, d.isMergeableObject = d.isMergeableObject || r, d.cloneUnlessOtherwiseSpecified = a;
-    var b = Array.isArray(u), f = Array.isArray(l), Z = b === f;
-    return Z ? b ? d.arrayMerge(l, u, d) : E(l, u, d) : a(u, d);
+  function p(l, c, d) {
+    d = d || {}, d.arrayMerge = d.arrayMerge || u, d.isMergeableObject = d.isMergeableObject || r, d.cloneUnlessOtherwiseSpecified = a;
+    var v = Array.isArray(c), f = Array.isArray(l), Y = v === f;
+    return Y ? v ? d.arrayMerge(l, c, d) : C(l, c, d) : a(c, d);
   }
-  m.all = function(u, d) {
-    if (!Array.isArray(u))
+  p.all = function(c, d) {
+    if (!Array.isArray(c))
       throw new Error("first argument should be an array");
-    return u.reduce(function(b, f) {
-      return m(b, f, d);
+    return c.reduce(function(v, f) {
+      return p(v, f, d);
     }, {});
   };
-  var $ = m;
-  return P = $, P;
+  var E = p;
+  return O = E, O;
 }
-var re = te();
-const ie = /* @__PURE__ */ ee(re);
-var se = Object.defineProperty, oe = (r, t, e) => t in r ? se(r, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : r[t] = e, p = (r, t, e) => oe(r, typeof t != "symbol" ? t + "" : t, e);
-const ne = () => {
-  const r = typeof window < "u", t = typeof document < "u", e = r && typeof location < "u" && /localhost|127\.0\.0\.1/.test(location.hostname);
-  let s = !1;
+var X = Q();
+const ee = /* @__PURE__ */ J(X);
+let I = null;
+const te = () => {
+  if (I) return I;
+  const r = typeof window < "u", t = typeof document < "u";
+  let e = !1;
   try {
-    s = new Function('return typeof module !== "undefined" && !!module.hot')();
+    const s = new Function('return typeof module !== "undefined" && !!module.hot')(), o = new Function('return typeof import.meta !== "undefined" && !!import.meta.hot')();
+    e = s || o;
   } catch {
   }
   let i = !1;
   try {
-    i = new Function('return typeof import.meta !== "undefined" && typeof import.meta.env !== "undefined" && import.meta.env.DEV === true')();
+    i = new Function('return typeof import.meta !== "undefined" && import.meta.env?.DEV === true')();
   } catch {
   }
-  const n = r && typeof navigator < "u" && /vite|localhost|127\.0\.0\.1/.test(location.origin) && /AppleWebKit|Chrome|Vite/.test(navigator.userAgent), o = t && !!document.querySelector('script[type="module"]');
-  let a = !1;
-  try {
-    a = new Function('return typeof process !== "undefined" && process.env && (process.env.ROLLUP_WATCH === "true" || process.env.NODE_ENV === "development")')();
-  } catch {
-  }
-  let c = !1;
-  try {
-    c = new Function('return typeof define === "function" && !!define.amd')();
-  } catch {
-  }
-  return {
-    isDevServer: e,
-    isWebpackHMR: s,
-    isVite: i,
-    isVitePreview: n,
-    hasModuleScripts: o,
-    isModuleBundler: a,
-    isAMD: c,
-    isBundlerEnvironment: s || i || n || o || a || c || e
-  };
+  return I = {
+    isDevelopment: e || i,
+    hasHMR: e,
+    isViteDev: i,
+    hasWindow: r,
+    hasDocument: t
+  }, I;
 };
-class le {
+class re {
+  defaultConfig;
+  pluginInit;
+  pluginId;
+  mergedConfig = null;
+  userConfigData = null;
+  /** Public data storage for plugin state */
+  data = {};
   // Create a new plugin instance
-  constructor(t, e, s) {
-    p(this, "defaultConfig"), p(this, "pluginInit"), p(this, "pluginId"), p(this, "mergedConfig", null), p(this, "userConfigData", null), p(this, "data", {}), p(this, "getEnvironmentInfo", () => ne()), typeof t == "string" ? (this.pluginId = t, this.pluginInit = e, this.defaultConfig = s || {}) : (this.pluginId = t.id, this.pluginInit = t.init, this.defaultConfig = t.defaultConfig || {});
+  constructor(t, e, i) {
+    typeof t == "string" ? (this.pluginId = t, this.pluginInit = e, this.defaultConfig = i || {}) : (this.pluginId = t.id, this.pluginInit = t.init, this.defaultConfig = t.defaultConfig || {});
   }
   // Initialize plugin configuration by merging default and user settings
   initializeConfig(t) {
-    const e = this.defaultConfig, s = t.getConfig()[this.pluginId] || {};
-    this.userConfigData = s, this.mergedConfig = ie(e, s, {
-      arrayMerge: (i, n) => n,
+    const e = this.defaultConfig, i = t.getConfig()[this.pluginId] || {};
+    this.userConfigData = i, this.mergedConfig = ee(e, i, {
+      arrayMerge: (s, o) => o,
       clone: !0
     });
   }
@@ -177,6 +169,8 @@ class le {
   get userConfig() {
     return this.userConfigData || {};
   }
+  // Gets information about the current JavaScript environment
+  getEnvironmentInfo = () => te();
   // Initialize the plugin
   init(t) {
     if (this.initializeConfig(t), this.pluginInit)
@@ -193,14 +187,14 @@ class le {
     };
   }
 }
-const ae = (r) => {
+const ie = (r) => {
   const t = document.querySelector(
     `script[src$="${r}.js"], script[src$="${r}.min.js"], script[src$="${r}.mjs"]`
   );
-  if (t != null && t.src) {
-    const e = t.getAttribute("src") || "", s = e.lastIndexOf("/");
-    if (s !== -1)
-      return e.substring(0, s + 1);
+  if (t?.src) {
+    const e = t.getAttribute("src") || "", i = e.lastIndexOf("/");
+    if (i !== -1)
+      return e.substring(0, i + 1);
   }
   try {
     if (typeof import.meta < "u" && import.meta.url)
@@ -208,113 +202,134 @@ const ae = (r) => {
   } catch {
   }
   return `plugin/${r}/`;
-}, H = "data-css-id", ce = (r, t) => new Promise((e, s) => {
-  const i = document.createElement("link");
-  i.rel = "stylesheet", i.href = t, i.setAttribute(H, r);
-  const n = setTimeout(() => {
-    i.parentNode && i.parentNode.removeChild(i), s(new Error(`[${r}] Timeout loading CSS from: ${t}`));
+}, B = "data-css-id", se = (r, t) => new Promise((e, i) => {
+  const s = document.createElement("link");
+  s.rel = "stylesheet", s.href = t, s.setAttribute(B, r);
+  const o = setTimeout(() => {
+    s.parentNode && s.parentNode.removeChild(s), i(new Error(`[${r}] Timeout loading CSS from: ${t}`));
   }, 5e3);
-  i.onload = () => {
-    clearTimeout(n), e();
-  }, i.onerror = () => {
-    clearTimeout(n), i.parentNode && i.parentNode.removeChild(i), s(new Error(`[${r}] Failed to load CSS from: ${t}`));
-  }, document.head.appendChild(i);
-}), U = (r) => document.querySelectorAll(`[${H}="${r}"]`).length > 0, ue = (r) => new Promise((t) => {
+  s.onload = () => {
+    clearTimeout(o), e();
+  }, s.onerror = () => {
+    clearTimeout(o), s.parentNode && s.parentNode.removeChild(s), i(new Error(`[${r}] Failed to load CSS from: ${t}`));
+  }, document.head.appendChild(s);
+}), V = (r) => document.querySelectorAll(`[${B}="${r}"]`).length > 0, oe = (r) => new Promise((t) => {
   if (e())
     return t(!0);
   setTimeout(() => {
     t(e());
   }, 50);
   function e() {
-    if (U(r)) return !0;
+    if (V(r)) return !0;
     try {
       return window.getComputedStyle(document.documentElement).getPropertyValue(`--cssimported-${r}`).trim() !== "";
     } catch {
       return !1;
     }
   }
-}), x = async (r) => {
-  const {
-    id: t,
-    cssautoload: e = !0,
-    csspath: s = "",
-    debug: i = !1
-  } = r;
-  if (e === !1 || s === !1) return;
-  if (U(t)) {
-    i && console.log(`[${t}] CSS already loaded, skipping`);
+}), A = async (r) => {
+  const { id: t, cssautoload: e = !0, csspath: i = "", debug: s = !1 } = r;
+  if (e === !1 || i === !1) return;
+  if (V(t) && !(typeof i == "string" && i.trim() !== "")) {
+    s && console.log(`[${t}] CSS is already loaded, skipping`);
     return;
   }
-  const n = [];
-  typeof s == "string" && s.trim() !== "" && n.push(s);
-  const o = ae(t);
-  if (o) {
-    const c = `${o}${t}.css`;
-    n.push(c);
+  V(t) && typeof i == "string" && i.trim() !== "" && s && console.log(`[${t}] CSS is already loaded, also loading user-specified path: ${i}`);
+  const o = [];
+  typeof i == "string" && i.trim() !== "" && o.push(i);
+  const n = ie(t);
+  if (n) {
+    const u = `${n}${t}.css`;
+    o.push(u);
   }
   const a = `plugin/${t}/${t}.css`;
-  n.push(a);
-  for (const c of n)
+  o.push(a);
+  for (const u of o)
     try {
-      await ce(t, c);
+      await se(t, u);
       let g = "CSS";
-      s && c === s ? g = "user-specified CSS" : o && c === `${o}${t}.css` ? g = "CSS (auto-detected from script location)" : g = "CSS (standard fallback)", i && console.log(`[${t}] ${g} loaded successfully from: ${c}`);
+      i && u === i ? g = "user-specified CSS" : n && u === `${n}${t}.css` ? g = "CSS (auto-detected from script location)" : g = "CSS (standard fallback)", s && console.log(`[${t}] ${g} loaded successfully from: ${u}`);
       return;
     } catch {
-      i && console.log(`[${t}] Failed to load CSS from: ${c}`);
+      s && console.log(`[${t}] Failed to load CSS from: ${u}`);
     }
   console.warn(`[${t}] Could not load CSS from any location`);
 };
-async function de(r, t) {
+async function ne(r, t) {
   if ("getEnvironmentInfo" in r && t) {
-    const e = r, s = e.getEnvironmentInfo();
-    if (await ue(e.pluginId)) {
-      t.debug && console.log(`[${e.pluginId}] CSS already imported, skipping`);
+    const e = r, i = e.getEnvironmentInfo();
+    if (await oe(e.pluginId) && !(typeof t.csspath == "string" && t.csspath.trim() !== "")) {
+      t.debug && console.log(`[${e.pluginId}] CSS is already imported, skipping`);
       return;
     }
-    if ("cssautoload" in e.userConfig ? t.cssautoload : !s.isBundlerEnvironment)
-      return x({
+    if ("cssautoload" in e.userConfig ? t.cssautoload : !i.isDevelopment)
+      return A({
         id: e.pluginId,
         cssautoload: !0,
         csspath: t.csspath,
         debug: t.debug
       });
-    s.isBundlerEnvironment && console.warn(`[${e.pluginId}] CSS autoloading is disabled in bundler environments. Please import the CSS manually, using import.`);
+    i.isDevelopment && console.warn(
+      `[${e.pluginId}] CSS autoloading is disabled in bundler environments. Please import the CSS manually, using import.`
+    );
     return;
   }
-  return x(r);
+  return A(r);
 }
-class he {
-  constructor() {
-    p(this, "debugMode", !1), p(this, "label", "DEBUG"), p(this, "groupDepth", 0), p(this, "group", (...t) => {
-      this.debugLog("group", ...t), this.groupDepth++;
-    }), p(this, "groupCollapsed", (...t) => {
-      this.debugLog("groupCollapsed", ...t), this.groupDepth++;
-    }), p(this, "groupEnd", () => {
-      this.groupDepth > 0 && (this.groupDepth--, this.debugLog("groupEnd"));
-    }), p(this, "error", (...t) => {
-      const e = this.debugMode;
-      this.debugMode = !0, this.formatAndLog(console.error, t), this.debugMode = e;
-    }), p(this, "table", (t, e, s) => {
-      if (this.debugMode)
-        try {
-          typeof t == "string" && e !== void 0 && typeof e != "string" ? (this.groupDepth === 0 ? console.log(`[${this.label}]: ${t}`) : console.log(t), s ? console.table(e, s) : console.table(e)) : (this.groupDepth === 0 && console.log(`[${this.label}]: Table data`), typeof e == "object" && Array.isArray(e) ? console.table(t, e) : console.table(t));
-        } catch (i) {
-          console.error(`[${this.label}]: Error showing table:`, i), console.log(`[${this.label}]: Raw data:`, t);
-        }
-    }), p(this, "formatAndLog", (t, e) => {
-      if (this.debugMode)
-        try {
-          this.groupDepth > 0 ? t.call(console, ...e) : e.length > 0 && typeof e[0] == "string" ? t.call(console, `[${this.label}]: ${e[0]}`, ...e.slice(1)) : t.call(console, `[${this.label}]:`, ...e);
-        } catch (s) {
-          console.error(`[${this.label}]: Error in logging:`, s), console.log(`[${this.label}]: Original log data:`, ...e);
-        }
-    });
-  }
+class le {
+  // Flag to enable/disable all debugging output
+  debugMode = !1;
+  // Label to prefix all debug messages with
+  label = "DEBUG";
+  // Tracks the current depth of console groups for proper formatting
+  groupDepth = 0;
   // Initializes the debug utility with custom settings.
   initialize(t, e = "DEBUG") {
     this.debugMode = t, this.label = e;
   }
+  // Creates a new console group and tracks the group depth. 
+  // Groups will always display the label prefix in their header.
+  group = (...t) => {
+    this.debugLog("group", ...t), this.groupDepth++;
+  };
+  // Creates a new collapsed console group and tracks the group depth.
+  groupCollapsed = (...t) => {
+    this.debugLog("groupCollapsed", ...t), this.groupDepth++;
+  };
+  // Ends the current console group and updates the group depth tracker.
+  groupEnd = () => {
+    this.groupDepth > 0 && (this.groupDepth--, this.debugLog("groupEnd"));
+  };
+  // Formats and logs an error message with the debug label. 
+  // Error messages are always shown, even when debug mode is disabled.
+  error = (...t) => {
+    const e = this.debugMode;
+    this.debugMode = !0, this.formatAndLog(console.error, t), this.debugMode = e;
+  };
+  // Displays a table in the console with the pluginDebug label.
+  // Special implementation for console.table to handle tabular data properly.
+  // @param messageOrData - Either a message string or the tabular data
+  // @param propertiesOrData - Either property names or tabular data (if first param was message)
+  // @param optionalProperties - Optional property names (if first param was message)
+  table = (t, e, i) => {
+    if (this.debugMode)
+      try {
+        typeof t == "string" && e !== void 0 && typeof e != "string" ? (this.groupDepth === 0 ? console.log(`[${this.label}]: ${t}`) : console.log(t), i ? console.table(e, i) : console.table(e)) : (this.groupDepth === 0 && console.log(`[${this.label}]: Table data`), typeof e == "object" && Array.isArray(e) ? console.table(t, e) : console.table(t));
+      } catch (s) {
+        console.error(`[${this.label}]: Error showing table:`, s), console.log(`[${this.label}]: Raw data:`, t);
+      }
+  };
+  // Helper method that formats and logs messages with the pluginDebug label.
+  // @param logMethod - The console method to use for logging
+  // @param args - Arguments to pass to the console method
+  formatAndLog = (t, e) => {
+    if (this.debugMode)
+      try {
+        this.groupDepth > 0 ? t.call(console, ...e) : e.length > 0 && typeof e[0] == "string" ? t.call(console, `[${this.label}]: ${e[0]}`, ...e.slice(1)) : t.call(console, `[${this.label}]:`, ...e);
+      } catch (i) {
+        console.error(`[${this.label}]: Error in logging:`, i), console.log(`[${this.label}]: Original log data:`, ...e);
+      }
+  };
   // Core method that handles calling console methods with proper formatting.
   // - Adds label prefix to messages outside of groups
   // - Skips label prefix for messages inside groups to avoid redundancy
@@ -323,15 +338,15 @@ class he {
   // @param methodName - Name of the console method to call
   // @param args - Arguments to pass to the console method
   debugLog(t, ...e) {
-    const s = console[t];
-    if (!this.debugMode && t !== "error" || typeof s != "function") return;
-    const i = s;
+    const i = console[t];
+    if (!this.debugMode && t !== "error" || typeof i != "function") return;
+    const s = i;
     if (t === "group" || t === "groupCollapsed") {
-      e.length > 0 && typeof e[0] == "string" ? i.call(console, `[${this.label}]: ${e[0]}`, ...e.slice(1)) : i.call(console, `[${this.label}]:`, ...e);
+      e.length > 0 && typeof e[0] == "string" ? s.call(console, `[${this.label}]: ${e[0]}`, ...e.slice(1)) : s.call(console, `[${this.label}]:`, ...e);
       return;
     }
     if (t === "groupEnd") {
-      i.call(console);
+      s.call(console);
       return;
     }
     if (t === "table") {
@@ -342,84 +357,84 @@ class he {
       );
       return;
     }
-    this.groupDepth > 0 ? i.call(console, ...e) : e.length > 0 && typeof e[0] == "string" ? i.call(console, `[${this.label}]: ${e[0]}`, ...e.slice(1)) : i.call(console, `[${this.label}]:`, ...e);
+    this.groupDepth > 0 ? s.call(console, ...e) : e.length > 0 && typeof e[0] == "string" ? s.call(console, `[${this.label}]: ${e[0]}`, ...e.slice(1)) : s.call(console, `[${this.label}]:`, ...e);
   }
 }
-const ge = (r) => new Proxy(r, {
+const ae = (r) => new Proxy(r, {
   get: (t, e) => {
     if (e in t)
       return t[e];
-    const s = e.toString();
-    if (typeof console[s] == "function")
-      return (...i) => {
-        t.debugLog(s, ...i);
+    const i = e.toString();
+    if (typeof console[i] == "function")
+      return (...s) => {
+        t.debugLog(i, ...s);
       };
   }
-}), k = ge(new he()), q = (r) => {
+}), $ = ae(new le()), U = (r) => {
   let [t, e] = [0, 0];
-  r.on("slidechanged", (s) => {
-    const { indexh: i, indexv: n, previousSlide: o, currentSlide: a } = s;
-    i !== t && r.dispatchEvent({
+  r.on("slidechanged", (i) => {
+    const { indexh: s, indexv: o, previousSlide: n, currentSlide: a } = i;
+    s !== t && r.dispatchEvent({
       type: "slidechanged-h",
-      data: { previousSlide: o, currentSlide: a, indexh: i, indexv: n }
-    }), n !== e && i === t && r.dispatchEvent({
+      data: { previousSlide: n, currentSlide: a, indexh: s, indexv: o }
+    }), o !== e && s === t && r.dispatchEvent({
       type: "slidechanged-v",
-      data: { previousSlide: o, currentSlide: a, indexh: i, indexv: n }
-    }), [t, e] = [i, n];
+      data: { previousSlide: n, currentSlide: a, indexh: s, indexv: o }
+    }), [t, e] = [s, o];
   });
-}, fe = q, pe = (r) => {
+}, ce = U, ue = (r) => {
   const t = r.getViewportElement();
   if (!t)
     return console.warn("[verticator]: Could not find viewport element"), () => {
     };
   const e = () => t.classList.contains("reveal-scroll");
-  let s = e(), i = !0;
-  const n = new MutationObserver(() => {
-    if (!i) return;
-    const o = e();
-    if (o !== s) {
-      const a = r.getCurrentSlide(), c = r.getIndices(), g = c.h, v = c.v, S = o ? "scrollmode-enter" : "scrollmode-exit";
+  let i = e(), s = !0;
+  const o = new MutationObserver(() => {
+    if (!s) return;
+    const n = e();
+    if (n !== i) {
+      const a = r.getCurrentSlide(), u = r.getIndices(), g = u.h, m = u.v, y = n ? "scrollmode-enter" : "scrollmode-exit";
       r.dispatchEvent({
-        type: S,
+        type: y,
         data: {
           currentSlide: a,
           previousSlide: null,
           indexh: g,
-          indexv: v
+          indexv: m
           // We can add stuff here if needed. Plugin-authors, just ask!
         }
-      }), s = o;
+      }), i = n;
     }
   });
-  return n.observe(t, { attributes: !0, attributeFilter: ["class"] }), () => {
-    i = !1, n.disconnect();
+  return o.observe(t, { attributes: !0, attributeFilter: ["class"] }), () => {
+    s = !1, o.disconnect();
   };
 }, D = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  addDirectionEvents: q,
-  addMoreDirectionEvents: fe,
-  addScrollModeEvents: pe
+  addDirectionEvents: U,
+  addMoreDirectionEvents: ce,
+  addScrollModeEvents: ue
 }, Symbol.toStringTag, { value: "Module" }));
-var G = /* @__PURE__ */ ((r) => (r.HORIZONTAL = "horizontal", r.STACK = "stack", r.VERTICAL = "vertical", r.INVALID = "invalid", r))(G || {});
-const M = (r) => r instanceof HTMLElement && r.tagName === "SECTION", w = (r) => M(r) ? Array.from(r.children).some(
+var q = /* @__PURE__ */ ((r) => (r.HORIZONTAL = "horizontal", r.STACK = "stack", r.VERTICAL = "vertical", r.INVALID = "invalid", r))(q || {});
+const k = (r) => r instanceof HTMLElement && r.tagName === "SECTION", M = (r) => k(r) ? Array.from(r.children).some(
   (t) => t instanceof HTMLElement && t.tagName === "SECTION"
-) : !1, I = (r) => M(r) ? r.parentElement instanceof HTMLElement && r.parentElement.tagName === "SECTION" : !1, me = (r) => M(r) && !I(r) && !w(r), ve = (r) => {
-  if (!M(r)) return null;
-  if (I(r)) {
+) : !1, w = (r) => k(r) ? r.parentElement instanceof HTMLElement && r.parentElement.tagName === "SECTION" : !1, de = (r) => k(r) && !w(r) && !M(r), he = (r) => {
+  if (!k(r)) return null;
+  if (w(r)) {
     const t = r.parentElement;
-    if (t instanceof HTMLElement && w(t))
+    if (t instanceof HTMLElement && M(t))
       return t;
   }
   return null;
-}, be = (r) => M(r) ? I(r) ? "vertical" : w(r) ? "stack" : "horizontal" : "invalid", K = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, ge = (r) => k(r) ? w(r) ? "vertical" : M(r) ? "stack" : "horizontal" : "invalid", G = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  SectionType: G,
-  getSectionType: be,
-  getStack: ve,
-  isHorizontal: me,
-  isSection: M,
-  isStack: w,
-  isVertical: I
+  SectionType: q,
+  getSectionType: ge,
+  getStack: he,
+  isHorizontal: de,
+  isSection: k,
+  isStack: M,
+  isVertical: w
 }, Symbol.toStringTag, { value: "Module" })), h = {
   lightClass: "has-light-background",
   darkClass: "has-dark-background",
@@ -427,155 +442,153 @@ const M = (r) => r instanceof HTMLElement && r.tagName === "SECTION", w = (r) =>
   vertiColorVar: "--v-color",
   forceColorVar: "--v-forcecolor",
   activeclass: "active"
-}, ye = (r, t) => {
+}, K = (r) => r.getConfig().hashOneBasedIndex ? 1 : 0, T = (r, t, e) => {
+  const i = K(e), s = Array.from(t.querySelectorAll("li"));
+  let o = i - 1;
+  for (let n = 0; n < s.length; n++) {
+    const a = s[n];
+    Number.parseInt(a.dataset.index || "0", 10) <= (r.indexv || 0) + i && (o = n), a.classList.remove(h.activeclass);
+  }
+  o >= 0 && o < s.length && s[o].classList.add(h.activeclass);
+}, P = (r, t, e, i, s) => {
+  const o = e.getRevealElement(), n = r.currentSlide.parentNode;
+  n.classList.contains("stack") && (n.classList.contains(h.lightClass) ? o.classList.add("lightstack") : o.classList.remove("lightstack"), n.classList.contains(h.darkClass) ? o.classList.add("darkstack") : o.classList.remove("darkstack"));
+  const a = r.currentSlide.dataset.verticator, u = n.dataset.verticator;
+  if (a || u)
+    if (a === "regular" || u === "regular")
+      t.style.setProperty(h.forceColorVar, i.verticatorregular), s.debug && console.log(`Verticator forced to: "${i.verticatorregular}"`);
+    else if (a === "inverse" || u === "inverse")
+      t.style.setProperty(h.forceColorVar, i.verticatorinverse), s.debug && console.log(`Verticator forced to: "${i.verticatorinverse}"`);
+    else {
+      const g = a ?? u ?? "";
+      t.style.setProperty(h.forceColorVar, g), s.debug && console.log(`Verticator forced to: "${g}"`);
+    }
+  else
+    t.style.removeProperty(h.forceColorVar);
+}, L = (r, t, e, i, s) => {
+  r ? (i.style.setProperty(h.themeColorVar, e.themeinverse), t.inversecolor || t.oppositecolor ? s.style.setProperty(h.vertiColorVar, e.verticatorinverse) : s.style.removeProperty(h.vertiColorVar)) : (i.style.setProperty(h.themeColorVar, e.themeregular), t.color ? s.style.setProperty(h.vertiColorVar, e.verticatorregular) : s.style.removeProperty(h.vertiColorVar));
+}, fe = (r, t, e, i) => {
+  const s = t.getRevealElement(), o = t.getViewportElement(), n = {
+    dark: s.classList.contains(h.darkClass),
+    light: s.classList.contains(h.lightClass),
+    darkParent: s.classList.contains("darkstack"),
+    lightParent: s.classList.contains("lightstack")
+  }, a = new MutationObserver((g) => {
+    for (const m of g) {
+      const { target: y } = m;
+      if (m.attributeName === "class") {
+        const b = (l) => y.classList.contains(l), S = b(h.lightClass), C = b(h.darkClass), p = b("lightstack"), E = b("darkstack");
+        S || C ? (n.dark !== C || n.light !== S) && (e.theme === "dark" && n.light !== S && (n.light = S, L(S, i, e, s, r)), e.theme === "light" && n.dark !== C && (n.dark = C, L(C, i, e, s, r))) : p || E ? (n.darkParent !== E || n.lightParent !== p) && (e.theme === "dark" && n.lightParent !== p && (n.lightParent = p, L(
+          p,
+          i,
+          e,
+          s,
+          r
+        )), e.theme === "light" && n.darkParent !== E && (n.darkParent = E, L(E, i, e, s, r))) : (n.dark = !1, n.light = !1, L(!1, i, e, s, r));
+      }
+    }
+  });
+  o.classList.contains("reveal-scroll") ? a.observe(o, {
+    attributes: !0,
+    attributeFilter: ["class"]
+  }) : a.observe(s, {
+    attributes: !0,
+    attributeFilter: ["class"]
+  });
+}, pe = (r, t) => {
   const e = {
     theme: "",
     regular: "",
     inverse: ""
-  }, s = document.createElement("section"), i = document.createElement(t);
-  return r.getElementsByClassName("slides")[0].appendChild(s).appendChild(i), e.regular = getComputedStyle(i).getPropertyValue("color"), s.classList.add(h.lightClass), e.inverse = getComputedStyle(i).getPropertyValue("color"), e.regular === e.inverse ? (e.theme = "light", s.classList.remove(h.lightClass), s.classList.add(h.darkClass), e.inverse = getComputedStyle(i).getPropertyValue("color")) : e.theme = "dark", s.remove(), e;
+  }, i = document.createElement("section"), s = document.createElement(t);
+  return r.getElementsByClassName("slides")[0].appendChild(i).appendChild(s), e.regular = getComputedStyle(s).getPropertyValue("color"), i.classList.add(h.lightClass), e.inverse = getComputedStyle(s).getPropertyValue("color"), e.regular === e.inverse ? (e.theme = "light", i.classList.remove(h.lightClass), i.classList.add(h.darkClass), e.inverse = getComputedStyle(s).getPropertyValue("color")) : e.theme = "dark", i.remove(), e;
 }, N = (r, t, e) => {
-  const s = {
+  const i = {
     theme: "",
     themeregular: "",
     themeinverse: "",
     verticatorregular: "",
     verticatorinverse: ""
-  }, i = ye(
+  }, s = pe(
     t,
     e.themetag ? e.themetag : "section"
   );
-  return s.theme = i.theme, s.themeregular = i.regular, s.themeinverse = i.inverse, s.verticatorregular = e.color ? e.color : i.regular, s.verticatorinverse = e.inversecolor ? e.inversecolor : e.oppositecolor ? e.oppositecolor : i.inverse, k.log(`Theme regular color is: "${s.themeregular}"`), k.log(`Theme inverse color is: "${s.themeinverse}"`), e.color && k.log(`Verticator regular color is: "${s.verticatorregular}"`), (e.inversecolor || e.oppositecolor) && k.log(`Verticator inverse color is: "${s.verticatorinverse}"`), e.color && r.style.setProperty(h.vertiColorVar, s.verticatorregular), s;
-}, W = (r) => r.getConfig().hashOneBasedIndex ? 1 : 0, A = (r, t, e) => {
-  const s = W(e), i = Array.from(t.querySelectorAll("li"));
-  let n = s - 1;
-  for (let o = 0; o < i.length; o++) {
-    const a = i[o];
-    Number.parseInt(a.dataset.index || "0", 10) <= (r.indexv || 0) + s && (n = o), a.classList.remove(h.activeclass);
-  }
-  n >= 0 && n < i.length && i[n].classList.add(h.activeclass);
-}, V = (r, t, e, s, i) => {
-  const n = e.getRevealElement(), o = r.currentSlide.parentNode;
-  o.classList.contains("stack") && (o.classList.contains(h.lightClass) ? n.classList.add("lightstack") : n.classList.remove("lightstack"), o.classList.contains(h.darkClass) ? n.classList.add("darkstack") : n.classList.remove("darkstack"));
-  const a = r.currentSlide.dataset.verticator, c = o.dataset.verticator;
-  if (a || c)
-    if (a === "regular" || c === "regular")
-      t.style.setProperty(h.forceColorVar, s.verticatorregular), i.debug && console.log(`Verticator forced to: "${s.verticatorregular}"`);
-    else if (a === "inverse" || c === "inverse")
-      t.style.setProperty(h.forceColorVar, s.verticatorinverse), i.debug && console.log(`Verticator forced to: "${s.verticatorinverse}"`);
-    else {
-      const g = a ?? c ?? "";
-      t.style.setProperty(h.forceColorVar, g), i.debug && console.log(`Verticator forced to: "${g}"`);
-    }
-  else
-    t.style.removeProperty(h.forceColorVar);
-}, O = (r, t, e, s, i) => {
-  r ? (s.style.setProperty(h.themeColorVar, e.themeinverse), t.inversecolor || t.oppositecolor ? i.style.setProperty(h.vertiColorVar, e.verticatorinverse) : i.style.removeProperty(h.vertiColorVar)) : (s.style.setProperty(h.themeColorVar, e.themeregular), t.color ? i.style.setProperty(h.vertiColorVar, e.verticatorregular) : i.style.removeProperty(h.vertiColorVar));
-}, Se = (r, t, e, s) => {
-  const i = t.getRevealElement(), n = t.getViewportElement(), o = {
-    dark: i.classList.contains(h.darkClass),
-    light: i.classList.contains(h.lightClass),
-    darkParent: i.classList.contains("darkstack"),
-    lightParent: i.classList.contains("lightstack")
-  }, a = new MutationObserver((g) => {
-    for (const v of g) {
-      const { target: S } = v;
-      if (v.attributeName === "class") {
-        const y = (l) => S.classList.contains(l), C = y(h.lightClass), E = y(h.darkClass), m = y("lightstack"), $ = y("darkstack");
-        C || E ? (o.dark !== E || o.light !== C) && (e.theme === "dark" && o.light !== C && (o.light = C, O(C, s, e, i, r)), e.theme === "light" && o.dark !== E && (o.dark = E, O(E, s, e, i, r))) : m || $ ? (o.darkParent !== $ || o.lightParent !== m) && (e.theme === "dark" && o.lightParent !== m && (o.lightParent = m, O(
-          m,
-          s,
-          e,
-          i,
-          r
-        )), e.theme === "light" && o.darkParent !== $ && (o.darkParent = $, O($, s, e, i, r))) : (o.dark = !1, o.light = !1, O(!1, s, e, i, r));
-      }
-    }
-  });
-  (() => {
-    n.classList.contains("reveal-scroll") ? a.observe(n, {
-      attributes: !0,
-      attributeFilter: ["class"]
-    }) : a.observe(i, {
-      attributes: !0,
-      attributeFilter: ["class"]
-    });
-  })();
-}, Ce = (r, t) => {
+  return i.theme = s.theme, i.themeregular = s.regular, i.themeinverse = s.inverse, i.verticatorregular = e.color ? e.color : s.regular, i.verticatorinverse = e.inversecolor ? e.inversecolor : e.oppositecolor ? e.oppositecolor : s.inverse, $.log(`Theme regular color is: "${i.themeregular}"`), $.log(`Theme inverse color is: "${i.themeinverse}"`), e.color && $.log(`Verticator regular color is: "${i.verticatorregular}"`), (e.inversecolor || e.oppositecolor) && $.log(`Verticator inverse color is: "${i.verticatorinverse}"`), e.color && r.style.setProperty(h.vertiColorVar, i.verticatorregular), i;
+}, me = (r, t) => {
   const e = r.getRevealElement();
-  let s = e.querySelector("ul.verticator");
-  return !s && t.autogenerate && (s = document.createElement("ul"), s.classList.add("verticator"), t.clickable || s.classList.add("no-click"), e.insertBefore(s, e.childNodes[0])), s;
-}, _ = (r, t, e) => {
-  let s = e.position;
-  s === "auto" && (s = r.getConfig().rtl ? "left" : "right"), s === "left" ? (t.classList.add("left"), t.style.left = e.offset) : t.style.right = e.offset;
-  let i = e.scale;
-  i = i > 2 ? 2 : i < 0.5 ? 0.5 : i;
-  let n = r.getScale(), o = n > 1 ? n * i : i;
-  z(t, o), r.on("resize", (a) => {
-    const c = a;
-    a && typeof c.scale == "number" && (n = c.scale, o = n > 1 ? n * i : i, z(t, o));
+  let i = e.querySelector("ul.verticator");
+  return !i && t.autogenerate && (i = document.createElement("ul"), i.classList.add("verticator"), t.clickable || i.classList.add("no-click"), e.insertBefore(i, e.childNodes[0])), i;
+}, z = (r, t, e) => {
+  let i = e.position;
+  i === "auto" && (i = r.getConfig().rtl ? "left" : "right"), i === "left" ? (t.classList.add("left"), t.style.left = e.offset) : t.style.right = e.offset;
+  let s = e.scale;
+  s = s > 2 ? 2 : s < 0.5 ? 0.5 : s;
+  let o = r.getScale(), n = o > 1 ? o * s : s;
+  _(t, n), r.on("resize", (a) => {
+    const u = a;
+    a && typeof u.scale == "number" && (o = u.scale, n = o > 1 ? o * s : s, _(t, n));
   });
-}, z = (r, t) => {
+}, _ = (r, t) => {
   r.style.setProperty("--verticator-scale", t.toFixed(2));
   const e = 1 / Math.sqrt(t);
   r.style.setProperty("--verticator-tooltip-scale", e.toFixed(2));
-}, Ee = (r, t, e, s, i) => {
-  k.log(i, `Creating ${e.length} bullets`);
-  const n = W(s);
+}, ve = (r, t, e, i, s) => {
+  $.log(s, `Creating ${e.length} bullets`);
+  const o = K(i);
   t.classList.remove("visible");
-  let o = "";
+  let n = "";
   for (const a of e) {
-    const c = a[0], g = a[1], v = `href="#/${r.indexh + n}/${c + n}"`, S = g ? `data-name="${g}"` : "", y = g ? `<div class="tooltip"><span>${g}</span></div>` : "";
-    o += `<li data-index="${c + n}"><a ${i.clickable ? v : ""}${S}></a>${y}</li>`;
+    const u = a[0], g = a[1], m = `href="#/${r.indexh + o}/${u + o}"`, y = g ? `data-name="${g}"` : "", b = g ? `<div class="tooltip"><span>${g}</span></div>` : "";
+    n += `<li data-index="${u + o}"><a ${s.clickable ? m : ""}${y}></a>${b}</li>`;
   }
-  t.innerHTML = `<div class="verticator-holder">${o}</div>`, A(r, t, s), setTimeout(() => {
+  t.innerHTML = `<div class="verticator-holder">${n}</div>`, T(r, t, i), setTimeout(() => {
     t.classList.add("visible");
   }, 300);
-}, $e = K.getStack, B = (r) => {
+}, be = G.getStack, R = (r) => {
   const t = ["data-verticator-tooltip", "data-name", "title"];
-  for (const s of t) {
-    const i = r.getAttribute(s);
-    if (i)
-      return i;
+  for (const i of t) {
+    const s = r.getAttribute(i);
+    if (s)
+      return s;
   }
   const e = ["h1", "h2", "h3", "h4"];
-  for (const s of e) {
-    const i = r.querySelector(s);
-    if (i != null && i.textContent)
-      return i.textContent;
+  for (const i of e) {
+    const s = r.querySelector(i);
+    if (s?.textContent)
+      return s.textContent;
   }
   return null;
-}, ke = (r, t) => r.dataset.verticatorTooltip === "none" || r.dataset.verticatorTooltip === "false" || r.classList.contains("no-verticator-tooltip") ? null : t.tooltip === !0 ? B(r) : typeof t.tooltip == "string" ? t.tooltip === "auto" || t.tooltip === "true" ? B(r) : r.getAttribute(t.tooltip) || null : null, Le = (r, t) => {
-  const e = $e(r);
-  return e ? Array.from(e.children).map((a, c) => [c, a]).filter((a) => {
-    const c = a[1];
-    return !(t.skipuncounted === !0 && c.getAttribute("data-visibility") === "uncounted");
+}, ye = (r, t) => r.dataset.verticatorTooltip === "none" || r.dataset.verticatorTooltip === "false" || r.classList.contains("no-verticator-tooltip") ? null : t.tooltip === !0 ? R(r) : typeof t.tooltip == "string" ? t.tooltip === "auto" || t.tooltip === "true" ? R(r) : r.getAttribute(t.tooltip) || null : null, Se = (r, t) => {
+  const e = be(r);
+  return e ? Array.from(e.children).map((a, u) => [u, a]).filter((a) => {
+    const u = a[1];
+    return !(t.skipuncounted === !0 && u.getAttribute("data-visibility") === "uncounted");
   }).map((a) => {
-    const [c, g] = a;
-    let v = null;
-    return t.tooltip && (v = ke(g, t)), [c, v];
+    const [u, g] = a;
+    let m = null;
+    return t.tooltip && (m = ye(g, t)), [u, m];
   }) : [];
-}, F = K.getStack, R = (r, t, e, s) => {
+}, F = G.getStack, H = (r, t, e, i) => {
   if (r.type === "resize") {
     r.currentSlide = t.getCurrentSlide();
-    const c = t.getIndices();
-    r.indexv = c.v;
+    const u = t.getIndices();
+    r.indexv = u.v;
   }
-  const i = r.currentSlide, n = Le(i, s);
-  if (n.length < 2) {
+  const s = r.currentSlide, o = Se(s, i);
+  if (o.length < 2) {
     e.classList.remove("visible"), e.innerHTML = "";
     return;
   }
-  const o = F(i), a = r.previousSlide ? F(r.previousSlide) : null;
-  !r.previousSlide || o !== a ? Ee(r, e, n, t, s) : A(r, e, t);
+  const n = F(s), a = r.previousSlide ? F(r.previousSlide) : null;
+  !r.previousSlide || n !== a ? ve(r, e, o, t, i) : T(r, e, t);
 };
-class T {
+class j {
+  deck;
+  config;
+  colors;
+  theVerticator = null;
+  currentSlide = null;
   constructor(t, e) {
-    L(this, "deck");
-    L(this, "config");
-    L(this, "colors");
-    L(this, "theVerticator", null);
-    L(this, "currentSlide", null);
     this.deck = t, this.config = e, this.colors = {
       theme: "",
       themeregular: "",
@@ -585,39 +598,39 @@ class T {
     };
   }
   static async create(t, e) {
-    await new T(t, e).initialize();
+    await new j(t, e).initialize();
   }
   async initialize() {
     this.setupVerticator(), this.theVerticator && (this.colors = N(
       this.theVerticator,
       this.deck.getRevealElement(),
       this.config
-    ), _(this.deck, this.theVerticator, this.config), Se(this.theVerticator, this.deck, this.colors, this.config), D.addMoreDirectionEvents(this.deck), D.addScrollModeEvents(this.deck), this.addEventListeners());
+    ), z(this.deck, this.theVerticator, this.config), fe(this.theVerticator, this.deck, this.colors, this.config), D.addMoreDirectionEvents(this.deck), D.addScrollModeEvents(this.deck), this.addEventListeners());
   }
   setupVerticator() {
-    this.theVerticator = Ce(this.deck, this.config);
+    this.theVerticator = me(this.deck, this.config);
     const t = this.deck.getRevealElement();
-    this.theVerticator && (N(this.theVerticator, t, this.config), _(this.deck, this.theVerticator, this.config));
+    this.theVerticator && (N(this.theVerticator, t, this.config), z(this.deck, this.theVerticator, this.config));
   }
   addEventListeners() {
     this.deck.on("slidechanged-h", (t) => {
       if (!this.theVerticator) return;
       const e = t;
-      e.currentSlide !== this.currentSlide && (R(e, this.deck, this.theVerticator, this.config), V(e, this.theVerticator, this.deck, this.colors, this.config), this.currentSlide = e.currentSlide);
+      e.currentSlide !== this.currentSlide && (H(e, this.deck, this.theVerticator, this.config), P(e, this.theVerticator, this.deck, this.colors, this.config), this.currentSlide = e.currentSlide);
     }), this.deck.on("slidechanged-v", (t) => {
       if (!this.theVerticator) return;
       const e = t;
-      e.currentSlide !== this.currentSlide && (A(e, this.theVerticator, this.deck), V(e, this.theVerticator, this.deck, this.colors, this.config), this.currentSlide = e.currentSlide);
+      e.currentSlide !== this.currentSlide && (T(e, this.theVerticator, this.deck), P(e, this.theVerticator, this.deck, this.colors, this.config), this.currentSlide = e.currentSlide);
     }), this.deck.on("scrollmode-exit", (t) => {
       if (!this.theVerticator) return;
       const e = t;
-      R(e, this.deck, this.theVerticator, this.config), V(e, this.theVerticator, this.deck, this.colors, this.config), this.currentSlide = e.currentSlide;
+      H(e, this.deck, this.theVerticator, this.config), P(e, this.theVerticator, this.deck, this.colors, this.config), this.currentSlide = e.currentSlide;
     });
   }
 }
-const Y = "verticator", Me = async (r, t, e) => {
-  k && e.debug && k.initialize(!0, Y), await de(r, e), await T.create(t, e);
-}, we = () => new le(Y, Me, X).createInterface();
+const W = "verticator", Ce = async (r, t, e) => {
+  $ && e.debug && $.initialize(!0, W), await ne(r, e), await j.create(t, e);
+}, Ee = () => new re(W, Ce, Z).createInterface();
 export {
-  we as default
+  Ee as default
 };

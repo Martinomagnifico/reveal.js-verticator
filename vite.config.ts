@@ -21,10 +21,10 @@ export default defineConfig({
             external: [/^\/node_modules\/reveal\.js\/.*/],
             output: {
                 assetFileNames: (assetInfo) => {
-                if (/\.css$/.test(assetInfo.names[0])) {
-                    return "assets/css/[name].[ext]";
-                }
-                return "[name].[ext]";
+                    if (/\.css$/.test(assetInfo.names[0])) {
+                        return "assets/css/[name].[ext]";
+                    }
+                    return "[name].[ext]";
                 },
             }
         },
