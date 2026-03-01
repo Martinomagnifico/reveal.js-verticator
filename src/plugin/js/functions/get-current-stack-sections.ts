@@ -1,8 +1,8 @@
 // Basic imports
-import type { Config } from "../config";
 
 // Helper imports
 import { sectionTools } from "reveal.js-plugintoolkit";
+import type { Config } from "../config";
 
 const getStack = sectionTools.getStack;
 

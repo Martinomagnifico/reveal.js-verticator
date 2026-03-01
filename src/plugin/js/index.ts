@@ -2,11 +2,10 @@ import "../css/index.scss";
 
 // Basic imports
 import type { Api } from "reveal.js";
+// Helper imports
+import { pluginDebug as debug, PluginBase, pluginCSS } from "reveal.js-plugintoolkit";
 import type { Config } from "./config";
 import { defaultConfig } from "./config.js";
-
-// Helper imports
-import { PluginBase, pluginDebug as debug, pluginCSS } from "reveal.js-plugintoolkit";
 
 // Function imports
 import { Verticator } from "./main";
@@ -14,7 +13,6 @@ import { Verticator } from "./main";
 const PLUGIN_ID = "verticator";
 
 const init = async (plugin: PluginBase<Config>, deck: Api, config: Config): Promise<void> => {
-	
 	if (debug && config.debug) {
 		debug.initialize(true, PLUGIN_ID);
 	}

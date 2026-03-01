@@ -1,11 +1,8 @@
 // Basic imports
 import type { Api } from "reveal.js";
-import type { Config } from "./config";
-import type { RevealSlideEvent, VerticatorColors } from "./types";
-
 // Helper imports
 import { eventTools } from "reveal.js-plugintoolkit";
-
+import type { Config } from "./config";
 import { activateBullet } from "./functions/activate-bullet";
 import { changeVerticatorColor } from "./functions/change-verticator-color";
 import { observeStates } from "./functions/observe-states";
@@ -13,6 +10,7 @@ import { observeStates } from "./functions/observe-states";
 import { setupColors } from "./functions/setup-colors";
 import { getVerticator, setScaleAndPosition } from "./functions/setup-dom";
 import { slideAppear } from "./functions/slide-appear";
+import type { RevealSlideEvent, VerticatorColors } from "./types";
 
 export class Verticator {
 	private deck: Api;
@@ -61,10 +59,8 @@ export class Verticator {
 
 	private setupVerticator(): void {
 		this.theVerticator = getVerticator(this.deck, this.config);
-		const revealEl = this.deck.getRevealElement() as HTMLElement;
 
 		if (this.theVerticator) {
-			const colors = setupColors(this.theVerticator, revealEl, this.config);
 			setScaleAndPosition(this.deck, this.theVerticator, this.config);
 		}
 	}

@@ -1,10 +1,10 @@
 // Basic imports
-import type { Config } from "../config";
-import consts from "../consts";
-import type { VerticatorColors } from "../types";
 
 // Helper imports
 import { pluginDebug as debug } from "reveal.js-plugintoolkit";
+import type { Config } from "../config";
+import consts from "../consts";
+import type { VerticatorColors } from "../types";
 
 // Function imports
 import { findThemeColors } from "./find-theme-colors";

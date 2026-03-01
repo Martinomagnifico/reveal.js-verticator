@@ -1,10 +1,9 @@
 // Basic imports
 import type { Api } from "reveal.js";
 import consts from "../consts";
-import type { RevealSlideEvent } from "../types";
-
 // Function imports
 import { getIndexBase } from "../helpers";
+import type { RevealSlideEvent } from "../types";
 
 export const activateBullet = (
 	event: RevealSlideEvent,

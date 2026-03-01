@@ -1,10 +1,9 @@
 // Basic imports
 import type { Api } from "reveal.js";
-import type { Config } from "../config";
-import type { RevealSlideEvent } from "../types";
-
 // Helper imports
 import { sectionTools } from "reveal.js-plugintoolkit";
+import type { Config } from "../config";
+import type { RevealSlideEvent } from "../types";
 
 // Function imports
 import { activateBullet } from "./activate-bullet";
