@@ -60,7 +60,7 @@
         "@types/reveal.js": "^5.0.4",
         "@vituum/vite-plugin-pug": "latest",
         "fs-extra": "latest",
-        "reveal.js-plugintoolkit": "1.0.2",
+        "reveal.js-plugintoolkit": "1.0.3",
         "rimraf": "^6.0.1",
         "sass": "latest",
         "typescript": "^5.7.2",
