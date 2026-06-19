@@ -65,7 +65,7 @@
         "sass": "latest",
         "typescript": "^5.7.2",
         "vite": "latest",
-        "vituum": "1.2.0"
+        "vituum": "2.0.2"
     },
     "peerDependencies": {
         "reveal.js": ">=4.0.0"
