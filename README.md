@@ -49,7 +49,7 @@ npm install reveal.js-verticator
 
 ### JavaScript
 
-There are two JavaScript files for Verticator, a regular one, `verticator.js`, and a module one, `verticator.esm.js`. You only need one of them:
+There are two JavaScript files for Verticator, a regular one, `verticator.js`, and a module one, `verticator.mjs`. You only need one of them:
 
 #### Regular 
 If you're not using ES modules, for example, to be able to run your presentation from the filesystem, you can add it like this:
@@ -155,7 +155,7 @@ Reveal.initialize({
 });
 ```
 
-* **`themetag`**: By default, Verticator sets the bullet colors to be the same as the color of the `h1` headings, but you can also set it to an other tag, like `p`.
+* **`themetag`**: By default, Verticator sets the bullet colors to be the same as the color of the `h1` headings. Set it to a tag that is not a heading, like `p`, to use the color of the body text instead. The theme is measured by [reveal.js-plugintoolkit](https://github.com/Martinomagnifico/reveal.js-plugintoolkit), which reads a heading and the body text, so any heading level selects the first and anything else the second.
 * **`color`**: Verticator gets the main color from the theme as described above. To override it, simply give a new color here. You can use standard CSS -, hexadecimal - or RGB colors.
 * **`inversecolor`**: Verticator gets the inverse color from the theme as described above, if the slide has an opposite background. To override it, simply give a new color here. You can use standard CSS -, hexadecimal - or RGB colors.
 * **`skipuncounted`**: Omit drawing Verticator bullets for slides that are marked with Reveal.js' `data-visibility="uncounted"`. This behaviour is disabled by default.
@@ -167,7 +167,7 @@ Reveal.initialize({
     * `tooltip: 'data-name'`: When you use `tooltip: 'data-name'` or `tooltip: 'title'` or any other attribute with a string value, the tooltip will show that value. 
     * `tooltip: 'auto'`: When you use `tooltip: 'auto'`, Verticator will check titles of each slide in the order: `data-verticator-tooltip`, `data-name`, `title`, and if none found, headings inside each slide in the order: `h1`, `h2`, `h3`, `h4`. Auto-mode is convenient for Verticator tooltips in Markdown slides. Set `data-verticator-tooltip="none"` or a class of `no-verticator-tooltip` on specific slides if you don't want the attribute- or auto-tooltip to show at all.
 * **`scale`**: While Verticator will scale according to the scale factor of the main slides, the option `scale` will resize it manually on top of that. Set to `1` by default, it can be set to a minimum of `0.5` and a maximum of `2`.
-* **`cssautoload`**: Verticator will load the CSS if this is set to `true`. If Verticator runs in a bundler or module environment, where you should use `import` for your styling, it will automatically turn off autoloading. You can still turn on autoloading, but you will need to manually add this setting like shown above.
+* **`cssautoload`**: Verticator loads its own stylesheet when this is on. If you bundle Verticator, or import its CSS yourself, it works this out and does not load a second copy, so this normally does not need setting. If you do want it to autoload in a bundled deck, then setting it to `true` yourself turns it back on.
 * **`csspath`**: Verticator will automatically load the styling for the bullets and the tooltips. If you really want to change things that you can't override from the Reveal.js config, you can link to your own CSS file here. This will not work in a bundler or module environment where you should use `import`.
 
 

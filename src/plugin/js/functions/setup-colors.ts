@@ -1,60 +1,47 @@
-// Basic imports
-
 // Helper imports
-import { pluginDebug as debug } from "reveal.js-plugintoolkit";
+import { pluginDebug as debug, type ThemeColors } from "reveal.js-plugintoolkit";
 import type { Config } from "../config";
 import consts from "../consts";
 import type { VerticatorColors } from "../types";
 
-// Function imports
-import { findThemeColors } from "./find-theme-colors";
+/** A theme gives headings a colour of their own, and the toolkit measures both, so `themetag` now picks one of the two rather than naming an element to read. */
+const isHeadingTag = (tag: string): boolean => /^h[1-6]$/i.test(tag.trim());
 
+/**
+ * Work out the two colours Verticator can be, and put them on the element.
+ *
+ * Neither is needed for the ordinary case: the stylesheet falls back to
+ * `--c-theme-color`, which the toolkit keeps matched to the slide on screen. These
+ * are for a deck that sets `color` or `inversecolor`, and for the values that
+ * `data-verticator="regular"` and `data-verticator="inverse"` force.
+ */
 export const setupColors = (
 	theVerticator: HTMLElement,
-	revealElement: HTMLElement,
+	themeColors: ThemeColors | null,
 	config: Config
 ): VerticatorColors => {
+	const pair =
+		themeColors && isHeadingTag(config.themetag) ? themeColors.heading : themeColors?.text;
+
 	const colors: VerticatorColors = {
-		theme: "",
-		themeregular: "",
-		themeinverse: "",
-		verticatorregular: "",
-		verticatorinverse: "",
+		regular: config.color || pair?.regular || "",
+		// `oppositecolor` is the old name for `inversecolor`.
+		inverse: config.inversecolor || config.oppositecolor || pair?.inverse || "",
 	};
 
-	// Find theme colors
-	const themeColors = findThemeColors(
-		revealElement,
-		config.themetag ? config.themetag : "section"
-	);
+	debug.log(`Verticator regular color is: "${colors.regular}"`);
+	debug.log(`Verticator inverse color is: "${colors.inverse}"`);
 
-	// Fill in colors object
-	colors.theme = themeColors.theme;
-	colors.themeregular = themeColors.regular;
-	colors.themeinverse = themeColors.inverse;
-
-	// Set verticator colors - from config or from theme
-	colors.verticatorregular = config.color ? config.color : themeColors.regular;
-
-	// Handle the legacy 'oppositecolor' property as a fallback
-	colors.verticatorinverse = config.inversecolor
-		? config.inversecolor
-		: config.oppositecolor
-			? config.oppositecolor
-			: themeColors.inverse;
-
-	debug.log(`Theme regular color is: "${colors.themeregular}"`);
-	debug.log(`Theme inverse color is: "${colors.themeinverse}"`);
-
+	// Only what the deck asked for is written. Anything left out falls through to
+	// the theme colour in the stylesheet.
 	if (config.color) {
-		debug.log(`Verticator regular color is: "${colors.verticatorregular}"`);
+		theVerticator.style.setProperty(consts.vertiColorVar, config.color);
 	}
 	if (config.inversecolor || config.oppositecolor) {
-		debug.log(`Verticator inverse color is: "${colors.verticatorinverse}"`);
-	}
-
-	if (config.color) {
-		theVerticator.style.setProperty(consts.vertiColorVar, colors.verticatorregular);
+		theVerticator.style.setProperty(
+			consts.vertiInverseColorVar,
+			config.inversecolor || (config.oppositecolor as string)
+		);
 	}
 
 	return colors;

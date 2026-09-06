@@ -1,22 +1,7 @@
-export interface ThemeColors {
-	theme: string; // 'light' or 'dark'
-	regular: string; // Regular color
-	inverse: string; // Inverse color
-}
-
+/** The two colours Verticator can take, once the deck's options and the theme have both been taken into account. */
 export interface VerticatorColors {
-	theme: string; // Theme type ('light' or 'dark')
-	themeregular: string; // Regular theme color
-	themeinverse: string; // Inverse theme color
-	verticatorregular: string; // Regular verticator color
-	verticatorinverse: string; // Inverse verticator color
-}
-
-export interface SectionState {
-	dark: boolean;
-	light: boolean;
-	darkParent: boolean;
-	lightParent: boolean;
+	regular: string;
+	inverse: string;
 }
 
 export interface RevealResizeEvent {

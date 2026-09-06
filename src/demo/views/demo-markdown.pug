@@ -11,7 +11,7 @@ block beforeslides
 
 block append scripts
 	+revealsrc("script", "plugin/markdown/markdown.js")
-	+revealsrc("script", "plugin/highlight/highlight.js")
+	+revealsrc("script", "dist/plugin/highlight.js")
 
 	if process.env.NODE_ENV === 'production'
 		script(src=`./plugin/${plugin.name}/${plugin.name}.js`)

@@ -17,6 +17,13 @@ export default defineConfig({
         outDir: 'demo',
         emptyOutDir: false,
         rollupOptions: {
+            // The toolkit reads `import.meta.url` to find its own script. The ESM
+            // build keeps it; the UMD build replaces it with `{}` and falls back to
+            // `document.currentScript`, which is what it is written to do. Rollup
+            // warns about it in the UMD output regardless, once per occurrence.
+            checks: {
+                emptyImportMeta: false,
+            },
             external: [/^\/node_modules\/reveal\.js\/.*/],
             output: {
                 assetFileNames: (assetInfo) => {
@@ -35,7 +42,7 @@ export default defineConfig({
     css: {
         preprocessorOptions: {
             scss: {
-            api: "modern"
+                api: "modern"
             }
         }
     }

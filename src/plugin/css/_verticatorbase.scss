@@ -132,6 +132,14 @@ ul.verticator,
 	}
 }
 
+// On a slide whose background contrasts the theme, --c-theme-color already holds
+// the other colour, so this is only for a deck that set colours of its own and means
+// a different one here.
+.c-theme-inverted ul.verticator,
+.c-theme-inverted .reveal ul.verticator {
+	color: var(--v-forcecolor, var(--v-color-inverted, var(--c-theme-color, $bullet-maincolor)));
+}
+
 .print-pdf,
 .overview {
 	.verticator {

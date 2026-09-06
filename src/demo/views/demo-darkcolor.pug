@@ -8,7 +8,7 @@ block slides
 	include slides/_slidesdarkoptions
 
 block append scripts
-	+revealsrc("script", "plugin/highlight/highlight.js")
+	+revealsrc("script", "dist/plugin/highlight.js")
 
 	if process.env.NODE_ENV === 'production'
 		script(src=`plugin/${plugin.name}/${plugin.name}.js`)
