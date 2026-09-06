@@ -1,11 +1,12 @@
 # Changelog
 
-## [Unreleased]
+## [1.3.3] - 2026-09-06
 ### Changed
 - Theme colors, `--c-theme-color` and background contrast detection are now handled by `reveal.js-plugintoolkit` (1.2.1 or newer), so plugins on the same deck share one measurement
 - Removed `find-theme-colors`, `swap-colors`, `when-theme-ready` and `observe-states`
 - Inverted bullet colors are now set in CSS via the `c-theme-inverted` class instead of from JavaScript
 - `themetag` now picks the theme's heading color (`h1`-`h6`) or body text color, instead of naming an element to measure
+- Updated dependencies, and changed the paths of the plugins
 
 ### Added
 - `--v-color-inverted`, beside the existing `--v-color`, to set the bullet colors for contrasting backgrounds in CSS
@@ -13,12 +14,6 @@
 ### Fixed
 - Bullets no longer come out black when a stylesheet is injected after the plugin initialises, as with a bundler or dev server
 - `--c-theme-color` is written at startup, so a deck opening on a slide without a light or dark background no longer starts unset
-
-
-## [1.3.2] - 2026-06-19
-### Changed
-- Update dependencies
-- Changed paths of plugins
 
 
 ## [1.3.2] - 2026-01-09
