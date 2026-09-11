@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.4] - 2026-09-11
+### Fixed
+- Fix for MarkDown version
+- Fix for demo style that creeped into the plugin style
+
 ## [1.3.3] - 2026-09-06
 ### Changed
 - Theme colors, `--c-theme-color` and background contrast detection are now handled by `reveal.js-plugintoolkit` (1.2.1 or newer), so plugins on the same deck share one measurement
