@@ -1,7 +1,7 @@
  /*****************************************************************
  *
  * reveal.js-verticator for Reveal.js 
- * Version 1.3.3
+ * Version 1.3.5
  * 
  * @link
  * https://github.com/martinomagnifico/reveal.js-verticator
@@ -257,17 +257,30 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 	debugMode = !1;
 	label = "DEBUG";
 	groupDepth = 0;
+	pending = null;
+	emit(e, t) {
+		if (this.pending) {
+			this.pending.push([e, t]);
+			return;
+		}
+		let n = typeof e == "function" ? e : console[e];
+		typeof n == "function" && n.call(console, ...t);
+	}
+	flush() {
+		let e = this.pending;
+		if (this.pending = null, e) for (let [t, n] of e) this.emit(t, n);
+	}
 	initialize(e, t = "DEBUG") {
 		this.debugMode = e, this.label = t;
 	}
 	group = (...e) => {
-		this.debugLog("group", ...e), this.groupDepth++;
+		this.debugMode && this.groupDepth === 0 && !this.pending && (this.pending = []), this.debugLog("group", ...e), this.groupDepth++;
 	};
 	groupCollapsed = (...e) => {
-		this.debugLog("groupCollapsed", ...e), this.groupDepth++;
+		this.debugMode && this.groupDepth === 0 && !this.pending && (this.pending = []), this.debugLog("groupCollapsed", ...e), this.groupDepth++;
 	};
 	groupEnd = () => {
-		this.groupDepth > 0 && (this.groupDepth--, this.debugLog("groupEnd"));
+		this.groupDepth > 0 && (this.groupDepth--, this.debugLog("groupEnd"), this.groupDepth === 0 && this.flush());
 	};
 	error = (...e) => {
 		let t = this.debugMode;
@@ -275,35 +288,35 @@ var e = Object.create, t = Object.defineProperty, n = Object.getOwnPropertyDescr
 	};
 	table = (e, t, n) => {
 		if (this.debugMode) try {
-			typeof e == "string" && t !== void 0 && typeof t != "string" ? (this.groupDepth === 0 ? console.log(`[${this.label}]: ${e}`) : console.log(e), n ? console.table(t, n) : console.table(t)) : (this.groupDepth === 0 && console.log(`[${this.label}]: Table data`), typeof t == "object" && Array.isArray(t) ? console.table(e, t) : console.table(e));
+			typeof e == "string" && t !== void 0 && typeof t != "string" ? (this.groupDepth === 0 ? this.emit("log", [`[${this.label}]: ${e}`]) : this.emit("log", [e]), n ? this.emit("table", [t, n]) : this.emit("table", [t])) : (this.groupDepth === 0 && this.emit("log", [`[${this.label}]: Table data`]), typeof t == "object" && Array.isArray(t) ? this.emit("table", [e, t]) : this.emit("table", [e]));
 		} catch (t) {
-			console.error(`[${this.label}]: Error showing table:`, t), console.log(`[${this.label}]: Raw data:`, e);
+			this.emit("error", [`[${this.label}]: Error showing table:`, t]), this.emit("log", [`[${this.label}]: Raw data:`, e]);
 		}
 	};
 	formatAndLog = (e, t) => {
 		if (this.debugMode) try {
-			this.groupDepth > 0 ? e.call(console, ...t) : t.length > 0 && typeof t[0] == "string" ? e.call(console, `[${this.label}]: ${t[0]}`, ...t.slice(1)) : e.call(console, `[${this.label}]:`, ...t);
+			this.groupDepth > 0 ? this.emit(e, t) : t.length > 0 && typeof t[0] == "string" ? this.emit(e, [`[${this.label}]: ${t[0]}`, ...t.slice(1)]) : this.emit(e, [`[${this.label}]:`, ...t]);
 		} catch (e) {
-			console.error(`[${this.label}]: Error in logging:`, e), console.log(`[${this.label}]: Original log data:`, ...t);
+			this.emit("error", [`[${this.label}]: Error in logging:`, e]), this.emit("log", [`[${this.label}]: Original log data:`, ...t]);
 		}
 	};
 	debugLog(e, ...t) {
 		let n = console[e];
-		if (!this.debugMode && e !== "error" || typeof n != "function") return;
-		let r = n;
-		if (e === "group" || e === "groupCollapsed") {
-			t.length > 0 && typeof t[0] == "string" ? r.call(console, `[${this.label}]: ${t[0]}`, ...t.slice(1)) : r.call(console, `[${this.label}]:`, ...t);
-			return;
+		if (!(!this.debugMode && e !== "error" || typeof n != "function")) {
+			if (e === "group" || e === "groupCollapsed") {
+				t.length > 0 && typeof t[0] == "string" ? this.emit(e, [`[${this.label}]: ${t[0]}`, ...t.slice(1)]) : this.emit(e, [`[${this.label}]:`, ...t]);
+				return;
+			}
+			if (e === "groupEnd") {
+				this.emit(e, []);
+				return;
+			}
+			if (e === "table") {
+				t.length === 1 ? this.table(t[0]) : t.length === 2 ? (t[0], this.table(t[0], t[1])) : t.length >= 3 && this.table(t[0], t[1], t[2]);
+				return;
+			}
+			this.groupDepth > 0 ? this.emit(e, t) : t.length > 0 && typeof t[0] == "string" ? this.emit(e, [`[${this.label}]: ${t[0]}`, ...t.slice(1)]) : this.emit(e, [`[${this.label}]:`, ...t]);
 		}
-		if (e === "groupEnd") {
-			r.call(console);
-			return;
-		}
-		if (e === "table") {
-			t.length === 1 ? this.table(t[0]) : t.length === 2 ? (t[0], this.table(t[0], t[1])) : t.length >= 3 && this.table(t[0], t[1], t[2]);
-			return;
-		}
-		this.groupDepth > 0 ? r.call(console, ...t) : t.length > 0 && typeof t[0] == "string" ? r.call(console, `[${this.label}]: ${t[0]}`, ...t.slice(1)) : r.call(console, `[${this.label}]:`, ...t);
 	}
 }()), w = /* @__PURE__ */ new Set(), T = (e, t) => {
 	let n = `${e}::${t}`;

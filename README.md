@@ -100,27 +100,29 @@ Otherwise, you may want to copy the plugin into a plugin folder or an other loca
 
 ### Styling
 
-The styling of Verticator is automatically inserted **when the verticator folder is manually copied** to the Reveal.js plugin folder.
+The styling of Verticator is automatically inserted from the included CSS styles, either loaded through NPM or from the plugin folder.
 
-If you **import** reveal.js-verticator from npm, you will need to **import** the CSS file yourself. Depending on your setup this can be something like this:
+If you want to change the Verticator or tooltip style, you do a lot of that via the Reveal.js options. Or you can simply make your own style and use that stylesheet instead.
 
+#### Where the stylesheet comes from
+
+Verticator finds and loads its own stylesheet, so most decks never set anything here. If it cannot find it, maybe because the plugin is in a bundle, or it is somewhere the plugin cannot work out, then use `csspath`.
+
+```js
+verticator: {
+    csspath: "plugin/verticator/verticator.css"
+}
 ```
-import 'reveal.js-verticator/plugin/verticator/verticator.css';
-```
 
-Verticator will detect if it runs in a module environment and will then not autoload the CSS. You can still set `cssautoload` to `true` if you like, but your bundler (Vite, Webpack) may not like that. In any of these cases, `import` the CSS file yourself.
-
-If you want to change the Verticator or tooltip style, you do a lot of that via the Reveal.js options. Or you can simply make your own style and use that stylesheet instead. Linking to your custom styles can be managed through the `csspath` option of Verticator or through `import` when using modules.
-
-
-#### Custom CSS
-If and when you decide to create your own CSS file, make sure that you also include the following CSS variable, that is used by the plugin to avoid loading the CSS multiple times, and to avoid using the autoloading feature when using modules:
+If you import the stylesheet yourself, then set `csspath: false` so that Verticator does not load a second copy. A stylesheet of your own can also say so, which is useful when you cannot reach the plugin’s options:
 
 ```css
 :root {
     --cssimported-verticator: true;
 }
 ```
+
+`csspath` loads that file *instead of* Verticator’s own.
 
 
 ### HTML
@@ -169,7 +171,7 @@ Reveal.initialize({
     * `tooltip: 'auto'`: When you use `tooltip: 'auto'`, Verticator will check titles of each slide in the order: `data-verticator-tooltip`, `data-name`, `title`, and if none found, headings inside each slide in the order: `h1`, `h2`, `h3`, `h4`. Auto-mode is convenient for Verticator tooltips in Markdown slides. Set `data-verticator-tooltip="none"` or a class of `no-verticator-tooltip` on specific slides if you don't want the attribute- or auto-tooltip to show at all.
 * **`scale`**: While Verticator will scale according to the scale factor of the main slides, the option `scale` will resize it manually on top of that. Set to `1` by default, it can be set to a minimum of `0.5` and a maximum of `2`.
 * **`cssautoload`**: Verticator loads its own stylesheet when this is on. If you bundle Verticator, or import its CSS yourself, it works this out and does not load a second copy, so this normally does not need setting. If you do want it to autoload in a bundled deck, then setting it to `true` yourself turns it back on.
-* **`csspath`**: Verticator will automatically load the styling for the bullets and the tooltips. If you really want to change things that you can't override from the Reveal.js config, you can link to your own CSS file here. This will not work in a bundler or module environment where you should use `import`.
+* **`csspath`**: Where Verticator's stylesheet is, for the cases where it cannot find it by itself. You can also set `csspath: false` if the styling is already on the page through some other file.
 
 
 ## Like it?

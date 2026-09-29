@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.5] - 2026-09-29
+### Fixed
+- The plugin files, the stylesheet and `package.json` can be imported by path again.
+- `verticator.esm.js` is back, as a re-export of `verticator.mjs`, so a deck that loads the old path works again.
+
 ## [1.3.4] - 2026-09-11
 ### Fixed
 - Fix for MarkDown version
